@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Table(name = "Comments", schema = "dima")
 public class Comment {
     @Id
     @GeneratedValue
@@ -11,6 +12,11 @@ public class Comment {
     private String comment;
     private Timestamp postDate;
 
+    @ManyToOne
+    private Article article;
+
+    @ManyToOne
+    private User author;
 
     public int getId() {
         return id;
@@ -34,6 +40,22 @@ public class Comment {
 
     public void setPostDate(Timestamp postDate) {
         this.postDate = postDate;
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     @Override

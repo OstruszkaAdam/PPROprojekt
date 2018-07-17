@@ -3,8 +3,10 @@ package cz.uhk.ppro.dima.model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.List;
 
 @Entity
+@Table(name = "posts", schema = "dima")
 public class Article {
     @Id
     @GeneratedValue
@@ -14,6 +16,15 @@ public class Article {
     private String description;
     private Timestamp timestamp;
     private String location;
+
+    @ManyToOne
+    private Category category;
+
+    @ManyToOne
+    private User user;
+
+    @OneToMany(mappedBy = "article")
+    private List<Comment> comments;
 
 
     public int getId() {
@@ -25,6 +36,7 @@ public class Article {
     }
 
 
+
     public String getName() {
         return name;
     }
@@ -32,6 +44,7 @@ public class Article {
     public void setName(String name) {
         this.name = name;
     }
+
 
 
     public byte[] getImage() {
@@ -67,6 +80,30 @@ public class Article {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override

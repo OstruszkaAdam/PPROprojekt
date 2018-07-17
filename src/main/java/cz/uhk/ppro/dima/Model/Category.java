@@ -1,13 +1,18 @@
 package cz.uhk.ppro.dima.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "Categories", schema = "dima")
 public class Category {
     @Id
     @GeneratedValue
     private int id;
     private String name;
+
+    @OneToMany(mappedBy = "category")
+    private List<Article> articles;
 
     public int getId() {
         return id;
@@ -17,12 +22,21 @@ public class Category {
         this.id = id;
     }
 
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
     }
 
     @Override
