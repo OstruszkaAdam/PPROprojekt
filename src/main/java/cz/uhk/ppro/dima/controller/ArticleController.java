@@ -21,7 +21,7 @@ public class ArticleController {
     public String create(@ModelAttribute("article") Article article) {
         article.setTimestamp(new Timestamp(System.currentTimeMillis()));
         articleRepo.save(article);
-        return "redirect:articlesuccess";
+        return "redirect:articleSuccess";
     }
 
     @RequestMapping(value = "/article", method = RequestMethod.GET)
@@ -29,8 +29,8 @@ public class ArticleController {
         return "article";
     }
 
-    @RequestMapping(value = "/articlesuccess")
-    public String showarticlesuccess() {
+    @RequestMapping(value = "/articleSuccess")
+    public String showArticleSuccess() {
         return "articleSuccess";
     }
 }

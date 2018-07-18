@@ -23,6 +23,7 @@ public class RegistrationController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String register(@ModelAttribute("user") User user) {
         user.setCreationTime(new Timestamp(System.currentTimeMillis()));
+
         user.setRole(new Role());
         userRepo.save(user);
         return "redirect:registrationSuccess";

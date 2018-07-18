@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -20,31 +20,12 @@
                 <form:input path="username" class="form-control" type="text" placeholder="Enter username" required ="true"/>
             </div>
             <div class="form-group">
-            <label><b>Password</b></label>
-            <form:input path="password" class="form-control" type="password" placeholder="Enter password" id="psw" required ="true"/>
-            </div>
-
-            <div class="form-group">
-            <label><b>Repeat Password</b></label>
-            <input type="password" class="form-control" placeholder="Repeat Password" id="psw-repeat" required="true">
-            </div>
-            <div class="form-group">
-                <label><b>Email</b></label>
-                <form:input path="email" class="form-control" type="email" placeholder="Enter Email" required="true" />
-            </div>
-            <div class="form-group">
-                <label><b>First name</b></label>
-                <form:input path="firstname" class="form-control" type="text" placeholder="Enter first name" required ="true"/>
-            </div>
-
-            <div class="form-group">
-                <label><b>Surname</b></label>
-                <form:input path="surname" class="form-control" type="text" placeholder="Enter surname" required ="true"/>
+                <label><b>Password</b></label>
+                <form:input path="password" class="form-control" type="password" placeholder="Enter Password" id="psw" required ="true"/>
             </div>
 
             <div class="clearfix">
-                <button type="button"  class="cancelbtn">Cancel</button>
-                <button type="submit" class="signupbtn">Sign Up</button>
+                <button type="submit" class="signupbtn">Log in</button>
             </div>
         </div>
     </fieldset>
