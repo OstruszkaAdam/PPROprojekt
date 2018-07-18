@@ -17,7 +17,7 @@ public class JpaArticleRepositoryImpl implements ArticleRepository{
 
     @Override
     public List<Article> findAll() {
-        return null;
+        return em.createQuery("select article from Article article").getResultList();
     }
 
     @Override

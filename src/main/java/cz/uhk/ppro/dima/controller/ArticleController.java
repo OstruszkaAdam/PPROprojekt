@@ -1,36 +1,55 @@
 package cz.uhk.ppro.dima.controller;
 
 import cz.uhk.ppro.dima.model.Article;
-import cz.uhk.ppro.dima.repository.ArticleRepository;
-import cz.uhk.ppro.dima.repository.jpa.JpaArticleRepositoryImpl;
+import cz.uhk.ppro.dima.model.Category;
+import cz.uhk.ppro.dima.model.User;
+import cz.uhk.ppro.dima.service.ArticleService;
+import cz.uhk.ppro.dima.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.Timestamp;
+import java.util.List;
 
 @Controller
 public class ArticleController {
+    private final ArticleService articleService;
+    private final UserService userService;
 
     @Autowired
-    ArticleRepository articleRepo = new JpaArticleRepositoryImpl();
+    public ArticleController(ArticleService articleService, UserService userService) {
+        this.articleService = articleService;
+        this.userService = userService;
+    }
 
-    @RequestMapping(value = "/article", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/article/new", method = RequestMethod.POST)
     public String create(@ModelAttribute("article") Article article) {
-        article.setTimestamp(new Timestamp(System.currentTimeMillis()));
-        articleRepo.save(article);
-        return "redirect:articleSuccess";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        User user = userService.findByUsername(currentPrincipalName).get();
+        articleService.saveArticle(article, user);
+        return "redirect:articlesuccess";
     }
 
-    @RequestMapping(value = "/article", method = RequestMethod.GET)
-    public String showArticleForm(@ModelAttribute("article") Article article) {
-        return "article";
+    @RequestMapping(value = "/article/new", method = RequestMethod.GET)
+    public ModelAndView showArticleForm(@ModelAttribute("article") Article article, ModelMap modelMap) {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("article");
+        List<Category> categoryList;
+        categoryList = articleService.findAllCategories();
+        modelMap.put("categories", categoryList);
+        return mav;
     }
 
-    @RequestMapping(value = "/articleSuccess")
-    public String showArticleSuccess() {
+    @RequestMapping(value = "/articlesuccess")
+    public String showarticlesuccess() {
         return "articleSuccess";
     }
 }

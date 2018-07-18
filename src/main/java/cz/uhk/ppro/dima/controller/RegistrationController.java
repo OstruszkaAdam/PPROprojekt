@@ -1,32 +1,34 @@
 package cz.uhk.ppro.dima.controller;
 
-import cz.uhk.ppro.dima.model.Role;
 import cz.uhk.ppro.dima.model.User;
-import cz.uhk.ppro.dima.repository.UserRepository;
-import cz.uhk.ppro.dima.repository.jpa.JpaUserRepositoryImpl;
+import cz.uhk.ppro.dima.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.sql.Timestamp;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
 public class RegistrationController {
 
+    private final UserService userService;
+
     @Autowired
-    UserRepository userRepo = new JpaUserRepositoryImpl();
+    RegistrationController(UserService userService) {this.userService = userService;}
 
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String register(@ModelAttribute("user") User user) {
-        user.setCreationTime(new Timestamp(System.currentTimeMillis()));
+        ModelAndView mv = new ModelAndView();
 
-        user.setRole(new Role());
-        userRepo.save(user);
-        return "redirect:registrationSuccess";
+        if(userService.findByUsername(user.getUsername()).isPresent() == false){
+            userService.save(user);
+            return "redirect:registrationSuccess";
+        }
+
+        return "redirect:registration?unsuccesful";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)

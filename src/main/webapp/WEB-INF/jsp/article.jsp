@@ -3,6 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html>
 <head>
     <title>Title</title>
@@ -17,6 +21,13 @@
             <div class="form-group">
             <label><b>Name</b></label>
             <form:input path="name" class="form-control" type="text" placeholder="Enter Name" required="true" />
+            </div>
+            <div class="form-group">
+            <form:select name="category" path ="category">
+                <c:forEach items="${categories}" var="categ">
+                    <form:option value="${categ.name}" />
+                </c:forEach>
+            </form:select>
             </div>
 
             <div class="form-group">
@@ -35,8 +46,8 @@
             </div>
 
             <div class="clearfix">
-                <button type="button"  class="cancelbtn">Cancel</button>
-                <button type="submit" class="createbtn">Create</button>
+                <a class="btn btn-default" role ="button" href='<spring:url value="/" htmlEscape="true"/>'>Cancel</a>
+                <button type="submit" class="btn btn-primary" role="button">Create</button>
             </div>
         </div>
     </fieldset>
