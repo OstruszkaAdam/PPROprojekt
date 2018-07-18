@@ -1,6 +1,7 @@
 package cz.uhk.ppro.dima.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,7 +22,13 @@ public class Article {
     private String description;
     @NotNull
     private Timestamp timestamp;
+    @NotEmpty
     private String location;
+    @NotEmpty
+    private String price;
+
+    @Transient
+    private MultipartFile mpf;
 
     @ManyToOne
     private Category category;
@@ -42,7 +49,6 @@ public class Article {
     }
 
 
-
     public String getName() {
         return name;
     }
@@ -50,7 +56,6 @@ public class Article {
     public void setName(String name) {
         this.name = name;
     }
-
 
 
     public byte[] getImage() {
@@ -112,10 +117,26 @@ public class Article {
         this.comments = comments;
     }
 
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public MultipartFile getMpf() {
+        return mpf;
+    }
+
+    public void setMpf(MultipartFile mpf) {
+        this.mpf = mpf;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Article)) return false;
 
         Article article = (Article) o;
 
@@ -125,8 +146,10 @@ public class Article {
         if (description != null ? !description.equals(article.description) : article.description != null) return false;
         if (timestamp != null ? !timestamp.equals(article.timestamp) : article.timestamp != null) return false;
         if (location != null ? !location.equals(article.location) : article.location != null) return false;
-
-        return true;
+        if (price != null ? !price.equals(article.price) : article.price != null) return false;
+        if (category != null ? !category.equals(article.category) : article.category != null) return false;
+        if (user != null ? !user.equals(article.user) : article.user != null) return false;
+        return comments != null ? comments.equals(article.comments) : article.comments == null;
     }
 
     @Override
@@ -137,6 +160,10 @@ public class Article {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (timestamp != null ? timestamp.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (category != null ? category.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (comments != null ? comments.hashCode() : 0);
         return result;
     }
 }

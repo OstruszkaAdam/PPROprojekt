@@ -2,18 +2,26 @@ package cz.uhk.ppro.dima.controller;
 
 import cz.uhk.ppro.dima.model.Article;
 import cz.uhk.ppro.dima.model.Category;
+import cz.uhk.ppro.dima.model.Comment;
 import cz.uhk.ppro.dima.model.User;
 import cz.uhk.ppro.dima.service.ArticleService;
 import cz.uhk.ppro.dima.service.UserService;
+import cz.uhk.ppro.dima.util.ImageResampler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ArticleController {
@@ -26,17 +34,43 @@ public class ArticleController {
         this.userService = userService;
     }
 
+    @RequestMapping(value ="/articles/{articleId}", method = RequestMethod.GET)
+    public ModelAndView showArticle(@PathVariable("articleId") int articleId, @ModelAttribute("addedComment") Comment comment) {
+        ModelAndView mav = new ModelAndView("articleDetail");
 
-    @RequestMapping(value = "/article/new", method = RequestMethod.POST)
-    public String create(@ModelAttribute("article") Article article) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> loggedUser = userService.findByUsername(authentication.getName());
+        if(loggedUser.isPresent()) mav.addObject("userId", loggedUser.get().getId());
+
+        Optional<Article> article = articleService.findById(articleId);
+        mav.addObject("comments", article.get().getComments());
+        if(article.isPresent()) mav.addObject("article", article.get());
+
+        return mav;
+    }
+
+    @RequestMapping(value ="/articles/{articleId}", method = RequestMethod.POST)
+    public String addRating(@PathVariable("articleId") int articleId, @ModelAttribute("addedComment") Comment comment) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> author = userService.findByUsername(authentication.getName());
+        if(author.isPresent()) articleService.saveComment(comment, author.get(), articleId);
+        return "redirect:/articles/{articleId}";
+    }
+
+    @RequestMapping(value = "/articles/new", method = RequestMethod.POST)
+    public String create(@ModelAttribute("article") Article article) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         User user = userService.findByUsername(currentPrincipalName).get();
+        MultipartFile f = article.getMpf();
+        byte[] img = f.getBytes();
+        img = ImageResampler.downscaleImage(img);
+        article.setImage(img);
         articleService.saveArticle(article, user);
         return "redirect:articleSuccess";
     }
 
-    @RequestMapping(value = "/article/new", method = RequestMethod.GET)
+    @RequestMapping(value = "/articles/new", method = RequestMethod.GET)
     public ModelAndView showArticleForm(@ModelAttribute("article") Article article, ModelMap modelMap) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("article");
@@ -46,7 +80,34 @@ public class ArticleController {
         return mav;
     }
 
-    @RequestMapping(value = "/articleSuccess")
+    @RequestMapping(value = "/articles/{articleId}/edit", method = RequestMethod.GET)
+    public String initUpdateOwnerForm(@PathVariable("articleId") int articleId, Model model) {
+        Optional<Article> a = this.articleService.findById(articleId);
+        if(a.isPresent()) model.addAttribute("article", a);
+
+        List<Category> categoryList;
+        categoryList = articleService.findAllCategories();
+        model.addAttribute("categories", categoryList);
+
+        return "article";
+    }
+
+    @RequestMapping(value = "/articles/{articleId}/edit", method = RequestMethod.POST)
+    public String processUpdateOwnerForm(@Valid Article article, BindingResult result, @PathVariable("articleId") int articleId) throws IOException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> author = userService.findByUsername(authentication.getName());
+
+        MultipartFile f = article.getMpf();
+        byte[] img = f.getBytes();
+        img = ImageResampler.downscaleImage(img);
+        article.setImage(img);
+        article.setId(articleId);
+
+        if(author.isPresent()) this.articleService.saveArticle(article, author.get());
+        return "redirect:/articles/{articleId}";
+    }
+
+    @RequestMapping(value = "/articles/articleSuccess")
     public String showArticleSuccess() {
         return "articleSuccess";
     }

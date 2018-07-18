@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -29,21 +30,26 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
                         <sec:authorize access="isAuthenticated()">
-                            <a class="nav-link" href="<spring:url value="/logout" />">Log out</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<spring:url value="/logout" />">Log out</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="${fn:escapeXml(userUrl)}"/>My profile</a>
+                            </li>
                         </sec:authorize>
                         <sec:authorize access="isAnonymous()">
-                            <a class="nav-link" href="<spring:url value="/login" />">Log in</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<spring:url value="/login" />">Log in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<spring:url value="/registration" htmlEscape="true"/>">Register</a>
+                            </li>
                         </sec:authorize>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<spring:url value="/registration" htmlEscape="true"/>">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href='<spring:url value="/article/new" htmlEscape="true"/>'>Insert article</a>
-                    </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href='<spring:url value="/articles/new" htmlEscape="true"/>'>Insert article</a>
+                    </li>
                 </ul>
         </nav>
 
@@ -56,7 +62,10 @@
                 <div class="clanekBody">
                     <div class="ClanekNadpis">
                         <h2>
-                            <c:out value="${article.name}"/>
+                            <spring:url value="/articles/{articleId}" var = "articleUrl">
+                                <spring:param name="articleId" value="${article.id}"/>
+                            </spring:url>
+                            <a href="${fn:escapeXml(articleUrl)}"><c:out value="${article.name}"/></a>
                         </h2>
                     </div>
                     <div class="category">
@@ -66,13 +75,15 @@
 
                         <div class="ClanekText">
                             <p>
-                                <c:out value="${article.description}"/>
+                               Description: <c:out value="${article.description}"/>
                             </p>
                         </div>
                     </div>
-                    <c:out value="${article.location}"/>
+                    Location: <c:out value="${article.location}"/>
                     <br/>
-                    <c:out value="${article.timestamp}"/>
+                    Price: <c:out value="${article.price}"/>
+                    <br/>Last edited: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${article.timestamp}" />
+                    <img src="/articleImage/imageDisplay?articleId=${article.id}"/>
                 </div>
             </c:forEach>
 

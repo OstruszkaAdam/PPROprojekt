@@ -28,18 +28,40 @@
         Last name: ${user.surname}<br>
         E-mail: ${user.email}<br>
         Phone: ${user.phone}<br>
-        Registered: ${user.creationTime}<br>
+        Registered: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${user.creationTime}" /><br>
+        <br>
     </p>
+
+    User's articles:
+    <c:forEach items="${articles}" var="article">
+        <p>
+            <spring:url value="/articles/{articleId}" var = "articleUrl">
+                <spring:param name="articleId" value="${article.id}"/>
+            </spring:url>
+            <a href="${fn:escapeXml(articleUrl)}"><c:out value="${article.name}"/></a>
+
+            <%--Logged in user can edit his articles--%>
+            <c:if test = "${isLoggedUsersProfile}">
+                <spring:url value="/articles/{articleId}/edit" var = "editArticle">
+                     <spring:param name="articleId" value="${article.id}"/>
+                </spring:url>
+                <a href="${fn:escapeXml(editArticle)}">Edit</a>
+            </c:if>
+        </p>
+    </c:forEach>
 
     User's ratings:
     <c:forEach items="${ratings}" var="rating">
         <p>
-        <c:out value="${rating.author.username}"/>
-        <c:out value="${rating.postDate}"/><br>
+        <spring:url value="/users/{userId}" var = "userUrl">
+            <spring:param name="userId" value="${rating.author.id}"/>
+        </spring:url>
+        <a href="${fn:escapeXml(userUrl)}"><c:out value="${rating.author.username}"/></a>
+        <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${rating.postDate}" /><br>
+        <br>
         <c:out value="${rating.ratingText}"/>
         </p>
     </c:forEach>
-
 
     <p>
     <form:form method="POST" modelAttribute="addedRating">

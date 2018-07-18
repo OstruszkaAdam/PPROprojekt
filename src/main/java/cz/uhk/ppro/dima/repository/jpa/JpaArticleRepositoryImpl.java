@@ -6,14 +6,23 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class JpaArticleRepositoryImpl implements ArticleRepository{
 
     @PersistenceContext
     private EntityManager em;
+
+    @Override
+    public Optional<Article> findById(int id) {
+        Query query = this.em.createQuery("SELECT a FROM Article a WHERE a.id =:id");
+        query.setParameter("id", id);
+        return (Optional<Article>) query.setMaxResults(1).getResultList().stream().findFirst();
+    }
 
     @Override
     public List<Article> findAll() {
@@ -23,6 +32,11 @@ public class JpaArticleRepositoryImpl implements ArticleRepository{
     @Override
     @Transactional
     public void save(Article article) {
-        em.persist(article);
+        Optional<Article> a = this.findById(article.getId());
+        if(a.isPresent()) {
+            em.merge(article);
+        } else {
+            em.persist(article);
+        }
     }
 }
