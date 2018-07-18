@@ -7,11 +7,11 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StringToCategoryConverter implements Converter<String, Category> {
+public class CategoryStringToCategoryConverter implements Converter<String, Category> {
     private ArticleService articleService;
 
     @Autowired
-    public StringToCategoryConverter(ArticleService articleService) {
+    public CategoryStringToCategoryConverter(ArticleService articleService) {
         this.articleService = articleService;
     }
 

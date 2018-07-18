@@ -6,6 +6,7 @@ import cz.uhk.ppro.dima.model.User;
 import cz.uhk.ppro.dima.repository.ArticleRepository;
 import cz.uhk.ppro.dima.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -38,6 +39,11 @@ public class ArticleService {
     @Transactional
     public Category findCategoryByName(String name){
         return categoryRepo.findByName(name);
+    }
+
+    @Transactional()
+    public List<Article> findArticles() throws DataAccessException {
+        return articleRepo.findAll();
     }
 
 }

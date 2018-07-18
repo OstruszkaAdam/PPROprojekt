@@ -10,9 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -35,7 +33,7 @@ public class ArticleController {
         String currentPrincipalName = authentication.getName();
         User user = userService.findByUsername(currentPrincipalName).get();
         articleService.saveArticle(article, user);
-        return "redirect:articlesuccess";
+        return "redirect:articleSuccess";
     }
 
     @RequestMapping(value = "/article/new", method = RequestMethod.GET)
@@ -48,9 +46,11 @@ public class ArticleController {
         return mav;
     }
 
-    @RequestMapping(value = "/articlesuccess")
-    public String showarticlesuccess() {
+    @RequestMapping(value = "/articleSuccess")
+    public String showArticleSuccess() {
         return "articleSuccess";
     }
+
+
 }
 

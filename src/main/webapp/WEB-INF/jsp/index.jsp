@@ -10,9 +10,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
           integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
+        <link href="css/style.css" rel="stylesheet">
     <title>DimaApplication</title>
 </head>
-<body>
+<div>
+    <div class="bodyContainer">
     <sec:authorize access="isAuthenticated()">
         <p>Hello
             <spring:url value="/users/{userId}" var = "userUrl">
@@ -22,14 +24,63 @@
         </p>
     </sec:authorize>
 
-    <a href="<spring:url value="/registration" htmlEscape="true"/>">Register</a>
-    <a href='<spring:url value="/article/new" htmlEscape="true"/>'>Insert article</a>
-    <sec:authorize access="isAuthenticated()">
-        <a href="<spring:url value="/logout" />">Log out</a>
-    </sec:authorize>
-    <sec:authorize access="isAnonymous()">
-        <a href="<spring:url value="/login" />">Log in</a>
-    </sec:authorize>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <sec:authorize access="isAuthenticated()">
+                            <a class="nav-link" href="<spring:url value="/logout" />">Log out</a>
+                        </sec:authorize>
+                        <sec:authorize access="isAnonymous()">
+                            <a class="nav-link" href="<spring:url value="/login" />">Log in</a>
+                        </sec:authorize>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<spring:url value="/registration" htmlEscape="true"/>">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href='<spring:url value="/article/new" htmlEscape="true"/>'>Insert article</a>
+                    </li>
 
+                </ul>
+        </nav>
+
+    <div class="container">
+        <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="clankyContainer">
+
+            <c:forEach items="${articles}" var="article">
+                <div class="clanekBody">
+                    <div class="ClanekNadpis">
+                        <h2>
+                            <c:out value="${article.name}"/>
+                        </h2>
+                    </div>
+                    <div class="category">
+                        <c:out value="${article.category.name}"/>
+                    </div>
+                    <div class="box">
+
+                        <div class="ClanekText">
+                            <p>
+                                <c:out value="${article.description}"/>
+                            </p>
+                        </div>
+                    </div>
+                    <c:out value="${article.location}"/>
+                    <br/>
+                    <c:out value="${article.timestamp}"/>
+                </div>
+            </c:forEach>
+
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</div>
 </body>
 </html>
