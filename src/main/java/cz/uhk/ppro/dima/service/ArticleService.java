@@ -11,9 +11,9 @@ import cz.uhk.ppro.dima.util.ImageResampler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
@@ -44,7 +44,6 @@ public class ArticleService {
         }
 
         article.setImage(img);
-
         article.setTimestamp(new Timestamp(System.currentTimeMillis()));
         article.setUser(user);
         articleRepo.save(article);
@@ -75,5 +74,16 @@ public class ArticleService {
         comment.setArticle(articleRepo.findById(articleId).get());
         comment.setPostDate(new Timestamp(System.currentTimeMillis()));
         commentRepo.save(comment);
+    }
+
+    @Transactional
+    public void removeArticle(int articleId) {
+        Optional<Article> article = articleRepo.findById(articleId);
+        if(article.isPresent()) articleRepo.remove(article.get());
+    }
+
+    @Transactional
+    public List findArticlesInCategory(int categoryId) {
+        return articleRepo.findArticlesInCategory(categoryId);
     }
 }

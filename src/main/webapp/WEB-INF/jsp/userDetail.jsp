@@ -27,35 +27,43 @@
                 Phone: ${user.phone}<br>
                 Registered: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${user.creationTime}" /><br>
             </p>
-        <div class="table-responsive">
+            <h3>User's articles:</h3>
+
+            <div class="table-responsive">
+
             <table class="table">
                 <thead>
-                <tr>
-                    <th scope="col">Article Name</th>
-                    <th scope="col">Action</th>
-                </tr>
+                    <tr>
+                        <th scope="col">Article Name</th>
+                        <c:if test = "${isLoggedUsersProfile}">
+                        <th scope="col">Action</th>
+                        </c:if>
+                    </tr>
                 </thead>
 
-            <h3>User's articles:</h3>
-            <c:forEach items="${articles}" var="article">
-                    <spring:url value="/articles/{articleId}" var = "articleUrl">
-                        <spring:param name="articleId" value="${article.id}"/>
-                    </spring:url>
-                <tr>
-                    <td><a href="${fn:escapeXml(articleUrl)}"><c:out value="${article.name}"/></a></td>
-                    <%--Logged in user can edit his articles--%>
-                    <c:if test = "${isLoggedUsersProfile}">
-                        <spring:url value="/articles/{articleId}/edit" var = "editArticle">
-                             <spring:param name="articleId" value="${article.id}"/>
+                <c:forEach items="${articles}" var="article">
+                        <spring:url value="/articles/{articleId}" var = "articleUrl">
+                            <spring:param name="articleId" value="${article.id}"/>
                         </spring:url>
-                        <td> <a href="${fn:escapeXml(editArticle)}">Edit</a></td>
-                    </c:if>
-                </tr>
-                <br>
-            </c:forEach>
+                    <tr>
+                        <td><a href="${fn:escapeXml(articleUrl)}"><c:out value="${article.name}"/></a></td>
+                        <%--Logged in user can edit or delete his articles--%>
+                        <c:if test = "${isLoggedUsersProfile}">
+                            <spring:url value="/articles/{articleId}/edit" var = "editArticle">
+                                 <spring:param name="articleId" value="${article.id}"/>
+                            </spring:url>
+                            <td> <a class="btn btn-info" href="${fn:escapeXml(editArticle)}">Edit</a></td>
+
+                            <c:url var="deleteUrl" value="/articles/${article.id}/delete"/>
+                            <td><form:form action="${deleteUrl}" method="POST">
+                                <input id="articleId" name="articleId" type="hidden" value="<c:out value="${article.id}"/>"/>
+                                <input type="submit" class="btn btn-danger" value="Delete" onClick="return confirm('Are you sure?')"/>
+                            </form:form></td>
+                        </c:if>
+                    </tr>
+                </c:forEach>
             </table>
         </div>
-            <br>
             <h3>User's ratings:</h3>
             <c:forEach items="${ratings}" var="rating">
                 <p>

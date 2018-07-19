@@ -26,7 +26,14 @@ public class JpaArticleRepositoryImpl implements ArticleRepository{
 
     @Override
     public List<Article> findAll() {
-        return em.createQuery("select article from Article article").getResultList();
+        return em.createQuery("select article from Article article order by article.timestamp desc").getResultList();
+    }
+
+    @Override
+    public List<Article> findArticlesInCategory(int categoryId) {
+        Query query = this.em.createQuery("select article from Article article where article.category.id = :categoryId order by article.timestamp desc");
+        query.setParameter("categoryId", categoryId);
+        return query.getResultList();
     }
 
     @Override
@@ -38,5 +45,10 @@ public class JpaArticleRepositoryImpl implements ArticleRepository{
         } else {
             em.persist(article);
         }
+    }
+
+    @Override
+    public void remove(Article article) {
+        em.remove(article);
     }
 }

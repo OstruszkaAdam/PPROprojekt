@@ -1,5 +1,7 @@
 package cz.uhk.ppro.dima.model;
 
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,13 +11,16 @@ import java.util.Arrays;
 import java.util.List;
 
 @Entity
+@Indexed
 @Table(name = "posts", schema = "dima")
 public class Article {
     @Id
     @GeneratedValue
     private int id;
+    @Field(index = Index.YES, analyze = Analyze.YES,store = Store.NO)
     @NotEmpty
     private String name;
+
     private byte[] image;
     @NotEmpty
     private String description;
@@ -35,7 +40,7 @@ public class Article {
     @ManyToOne
     private User user;
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
 
 

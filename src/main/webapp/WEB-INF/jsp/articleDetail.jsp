@@ -19,12 +19,15 @@
         <div class="container">
             <jsp:include page="menu.jsp"/>
 
-            <h1>Detaily clanku</h1>
+            <h1>article detail</h1>
             <p>
                 <h2>${article.name}</h2>
                 <p>Description: ${article.description}</p>
                 <p>Location: ${article.location}</p>
                 <p>Price: ${article.price}</p>
+            <p>Pictures:<br>
+                <span class="img-responsive"> <img src="/articleImage/imageDisplay?articleId=${article.id}" alt=""/></span>
+            </p>
                 <p>Posted by:
                     <spring:url value="/users/{userId}" var = "userUrl">
                         <spring:param name="userId" value="${article.user.id}"/>

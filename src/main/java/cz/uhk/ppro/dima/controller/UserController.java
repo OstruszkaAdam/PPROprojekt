@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -38,6 +39,7 @@ public class UserController {
             mav.addObject("articles", user.get().getArticles());
             mav.addObject("user", user.get());
         }
+        if(loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
         if(loggedUser.isPresent() && user.isPresent() && loggedUser.get().getId() == user.get().getId())
             mav.addObject("isLoggedUsersProfile", true);
@@ -46,7 +48,7 @@ public class UserController {
     }
 
     @RequestMapping(value ="/users/{userId}", method = RequestMethod.POST)
-    public String addRating(@PathVariable("userId") int userId, @ModelAttribute("addedRating") Rating rating) {
+    public String addRating(@PathVariable("userId") int userId, @ModelAttribute("addedRating") @Valid Rating rating) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> author = userService.findByUsername(authentication.getName());
         if(author.isPresent()) userService.saveRating(rating, author.get(), userId);

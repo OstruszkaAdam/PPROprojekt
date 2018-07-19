@@ -8,7 +8,7 @@
 <sec:authorize access="isAuthenticated()">
     <p>Hello
         <spring:url value="/users/{userId}" var = "userUrl">
-            <spring:param name="userId" value="${userId}"/>
+            <spring:param name="userId" value="${loggedUserId}"/>
         </spring:url>
         <a href="${fn:escapeXml(userUrl)}"><sec:authentication property="principal.username" /></a>
     </p>
@@ -18,7 +18,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <ul class="navbar-nav">
+    <ul class="navbar-nav mr-auto">
         <li class="nav-item">
         <a class="nav-link" href='<spring:url value="/" htmlEscape="true"/>'>Home</a>
         </li>
@@ -28,7 +28,7 @@
             </li>
             <li class="nav-item">
                 <spring:url value="/users/{userId}" var = "userUrl">
-                    <spring:param name="userId" value="${userId}"/>
+                    <spring:param name="userId" value="${loggedUserId}"/>
                 </spring:url>
                 <a class="nav-link" href="${fn:escapeXml(userUrl)}"/>My profile</a>
             </li>
@@ -41,9 +41,12 @@
                 <a class="nav-link" href="<spring:url value="/registration" htmlEscape="true"/>">Register</a>
             </li>
         </sec:authorize>
-
         <li class="nav-item">
             <a class="nav-link" href='<spring:url value="/articles/new" htmlEscape="true"/>'>Insert article</a>
         </li>
     </ul>
+    <form class="form-inline my-2 my-lg-0" action="/search" method="get">
+        <input class="form-control mr-sm-2" type="text" name="q" >
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search article</button>
+    </form>
 </nav>

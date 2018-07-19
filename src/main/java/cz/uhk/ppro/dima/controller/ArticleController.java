@@ -38,7 +38,7 @@ public class ArticleController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());
-        if(loggedUser.isPresent()) mav.addObject("userId", loggedUser.get().getId());
+        if(loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
         Optional<Article> article = articleService.findById(articleId);
         mav.addObject("comments", article.get().getComments());
@@ -48,7 +48,7 @@ public class ArticleController {
     }
 
     @RequestMapping(value ="/articles/{articleId}", method = RequestMethod.POST)
-    public String addRating(@PathVariable("articleId") int articleId, @ModelAttribute("addedComment") Comment comment) {
+    public String addRating(@PathVariable("articleId") int articleId, @ModelAttribute("addedComment") @Valid Comment comment) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> author = userService.findByUsername(authentication.getName());
         if(author.isPresent()) articleService.saveComment(comment, author.get(), articleId);
@@ -62,7 +62,7 @@ public class ArticleController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());
-        if(loggedUser.isPresent()) modelMap.addAttribute("userId", loggedUser.get().getId());
+        if(loggedUser.isPresent()) modelMap.addAttribute("loggedUserId", loggedUser.get().getId());
 
         List<Category> categoryList;
         categoryList = articleService.findAllCategories();
@@ -71,7 +71,7 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/articles/new", method = RequestMethod.POST)
-    public String createNewArticle(@ModelAttribute("article") Article article) throws IOException {
+    public String createNewArticle(@ModelAttribute("article") @Valid Article article) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());
         if(loggedUser.isPresent()) articleService.saveArticle(article, loggedUser.get());
@@ -85,7 +85,7 @@ public class ArticleController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());
-        if(loggedUser.isPresent()) model.addAttribute("userId", loggedUser.get().getId());
+        if(loggedUser.isPresent()) model.addAttribute("loggedUserId", loggedUser.get().getId());
 
         List<Category> categoryList;
         categoryList = articleService.findAllCategories();
@@ -106,6 +106,12 @@ public class ArticleController {
         article.setId(articleId);
         if(author.isPresent()) this.articleService.saveArticle(article, author.get());
         return "redirect:/articles/{articleId}";
+    }
+
+    @PostMapping(value = "/articles/{articleId}/delete")
+    public String processDeleteArticle(@PathVariable("articleId") int articleId) {
+        articleService.removeArticle(articleId);
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/articles/articleSuccess")
