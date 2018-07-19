@@ -9,73 +9,78 @@
 
 <html>
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet">
     <title>Title</title>
 </head>
 <body>
-    <sec:authorize access="isAuthenticated()">
-        <p>Hello
-            <spring:url value="/users/{userId}" var = "userUrl">
-                <spring:param name="userId" value="${userId}"/>
-            </spring:url>
-            <a href="${fn:escapeXml(userUrl)}"><sec:authentication property="principal.username" /></a>
-        </p>
-    </sec:authorize>
+    <div class="bodyContainer">
+        <div class="container">
+            <jsp:include page="menu.jsp"/>
+            <h1>User detail</h1>
+            <p>
+                Username: ${user.username}<br>
+                First name: ${user.firstname}<br>
+                Last name: ${user.surname}<br>
+                E-mail: ${user.email}<br>
+                Phone: ${user.phone}<br>
+                Registered: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${user.creationTime}" /><br>
+            </p>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Article Name</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
 
-    <h3>User detail</h3>
-    <p>
-        Username: ${user.username}<br>
-        First name: ${user.firstname}<br>
-        Last name: ${user.surname}<br>
-        E-mail: ${user.email}<br>
-        Phone: ${user.phone}<br>
-        Registered: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${user.creationTime}" /><br>
-        <br>
-    </p>
-
-    User's articles:
-    <c:forEach items="${articles}" var="article">
-        <p>
-            <spring:url value="/articles/{articleId}" var = "articleUrl">
-                <spring:param name="articleId" value="${article.id}"/>
-            </spring:url>
-            <a href="${fn:escapeXml(articleUrl)}"><c:out value="${article.name}"/></a>
-
-            <%--Logged in user can edit his articles--%>
-            <c:if test = "${isLoggedUsersProfile}">
-                <spring:url value="/articles/{articleId}/edit" var = "editArticle">
-                     <spring:param name="articleId" value="${article.id}"/>
+            <h3>User's articles:</h3>
+            <c:forEach items="${articles}" var="article">
+                    <spring:url value="/articles/{articleId}" var = "articleUrl">
+                        <spring:param name="articleId" value="${article.id}"/>
+                    </spring:url>
+                <tr>
+                    <td><a href="${fn:escapeXml(articleUrl)}"><c:out value="${article.name}"/></a></td>
+                    <%--Logged in user can edit his articles--%>
+                    <c:if test = "${isLoggedUsersProfile}">
+                        <spring:url value="/articles/{articleId}/edit" var = "editArticle">
+                             <spring:param name="articleId" value="${article.id}"/>
+                        </spring:url>
+                        <td> <a href="${fn:escapeXml(editArticle)}">Edit</a></td>
+                    </c:if>
+                </tr>
+                <br>
+            </c:forEach>
+            </table>
+        </div>
+            <br>
+            <h3>User's ratings:</h3>
+            <c:forEach items="${ratings}" var="rating">
+                <p>
+                <spring:url value="/users/{userId}" var = "userUrl">
+                    <spring:param name="userId" value="${rating.author.id}"/>
                 </spring:url>
-                <a href="${fn:escapeXml(editArticle)}">Edit</a>
-            </c:if>
-        </p>
-    </c:forEach>
+                <a href="${fn:escapeXml(userUrl)}"><c:out value="${rating.author.username}"/></a>
+                <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${rating.postDate}" /><br>
+                <c:out value="${rating.ratingText}"/>
+                </p>
+            </c:forEach>
 
-    User's ratings:
-    <c:forEach items="${ratings}" var="rating">
-        <p>
-        <spring:url value="/users/{userId}" var = "userUrl">
-            <spring:param name="userId" value="${rating.author.id}"/>
-        </spring:url>
-        <a href="${fn:escapeXml(userUrl)}"><c:out value="${rating.author.username}"/></a>
-        <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${rating.postDate}" /><br>
-        <br>
-        <c:out value="${rating.ratingText}"/>
-        </p>
-    </c:forEach>
-
-    <p>
-    <form:form method="POST" modelAttribute="addedRating">
-        <fieldset>
-            <div class="container">
-                <div class="form-group">
-                    <form:textarea path="ratingText" class="form-control" cols="50" rows="10" placeholder="Enter rating" required ="true" />
-                </div>
-                <div class="clearfix">
-                    <button type="submit" class="">Rate user</button>
-                </div>
-            </div>
-        </fieldset>
-    </form:form>
-    </p>
+            <p>
+            <form:form method="POST" modelAttribute="addedRating">
+                <fieldset>
+                        <div class="form-group">
+                            <form:textarea path="ratingText" class="form-control" cols="50" rows="10" placeholder="Enter rating" required ="true" />
+                        </div>
+                        <div class="clearfix">
+                            <button type="submit" class="">Rate user</button>
+                        </div>
+                </fieldset>
+            </form:form>
+            </p>
+        </div>
+    </div>
 </body>
 </html>

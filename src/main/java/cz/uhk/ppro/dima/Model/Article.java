@@ -4,7 +4,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +19,7 @@ public class Article {
     private byte[] image;
     @NotEmpty
     private String description;
-    @NotNull
+
     private Timestamp timestamp;
     @NotEmpty
     private String location;

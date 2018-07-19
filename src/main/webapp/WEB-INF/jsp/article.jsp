@@ -11,13 +11,17 @@
 <head>
     <title>Title</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-</head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet"></head>
 <body>
-<form:form method="POST" modelAttribute="article" enctype="multipart/form-data">
-    <fieldset>
+<div class="bodyContainer">
+    <div class="container">
+        <jsp:include page="menu.jsp"/>
+        <h1>Pridat nebo upravit clanek</h1>
 
-        <div class="container">
+        <form:form method="POST" modelAttribute="article" enctype="multipart/form-data">
+    <fieldset>
             <div class="form-group">
             <label><b>Name</b></label>
             <form:input path="name" class="form-control" type="text" placeholder="Enter Name" required="true" />
@@ -37,7 +41,7 @@
 
             <div class="form-group">
             <label><b>Description</b></label>
-            <form:input path="description" class="form-control" type="textarea" placeholder="Description" required ="true"/>
+                <form:textarea path="description" class="form-control" rows="5" placeholder="Description" required ="true" />
             </div>
 
             <div class="form-group">
@@ -54,11 +58,10 @@
                 <a class="btn btn-default" role ="button" href='<spring:url value="/" htmlEscape="true"/>'>Cancel</a>
                 <button type="submit" class="btn btn-primary" role="button">Submit</button>
             </div>
-        </div>
     </fieldset>
 </form:form>
 
-
-
+    </div>
+</div>
 </body>
 </html>

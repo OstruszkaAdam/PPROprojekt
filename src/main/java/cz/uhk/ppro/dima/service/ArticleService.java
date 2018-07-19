@@ -7,11 +7,14 @@ import cz.uhk.ppro.dima.model.User;
 import cz.uhk.ppro.dima.repository.ArticleRepository;
 import cz.uhk.ppro.dima.repository.CategoryRepository;
 import cz.uhk.ppro.dima.repository.CommentRepository;
+import cz.uhk.ppro.dima.util.ImageResampler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +34,17 @@ public class ArticleService {
 
     @Transactional
     public void saveArticle(Article article, User user) {
+        MultipartFile f = article.getMpf();
+        byte[] img = new byte[0];
+        try {
+            img = f.getBytes();
+            img = ImageResampler.downscaleImage(img);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        article.setImage(img);
+
         article.setTimestamp(new Timestamp(System.currentTimeMillis()));
         article.setUser(user);
         articleRepo.save(article);
