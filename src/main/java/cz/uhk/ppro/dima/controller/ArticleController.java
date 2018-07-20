@@ -5,6 +5,7 @@ import cz.uhk.ppro.dima.model.Article;
 import cz.uhk.ppro.dima.model.Category;
 import cz.uhk.ppro.dima.model.Comment;
 import cz.uhk.ppro.dima.model.User;
+import cz.uhk.ppro.dima.security.AuthenticationProvider;
 import cz.uhk.ppro.dima.service.ArticleService;
 import cz.uhk.ppro.dima.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +26,22 @@ import java.util.Optional;
 public class ArticleController {
     private final ArticleService articleService;
     private final UserService userService;
+    private final AuthenticationProvider authentication;
+
     private static final String ARTICLEFORMVIEW = "saveOrEditArticle";
 
     @Autowired
-    public ArticleController(ArticleService articleService, UserService userService) {
+    public ArticleController(ArticleService articleService, UserService userService, AuthenticationProvider authentication) {
         this.articleService = articleService;
         this.userService = userService;
+        this.authentication = authentication;
     }
 
     @RequestMapping(value ="/articles/{articleId}", method = RequestMethod.GET)
     public ModelAndView showArticle(@PathVariable("articleId") int articleId, @ModelAttribute("addedComment") Comment comment) {
         ModelAndView mav = new ModelAndView("articleDetail");
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<User> loggedUser = userService.findByUsername(authentication.getName());
+        Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
         if(loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
         Optional<Article> article = articleService.findById(articleId);
@@ -54,8 +57,7 @@ public class ArticleController {
 
     @RequestMapping(value ="/articles/{articleId}", method = RequestMethod.POST)
     public String addRating(@PathVariable("articleId") int articleId, @ModelAttribute("addedComment") @Valid Comment comment) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<User> author = userService.findByUsername(authentication.getName());
+        Optional<User> author = userService.findByUsername(authentication.getAuthentication().getName());
         if(author.isPresent()) articleService.saveComment(comment, author.get(), articleId);
         return "redirect:/articles/{articleId}";
     }
@@ -65,8 +67,7 @@ public class ArticleController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName(ARTICLEFORMVIEW);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<User> loggedUser = userService.findByUsername(authentication.getName());
+        Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
         if(loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
         List<Category> categoryList;
@@ -80,16 +81,16 @@ public class ArticleController {
         if(result.hasErrors()) {
             return "redirect:/articles/new?error=true";
         }
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<User> loggedUser = userService.findByUsername(authentication.getName());
+        Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
         if(loggedUser.isPresent()) articleService.saveArticle(articleDto, loggedUser.get());
-        return "redirect:articleSuccess";
+        return "redirect:/articles/new/success";
     }
 
     @RequestMapping(value = "/articles/{articleId}/edit", method = RequestMethod.GET)
-    public String showEditArticleForm(@PathVariable("articleId") int articleId, Model model) {
+    public String showEditArticleForm(@PathVariable("articleId") int articleId, @ModelAttribute("articleDto") Article article, Model model) {
         Optional<Article> a = this.articleService.findById(articleId);
-        if(a.isPresent()) model.addAttribute("article", a);
+        //TODO map a to a DTO object
+        if(a.isPresent()) model.addAttribute("articleDto", a);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());
@@ -122,7 +123,7 @@ public class ArticleController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/articles/articleSuccess")
+    @RequestMapping(value = "/articles/new/success")
     public String showArticleSuccess() {
         return "articleSuccess";
     }

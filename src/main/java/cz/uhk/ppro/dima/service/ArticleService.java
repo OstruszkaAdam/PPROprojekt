@@ -5,6 +5,7 @@ import cz.uhk.ppro.dima.model.*;
 import cz.uhk.ppro.dima.repository.ArticleRepository;
 import cz.uhk.ppro.dima.repository.CategoryRepository;
 import cz.uhk.ppro.dima.repository.CommentRepository;
+import cz.uhk.ppro.dima.repository.ImageRepository;
 import cz.uhk.ppro.dima.util.ImagePersistor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -13,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -23,19 +23,29 @@ public class ArticleService {
     private CategoryRepository categoryRepo;
     private ArticleRepository articleRepo;
     private CommentRepository commentRepo;
+    private ImageRepository imageRepo;
 
     @Autowired
-    public ArticleService(CategoryRepository categoryRepo, ArticleRepository articleRepo, CommentRepository commentRepo) {
+    public ArticleService(CategoryRepository categoryRepo, ArticleRepository articleRepo, CommentRepository commentRepo, ImageRepository imageRepo) {
         this.categoryRepo = categoryRepo;
         this.articleRepo = articleRepo;
         this.commentRepo = commentRepo;
+        this.imageRepo = imageRepo;
     }
 
     @Transactional
     public void saveArticle(ArticleDto articleDto, User user) {
         Article article = new Article();
-        List<ArticleImage> articleImages = new ArrayList<>();
         List<MultipartFile> files = articleDto.getMpf();
+
+        article.setName(articleDto.getName());
+        article.setCategory(articleDto.getCategory());
+        article.setDescription(articleDto.getDescription());
+        article.setLocation(articleDto.getLocation());
+        article.setPrice(articleDto.getPrice());
+        article.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        article.setUser(user);
+        articleRepo.save(article);
 
         for(MultipartFile f:files) {
             String imgUUID = UUID.randomUUID().toString();
@@ -43,18 +53,9 @@ public class ArticleService {
             ArticleImage a = new ArticleImage();
             a.setUuid(imgUUID);
             a.setArticle(article);
-            //TODO save image
+            imageRepo.save(a);
         }
 
-        article.setName(articleDto.getName());
-        article.setCategory(articleDto.getCategory());
-        article.setDescription(articleDto.getDescription());
-        article.setLocation(articleDto.getLocation());
-        article.setPrice(articleDto.getPrice());
-        article.setImages(articleImages);
-        article.setTimestamp(new Timestamp(System.currentTimeMillis()));
-        article.setUser(user);
-        articleRepo.save(article);
     }
 
     @Transactional

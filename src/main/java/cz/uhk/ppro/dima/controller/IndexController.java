@@ -3,12 +3,11 @@ package cz.uhk.ppro.dima.controller;
 import cz.uhk.ppro.dima.model.Article;
 import cz.uhk.ppro.dima.model.Category;
 import cz.uhk.ppro.dima.model.User;
+import cz.uhk.ppro.dima.security.AuthenticationProvider;
 import cz.uhk.ppro.dima.service.ArticleService;
 import cz.uhk.ppro.dima.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -26,19 +25,20 @@ import java.util.Optional;
 public class IndexController {
     private final UserService userService;
     private final ArticleService articleService;
+    private final AuthenticationProvider authentication;
 
     @Autowired
-    public IndexController(UserService userService, ArticleService articleService) {
+    public IndexController(UserService userService, ArticleService articleService, AuthenticationProvider authenticationProvider) {
         this.userService = userService;
         this.articleService = articleService;
+        this.authentication = authenticationProvider;
     }
 
     @RequestMapping(value ="/", method = RequestMethod.GET)
     public String showIndex( @ModelAttribute("article") Article article, ModelMap modelMap, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("/index");
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.isAuthenticated()) {
-            Optional<User> user = userService.findByUsername(authentication.getName());
+        if (authentication.getAuthentication().isAuthenticated()) {
+            Optional<User> user = userService.findByUsername(authentication.getAuthentication().getName());
             if(user.isPresent()) {
                 modelMap.put("loggedUserId", user.get().getId());
             }
@@ -58,9 +58,8 @@ public class IndexController {
 
     @RequestMapping(value ="/articles/categories/{categoryId}", method = RequestMethod.GET)
     public String showArticlesInCategory(@PathVariable("categoryId") int categoryId, @ModelAttribute("article") Article article, ModelMap modelMap, HttpServletRequest request){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.isAuthenticated()) {
-            Optional<User> user = userService.findByUsername(authentication.getName());
+        if (authentication.getAuthentication().isAuthenticated()) {
+            Optional<User> user = userService.findByUsername(authentication.getAuthentication().getName());
             if(user.isPresent()) {
                 modelMap.put("loggedUserId", user.get().getId());
             }

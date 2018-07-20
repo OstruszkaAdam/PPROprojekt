@@ -10,16 +10,16 @@ public class ImagePersistor {
 
         try {
             byte[] imgOriginal = mpf.getBytes();
-            byte[] imgDownscaled = ImageResampler.downscaleImage(imgOriginal);
-            if(imgOriginal != null || imgDownscaled != null) {
+            byte[] imgResampled= ImageResampler.downscaleImage(imgOriginal);
+            if(imgOriginal != null || imgResampled != null) {
                 String uuid = imageUuid;
-                File file = new File("D:/PPRO/src/resampled/"+uuid+".jpg");
+                File file = new File("D:/PPRO/src/main/webapp/resources/images/resampled/"+uuid+".jpg");
                 OutputStream out = new FileOutputStream(file);
-                out.write(imgOriginal);
+                out.write(imgResampled);
                 out.flush();
-                file = new File("D:/PPRO/src/original/"+uuid+".jpg");
+                file = new File("D:/PPRO/src/main/webapp/resources/images/original/"+uuid+".jpg");
                 out= new FileOutputStream(file);
-                out.write(imgDownscaled);
+                out.write(imgOriginal);
                 out.flush();
                 out.close();
             }

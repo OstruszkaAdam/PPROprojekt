@@ -87,6 +87,14 @@
                 </c:forEach>
             </table>
 
+            <%--
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Launch demo modal</button>
+
+                        <!-- Modal -->
+                        <jsp:include page="template_modal_window.jsp"/>
+            --%>
+
             <h3>Hodnoceni uzivatele:</h3>
             <c:forEach items="${ratings}" var="rating">
                 <p>

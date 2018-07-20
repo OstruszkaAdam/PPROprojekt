@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +36,6 @@ public class JpaArticleRepositoryImpl implements ArticleRepository{
     }
 
     @Override
-    @Transactional
     public void save(Article article) {
         Optional<Article> a = this.findById(article.getId());
         if(a.isPresent()) {

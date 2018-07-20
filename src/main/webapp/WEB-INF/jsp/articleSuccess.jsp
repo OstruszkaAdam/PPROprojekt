@@ -14,6 +14,6 @@
         </div>
     </div>
 </div>
-    <jsp:include page="template_footer.jsp"/>
+<jsp:include page="template_footer.jsp"/>
 </body>
 </html>

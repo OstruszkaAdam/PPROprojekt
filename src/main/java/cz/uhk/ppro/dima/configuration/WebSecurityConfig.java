@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 @Configuration
@@ -27,24 +28,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .antMatchers("/registration", "/registrationSuccess").anonymous()
+            .antMatchers("/registration/**", "/login").anonymous()
             .and()
             .authorizeRequests()
-            .antMatchers("/", "/articleDetail", "/userDetail").permitAll()
-            //.anyRequest().authenticated()
+            .antMatchers("/articles/new/**", "/articles/*/edit").authenticated()
             .and()
             .authorizeRequests()
-            .antMatchers("/articles/new").authenticated()
+            .antMatchers("/", "/articles/**", "/users/**").permitAll()
             .and()
             .formLogin()
             .loginPage("/login")
             .defaultSuccessUrl("/")
             .usernameParameter("username")
             .passwordParameter("password")
-            .permitAll()
             .and()
             .logout()
-            .permitAll();
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .logoutSuccessUrl("/");
+
     }
 
     @Bean
