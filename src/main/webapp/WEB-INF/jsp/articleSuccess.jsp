@@ -1,19 +1,19 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
-    <%--Bootstrap--%>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link href="css/style.css" rel="stylesheet">
-    <title>Title</title>
+    <jsp:include page="template_header.jsp"/>
+    <title>DimaApplication</title>
 </head>
 <body>
+<div class="vertical_space">
     <div class="bodyContainer">
         <div class="container">
-            <jsp:include page="menu.jsp"/>
-            Your article was successfully created!
-            <a href="/">Back to Index</a>
+            <jsp:include page="template_menu.jsp"/>
+            Vas clanek byl uspesne vytvoren!
+            <a href="/">Navrat na hlavni stranu</a>
         </div>
     </div>
+</div>
+    <jsp:include page="template_footer.jsp"/>
 </body>
 </html>

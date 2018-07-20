@@ -1,6 +1,7 @@
 package cz.uhk.ppro.dima.repository.jpa;
 
 import cz.uhk.ppro.dima.model.Article;
+import cz.uhk.ppro.dima.repository.SearchRepository;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class SearchRepository {
+public class JpaSearchRepositoryImpl implements SearchRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -32,11 +33,10 @@ public class SearchRepository {
                 .sentence(text)
                 .createQuery();
 
-       FullTextQuery jpaQuery = fullTextEntityManager.createFullTextQuery(query, Article.class);
+        FullTextQuery jpaQuery = fullTextEntityManager.createFullTextQuery(query, Article.class);
 
         @SuppressWarnings("unchecked")
-                List results = jpaQuery.getResultList();
-        System.out.println(results);
+        List results = jpaQuery.getResultList();
 
         return results;
 

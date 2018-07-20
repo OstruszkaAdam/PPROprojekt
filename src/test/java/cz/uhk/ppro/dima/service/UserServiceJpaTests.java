@@ -2,7 +2,7 @@ package cz.uhk.ppro.dima.service;
 
 import cz.uhk.ppro.dima.DimaApplication;
 import cz.uhk.ppro.dima.model.User;
-import cz.uhk.ppro.dima.model.UserDTO;
+import cz.uhk.ppro.dima.dto.UserDto;
 import cz.uhk.ppro.dima.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,15 +35,15 @@ public class UserServiceJpaTests {
         Collection<User> users = this.userService.findUsersByLastName("Smith");
         int found = users.size();
 
-        UserDTO userDto = new UserDTO();
+        UserDto userDto = new UserDto();
 
         userDto.setUsername(UUID.randomUUID().toString());
-        userDto.setFirstname("John");
-        userDto.setSurname("Smith");
-        userDto.setPassword("1234");
-        userDto.setPasswordRepeat("1234");
+        userDto.setUsername("");
+        userDto.setFirstname("Test");
+        userDto.setSurname("Test");
+        userDto.setPassword("asdf");
         userDto.setEmail("test@test.cz");
-        userDto.setPhoneNumber("737737737");
+        userDto.setPhoneNumber("456798123");
         this.userService.createNewUser(userDto);
 
         users = this.userService.findUsersByLastName("Smith");

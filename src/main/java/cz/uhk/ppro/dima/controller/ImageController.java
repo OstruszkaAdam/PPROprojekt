@@ -32,7 +32,7 @@ public class ImageController {
 
         Optional<Article> a = articleService.findById(articleId);
         response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-        if(a.isPresent()) response.getOutputStream().write(a.get().getImage());
+        //if(a.isPresent()) response.getOutputStream().write(a.get().getImage());
 
         response.getOutputStream().close();
     }

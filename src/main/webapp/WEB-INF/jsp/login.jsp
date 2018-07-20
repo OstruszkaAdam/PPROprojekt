@@ -1,52 +1,45 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html>
+
+<!doctype html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link href="css/style.css" rel="stylesheet">
-    <title>Title</title>
+    <jsp:include page="template_header.jsp"/>
+    <title>DimaApplication</title>
 </head>
+
 <body>
-    <div class="bodyContainer">
-        <jsp:include page="menu.jsp"/>
-        <h1>Log in:</h1>
+<jsp:include page="template_menu.jsp"/>
 
-        <form:form method="POST" modelAttribute="user">
-            <fieldset>
-                    <div class="form-group">
-                        <label><b>Username</b></label>
-                        <form:input path="username" class="form-control" type="text" placeholder="Enter username" required ="true"/>
-                    </div>
-                    <div class="form-group">
-                        <label><b>Password</b></label>
-                        <form:input path="password" class="form-control" type="password" placeholder="Enter Password" id="psw" required ="true"/>
-                    </div>
+<main role="main">
 
-                    <div class="clearfix">
-                        <button type="submit" class="signupbtn">Log in</button>
-                    </div>
-            </fieldset>
-        </form:form>
+    <div class="container">
+        <div class="col-md-4">
+        <form method="POST" action="<c:url value='/login'/>">
+            <div class="form-group bmd-form-group">
+                <label for="formGroupExampleInput2" class="bmd-label-floating">Uzivatelske jmeno</label>
+                <input name="username" type="text" class="form-control" id="formGroupExampleInput2">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1" class="bmd-label-floating">Heslo</label>
+                <input name="password" type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+
+            <input type="hidden" name="${_csrf.parameterName}"value="${_csrf.token}"/>
+            <a href="/"> <button type="button"  class="btn btn-default">Zrušit</button></a>
+            <button type="submit" class="btn btn-primary btn-raised">Prihlasit se</button>
+        </form>
+        </div>
     </div>
+</main>
 
-<script>
-    var password = document.getElementById("psw")
-        , confirm_password = document.getElementById("psw-repeat");
-
-    function validatePassword() {
-        if (password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords Don't Match");
-        } else {
-            confirm_password.setCustomValidity('');
-        }
-    }
-
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
-</script>
+<jsp:include page="template_footer.jsp"/>
 </body>
 </html>

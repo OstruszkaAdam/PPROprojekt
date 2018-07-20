@@ -58,12 +58,12 @@ public class RegistrationControllerTests {
     public void testProcessRegistrationFormSuccess() throws Exception {
         mockMvc.perform(post("/registration")
                 .param("username", UUID.randomUUID().toString())
-                .param("password", "123456")
-                .param("passwordRepeat", "123456")
+                .param("password", "asdf")
+                .param("passwordRepeat", "asdf")
                 .param("email", "test@test.com")
-                .param("firstname", "John")
-                .param("surname", "White")
-                .param("phoneNumber", "777 777 777")
+                .param("firstname", "Test")
+                .param("surname", "Test")
+                .param("phoneNumber", "123456789")
         )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:registration/registrationSuccess"));

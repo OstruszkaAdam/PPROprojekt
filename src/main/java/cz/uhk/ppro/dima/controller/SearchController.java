@@ -2,7 +2,7 @@ package cz.uhk.ppro.dima.controller;
 
 import cz.uhk.ppro.dima.model.Category;
 import cz.uhk.ppro.dima.model.User;
-import cz.uhk.ppro.dima.repository.jpa.SearchRepository;
+import cz.uhk.ppro.dima.repository.SearchRepository;
 import cz.uhk.ppro.dima.service.ArticleService;
 import cz.uhk.ppro.dima.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

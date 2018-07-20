@@ -1,23 +1,22 @@
 package cz.uhk.ppro.dima.service;
 
-import cz.uhk.ppro.dima.model.Article;
-import cz.uhk.ppro.dima.model.Category;
-import cz.uhk.ppro.dima.model.Comment;
-import cz.uhk.ppro.dima.model.User;
+import cz.uhk.ppro.dima.dto.ArticleDto;
+import cz.uhk.ppro.dima.model.*;
 import cz.uhk.ppro.dima.repository.ArticleRepository;
 import cz.uhk.ppro.dima.repository.CategoryRepository;
 import cz.uhk.ppro.dima.repository.CommentRepository;
-import cz.uhk.ppro.dima.util.ImageResampler;
+import cz.uhk.ppro.dima.util.ImagePersistor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ArticleService {
@@ -33,17 +32,26 @@ public class ArticleService {
     }
 
     @Transactional
-    public void saveArticle(Article article, User user) {
-        MultipartFile f = article.getMpf();
-        byte[] img = new byte[0];
-        try {
-            img = f.getBytes();
-            img = ImageResampler.downscaleImage(img);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void saveArticle(ArticleDto articleDto, User user) {
+        Article article = new Article();
+        List<ArticleImage> articleImages = new ArrayList<>();
+        List<MultipartFile> files = articleDto.getMpf();
+
+        for(MultipartFile f:files) {
+            String imgUUID = UUID.randomUUID().toString();
+            ImagePersistor.saveImage(f, imgUUID);
+            ArticleImage a = new ArticleImage();
+            a.setUuid(imgUUID);
+            a.setArticle(article);
+            //TODO save image
         }
 
-        article.setImage(img);
+        article.setName(articleDto.getName());
+        article.setCategory(articleDto.getCategory());
+        article.setDescription(articleDto.getDescription());
+        article.setLocation(articleDto.getLocation());
+        article.setPrice(articleDto.getPrice());
+        article.setImages(articleImages);
         article.setTimestamp(new Timestamp(System.currentTimeMillis()));
         article.setUser(user);
         articleRepo.save(article);
