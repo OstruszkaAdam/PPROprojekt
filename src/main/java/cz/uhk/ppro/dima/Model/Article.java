@@ -13,6 +13,7 @@ import java.util.List;
 @Indexed
 @Table(name = "posts", schema = "dima")
 public class Article {
+    //edited
     @Id
     @GeneratedValue
     private int id;
@@ -20,6 +21,7 @@ public class Article {
     @NotEmpty
     private String name;
     @NotEmpty
+    @Column(columnDefinition = "TEXT")
     private String description;
     @NotNull
     private Timestamp timestamp;
@@ -153,5 +155,9 @@ public class Article {
         result = 31 * result + (comments != null ? comments.hashCode() : 0);
         result = 31 * result + (images != null ? images.hashCode() : 0);
         return result;
+    }
+
+    public String getMpf() {
+        return null;
     }
 }

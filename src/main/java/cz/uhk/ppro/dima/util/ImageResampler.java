@@ -1,6 +1,7 @@
 package cz.uhk.ppro.dima.util;
 
 import org.imgscalr.Scalr;
+import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -10,17 +11,24 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * ImageResampler downscales image when adding new article if bigger than 250px X 250px
+ * ImageDownscaler downscales image when adding new article if bigger than 250px X 250px
  * Uses Imagescalr library
  */
+@Component
 public class ImageResampler {
     private static final int MAX_WIDTH = 250;
     private static final int MAX_HEIGHT = 250;
 
-    public static byte[] downscaleImage(byte[] image) throws IOException {
+    public ImageResampler() {
+    }
+
+    public byte[] downscaleImage(byte[] image) throws IOException {
         InputStream in = new ByteArrayInputStream(image);
         BufferedImage bImage = ImageIO.read(in);
-        if(bImage == null) return image;
+        if(bImage == null) {
+            in.close();
+            return image;
+        }
 
         int w = bImage.getWidth();
         int h = bImage.getHeight();
@@ -48,6 +56,11 @@ public class ImageResampler {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(nImage, "jpg", baos);
         byte[] newImageByteArray = baos.toByteArray();
+
+        bImage.flush();
+        in.close();
+        baos.close();
+
         return newImageByteArray;
     }
 }

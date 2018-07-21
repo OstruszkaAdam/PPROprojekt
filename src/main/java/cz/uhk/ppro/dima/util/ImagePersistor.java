@@ -1,22 +1,32 @@
 package cz.uhk.ppro.dima.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 
+@Component
 public class ImagePersistor {
 
-    public static void saveImage(MultipartFile mpf, String imageUuid){
+    @Autowired
+    private ImageResampler imageResampler;
+
+    public ImagePersistor() {
+    }
+
+    public void saveImage(MultipartFile mpf, String imageUuid){
 
         try {
             byte[] imgOriginal = mpf.getBytes();
-            byte[] imgResampled= ImageResampler.downscaleImage(imgOriginal);
+            byte[] imgResampled = imageResampler.downscaleImage(imgOriginal);
             if(imgOriginal != null || imgResampled != null) {
                 String uuid = imageUuid;
                 File file = new File("D:/PPRO/src/main/webapp/resources/images/resampled/"+uuid+".jpg");
                 OutputStream out = new FileOutputStream(file);
                 out.write(imgResampled);
                 out.flush();
+                out.close();
                 file = new File("D:/PPRO/src/main/webapp/resources/images/original/"+uuid+".jpg");
                 out= new FileOutputStream(file);
                 out.write(imgOriginal);
@@ -27,5 +37,6 @@ public class ImagePersistor {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }

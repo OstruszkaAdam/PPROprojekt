@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
@@ -20,17 +23,19 @@ import java.util.UUID;
 
 @Service
 public class ArticleService {
-    private CategoryRepository categoryRepo;
-    private ArticleRepository articleRepo;
-    private CommentRepository commentRepo;
-    private ImageRepository imageRepo;
 
     @Autowired
-    public ArticleService(CategoryRepository categoryRepo, ArticleRepository articleRepo, CommentRepository commentRepo, ImageRepository imageRepo) {
-        this.categoryRepo = categoryRepo;
-        this.articleRepo = articleRepo;
-        this.commentRepo = commentRepo;
-        this.imageRepo = imageRepo;
+    private CategoryRepository categoryRepo;
+    @Autowired
+    private ArticleRepository articleRepo;
+    @Autowired
+    private CommentRepository commentRepo;
+    @Autowired
+    private ImageRepository imageRepo;
+    @Autowired
+    private ImagePersistor imagePersistor;
+
+    public ArticleService() {
     }
 
     @Transactional
@@ -49,7 +54,7 @@ public class ArticleService {
 
         for(MultipartFile f:files) {
             String imgUUID = UUID.randomUUID().toString();
-            ImagePersistor.saveImage(f, imgUUID);
+            imagePersistor.saveImage(f, imgUUID);
             ArticleImage a = new ArticleImage();
             a.setUuid(imgUUID);
             a.setArticle(article);
@@ -88,7 +93,22 @@ public class ArticleService {
     @Transactional
     public void removeArticle(int articleId) {
         Optional<Article> article = articleRepo.findById(articleId);
-        if(article.isPresent()) articleRepo.remove(article.get());
+        if(article.isPresent()) {
+            List<ArticleImage> articleImages = article.get().getImages();
+            File f;
+            for(ArticleImage ai : articleImages) {
+                try {
+                    f =new File("D:/PPRO/src/main/webapp/resources/images/original/"+ ai.getUuid() +".jpg");
+                    Files.delete(f.toPath());
+
+                    f = new File("D:/PPRO/src/main/webapp/resources/images/downscaled/"+ ai.getUuid() +".jpg");
+                    Files.delete(f.toPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            articleRepo.remove(article.get());
+        }
     }
 
     @Transactional
