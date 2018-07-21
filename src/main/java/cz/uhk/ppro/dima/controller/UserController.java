@@ -1,19 +1,16 @@
 package cz.uhk.ppro.dima.controller;
 
-import cz.uhk.ppro.dima.model.Rating;
 import cz.uhk.ppro.dima.model.User;
 import cz.uhk.ppro.dima.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -27,7 +24,7 @@ public class UserController {
     }
 
     @RequestMapping(value ="/users/{userId}", method = RequestMethod.GET)
-    public ModelAndView showOwner(@PathVariable("userId") int userId, @ModelAttribute("addedRating") Rating rating) {
+    public ModelAndView showOwner(@PathVariable("userId") int userId) {
         ModelAndView mav = new ModelAndView("userDetail");
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -35,7 +32,6 @@ public class UserController {
 
         Optional<User> user = userService.findById(userId);
         if(user.isPresent()) {
-            mav.addObject("ratings", user.get().getRatingsReceived());
             mav.addObject("articles", user.get().getArticles());
             mav.addObject("user", user.get());
         }
@@ -47,11 +43,4 @@ public class UserController {
         return mav;
     }
 
-    @RequestMapping(value ="/users/{userId}", method = RequestMethod.POST)
-    public String addRating(@PathVariable("userId") int userId, @ModelAttribute("addedRating") @Valid Rating rating) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<User> author = userService.findByUsername(authentication.getName());
-        if(author.isPresent()) userService.saveRating(rating, author.get(), userId);
-        return "redirect:/users/{userId}";
-    }
 }

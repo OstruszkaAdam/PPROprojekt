@@ -39,12 +39,6 @@ public class User {
     @OneToMany(mappedBy = "author")
     private List<Comment> commentsPosted;
 
-    @OneToMany(mappedBy = "author")
-    private List<Rating> ratingsPosted;
-
-    @OneToMany(mappedBy = "ratedUser")
-    private List<Rating> ratingsReceived;
-
     public int getId() {
         return id;
     }
@@ -137,22 +131,6 @@ public class User {
 
     public void setCommentsPosted(List<Comment> commentsPosted) {
         this.commentsPosted = commentsPosted;
-    }
-
-    public List<Rating> getRatingsPosted() {
-        return ratingsPosted;
-    }
-
-    public void setRatingsPosted(List<Rating> ratingsPosted) {
-        this.ratingsPosted = ratingsPosted;
-    }
-
-    public List<Rating> getRatingsReceived() {
-        return ratingsReceived;
-    }
-
-    public void setRatingsReceived(List<Rating> ratingsReceived) {
-        this.ratingsReceived = ratingsReceived;
     }
 
     @Override

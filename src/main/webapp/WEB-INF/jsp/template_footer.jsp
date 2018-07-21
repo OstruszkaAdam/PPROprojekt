@@ -1,5 +1,7 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <footer class="container">
-    <p>&copy; Company 2017-2018</p>
+    <p><spring:message code="footer_text"/></p>
 </footer>
 
 <!-- Bootstrap core JavaScript

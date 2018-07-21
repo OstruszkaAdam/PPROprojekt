@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
     <jsp:include page="template_header.jsp"/>
-    <title>DimaApplication</title>
+    <title><spring:message code="app_title_browser"/></title>
 </head>
 
 <body>
@@ -20,45 +20,45 @@
 <main role="main">
 
     <div class="container">
-        <h1>Profil uzivatele</h1>
+        <h1><spring:message code="headline_user_profile"/></h1>
 
         <table class="table table-striped table-hover">
             <tbody>
             <tr>
-                <th scope="col">Uzivatelske jmeno:</th>
+                <th scope="col"><spring:message code="username"/></th>
                 <td>${user.username}</td>
             </tr>
             <tr>
-                <th scope="col">Jmeno:</th>
+                <th scope="col"><spring:message code="first_name"/></th>
                 <td>${user.firstname}</td>
             </tr>
             <tr>
-                <th scope="col">Prijmeni:</th>
+                <th scope="col"><spring:message code="last_name"/></th>
                 <td>${user.surname}</td>
             </tr>
             <tr>
-                <th scope="col">Email:</th>
+                <th scope="col"><spring:message code="email"/></th>
                 <td>${user.email}</td>
             </tr>
             <tr>
-                <th scope="col">Telefon:</th>
+                <th scope="col"><spring:message code="phone"/></th>
                 <td>${user.phone}</td>
             </tr>
             <tr>
-                <th scope="col">Datum registrace:</th>
+                <th scope="col"><spring:message code="registration_date"/></th>
                 <td><fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle="medium" timeStyle="medium" value="${user.creationTime}"/></td>
             </tr>
             </tbody>
         </table>
-        <h3>Clanky uzivatele:</h3>
+        <h3><spring:message code="user_articles"/></h3>
 
         <div class="table-responsive ">
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">Nadpis clanku</th>
+                    <th scope="col"><spring:message code="article_headline"/></th>
                     <c:if test="${isLoggedUsersProfile}">
-                        <th scope="col">Moznosti</th>
+                        <th scope="col"><spring:message code="article_actions"/></th>
                     </c:if>
                 </tr>
                 </thead>
@@ -74,59 +74,21 @@
                             <spring:url value="/articles/{articleId}/edit" var="editArticle">
                                 <spring:param name="articleId" value="${article.id}"/>
                             </spring:url>
-                            <td><a class="btn btn-primary" href="${fn:escapeXml(editArticle)}">Edit</a></td>
+                            <td><a class="btn btn-primary" href="${fn:escapeXml(editArticle)}"><spring:message code="action_edit"/></a></td>
 
                             <c:url var="deleteUrl" value="/articles/${article.id}/delete"/>
                             <td><form:form action="${deleteUrl}" method="POST">
                                 <input id="articleId" name="articleId" type="hidden" value="<c:out value="${article.id}"/>"/>
-                                <input type="submit" class="btn btn-primary" value="Delete" onClick="return confirm('Opravdu smazat?')"/>
+                                <%--TODO Vymenit hlasku v potvrzovacim okne za string ze souboru Messages--%>
+                                <button type="submit"  class="btn btn-primary" onClick="return confirm('Opravdu smazat?')"><spring:message code="action_delete"/></button>
+                                <%--TODO Rozjet modalni okno template_model_window--%>
                                 <%-- <input type="submit" class="btn btn-primary" value="Delete"  data-toggle="modal" data-target="#exampleModal"/>--%>
                             </form:form></td>
                         </c:if>
                     </tr>
                 </c:forEach>
             </table>
-
-            <%--
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Launch demo modal</button>
-
-                        <!-- Modal -->
-                        <jsp:include page="template_modal_window.jsp"/>
-            --%>
-
-            <h3>Hodnoceni uzivatele:</h3>
-            <c:forEach items="${ratings}" var="rating">
-                <p>
-                    <spring:url value="/users/{userId}" var="userUrl">
-                        <spring:param name="userId" value="${rating.author.id}"/>
-                    </spring:url>
-                    <a href="${fn:escapeXml(userUrl)}"><c:out value="${rating.author.username}"/></a>
-                    <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle="medium" timeStyle="medium" value="${rating.postDate}"/><br>
-                    <c:out value="${rating.ratingText}"/>
-                </p>
-            </c:forEach>
-
-            <p>
-                <form:form method="POST" modelAttribute="addedRating">
-            <fieldset>
-                <div class="input-field">
-                    <form:textarea path="ratingText" class="materialize-textarea" cols="50" rows="10" placeholder="Zde muzete napsat hodnoceni"
-                                   required="true"/>
-                </div>
-                <div class="clearfix">
-                    <sec:authorize access="isAuthenticated()">
-                        <button type="submit" class="btn btn-primary">Ohodnotit uzivatele</button>
-                    </sec:authorize>
-                    <sec:authorize access="isAnonymous()">
-                        <button type="submit" class="btn btn-primary" disabled>Ohodnotit</button>
-                        <br>
-                        <span class="red-text">Hodnotit mohou pouze prihlaseni uzivatele.</span>
-                    </sec:authorize>
-                </div>
-            </fieldset>
-            </form:form>
-            </p>
+            
         </div>
     </div>
 

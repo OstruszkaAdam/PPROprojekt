@@ -1,19 +1,31 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
+<!doctype html>
+<html lang="en">
 <head>
     <jsp:include page="template_header.jsp"/>
-    <title>DimaApplication</title>
+    <title><spring:message code="app_title_browser"/></title>
 </head>
+
 <body>
-<div class="vertical_space">
-    <div class="bodyContainer">
-        <div class="container">
-            <jsp:include page="template_menu.jsp"/>
-            Vas clanek byl uspesne vytvoren!
-            <a href="/">Navrat na hlavni stranu</a>
+<jsp:include page="template_menu.jsp"/>
+
+<main role="main">
+
+    <div class="container">
+        <div class="vertical_space">
+            <p><spring:message code="article_success"/></p>
+            <a href="<spring:url value="/" />" class="btn btn-primary"><spring:message code="button_back_to_homepage"/></a>
+
         </div>
     </div>
-</div>
+
+</main>
+
 <jsp:include page="template_footer.jsp"/>
 </body>
 </html>
+
+
+

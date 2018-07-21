@@ -17,12 +17,6 @@ public class ArticleDto {
     @NotEmpty
     private String description;
 
-    @NotEmpty
-    private String location;
-
-    @NotEmpty
-    private String price;
-
     @NotNull
     private List<MultipartFile> mpf;
 
@@ -54,22 +48,6 @@ public class ArticleDto {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 
     public List<MultipartFile> getMpf() {

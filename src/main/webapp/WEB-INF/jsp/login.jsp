@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
     <jsp:include page="template_header.jsp"/>
-    <title>DimaApplication</title>
+    <title><spring:message code="app_title_browser"/></title>
 </head>
 
 <body>
@@ -23,18 +23,18 @@
         <div class="col-md-4">
         <form method="POST" action="<c:url value='/login'/>">
             <div class="form-group bmd-form-group">
-                <label for="formGroupExampleInput2" class="bmd-label-floating">Uzivatelske jmeno</label>
+                <label for="formGroupExampleInput2" class="bmd-label-floating"><spring:message code="username"/></label>
                 <input name="username" type="text" class="form-control" id="formGroupExampleInput2">
             </div>
 
             <div class="form-group">
-                <label for="exampleInputPassword1" class="bmd-label-floating">Heslo</label>
+                <label for="exampleInputPassword1" class="bmd-label-floating"><spring:message code="password"/></label>
                 <input name="password" type="password" class="form-control" id="exampleInputPassword1">
             </div>
 
             <input type="hidden" name="${_csrf.parameterName}"value="${_csrf.token}"/>
-            <a href="/"> <button type="button"  class="btn btn-default">Zrušit</button></a>
-            <button type="submit" class="btn btn-primary btn-raised">Prihlasit se</button>
+            <a href="/"> <button type="button"  class="btn btn-default"><spring:message code="button_cancel"/></button></a>
+            <button type="submit" class="btn btn-primary btn-raised"><spring:message code="button_login"/></button>
         </form>
         </div>
     </div>

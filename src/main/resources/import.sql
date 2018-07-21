@@ -9,6 +9,5 @@ insert into categories (id, name) values (8, 'Barveni grafu');
 insert into categories (id, name) values (9, 'Eulerovske a hamiltonovske grafy');
 insert into categories (id, name) values (10, 'Orientovane grafy');
 
-
 insert into roles (id, name) values (1, 'USER');
 insert into roles (id, name) values (2, 'ADMIN');

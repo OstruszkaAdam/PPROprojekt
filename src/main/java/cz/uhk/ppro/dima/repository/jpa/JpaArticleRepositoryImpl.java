@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class JpaArticleRepositoryImpl implements ArticleRepository{
+public class JpaArticleRepositoryImpl implements ArticleRepository {
 
     @PersistenceContext
     private EntityManager em;

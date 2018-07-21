@@ -12,7 +12,7 @@
 <html lang="en">
 <head>
     <jsp:include page="template_header.jsp"/>
-    <title>DimaApplication</title>
+    <title><spring:message code="app_title_browser"/></title>
 </head>
 
 <body>
@@ -23,10 +23,9 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
         <div class="container">
-            <h1 class="display-3">Hello, world!</h1>
-            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of
-                content. Use it as a starting point to create something more unique.</p>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+            <h1 class="display-3"><spring:message code="headline_app_title"/></h1>
+            <p><spring:message code="app_description"/></p>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button"><spring:message code="button_detail"/> &raquo;</a></p>
         </div>
     </div>
 
@@ -34,30 +33,27 @@
         <!-- Example row of columns -->
         <div class="row">
             <div class="col-md-4">
-                <h2>Categories</h2>
+                <h2><spring:message code="article_category"/></h2>
                 <c:forEach items="${categories}" var="categ">
                     <spring:url value="/articles/categories/{categoryId}" var="articleCategoryUrl">
                         <spring:param name="categoryId" value="${categ.id}"/>
                     </spring:url>
                     <li class="collection-item"><a href="${fn:escapeXml(articleCategoryUrl)}"><c:out value="${categ.name}"/></a></li>
                 </c:forEach>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
             </div>
             <div class="col-md-4">
                 <h2>Heading</h2>
                 <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa
                     justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                <p><a class="btn btn-secondary" href="#" role="button"><spring:message code="button_detail"/> &raquo;</a></p>
             </div>
             <div class="col-md-4">
                 <h2>Heading</h2>
                 <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce
                     dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                <p><a class="btn btn-secondary" href="#" role="button"><spring:message code="button_detail"/> &raquo;</a></p>
             </div>
         </div>
-
-        <hr>
 
     </div> <!-- /container -->
 
@@ -69,55 +65,45 @@
                 <c:param name="p" value="~"/>
             </c:url>
             <c:if test="${fn:length(pagedListHolder.pageList) eq 0}">
-                <p>Zadne clanky nebyly nalezeny.</p>
+                <p><spring:message code="no_articles_found"/></p>
             </c:if>
             <c:forEach items="${pagedListHolder.pageList}" var="article">
-                <div class="card horizontal">
-                    <div class="card-image">
+                <div class="card bg-light mb-3">
+                    <div class="card-img-top">
                         <img src="/resources/images/original/${article.images[0].uuid}.jpg" alt=""/>
                     </div>
-                    <div class="card-stacked">
-                        <div class="card-content">
-                            <p>
-                                <b><span class="article-name">${article.name}</span></b>
-                                <br/>
-                                    <%--If the description is longer than a certain value, abbreviation is applied--%>
-                                <c:set var="desc" value="${article.description}"/>
+                    <div class="card-body">
+                        <h5 class="card-title">${article.name}</h5>
+                        <p class="card-text">
+                                <%--If the description is longer than a certain value, abbreviation is applied--%>
+                            <c:set var="desc" value="${article.description}"/>
 
-                                <c:choose>
-                                    <c:when test="${fn:length(desc) > 50}">
-                                        Description:<c:out value="${fn:substring(desc,0,50)}"/>...
-                                    </c:when>
+                            <c:choose>
+                                <c:when test="${fn:length(desc) > 50}">
+                                    Text:<c:out value="${fn:substring(desc,0,50)}"/>...
+                                </c:when>
 
-                                    <c:otherwise>
-                                        Description: <c:out value="${article.description}"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <br/>
-                                Location: <c:out value="${article.location}"/>
-                                <br/>
-                                Price: <c:out value="${article.price}"/>
-                                <br/>
-                                <span class="">Last edited: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle="medium" timeStyle="medium"
-                                                                            value="${article.timestamp}"/></span>
-                            </p>
-                        </div>
-                        <div class="card-action">
-                            <spring:url value="/articles/{articleId}" var="articleUrl">
-                                <spring:param name="articleId" value="${article.id}"/>
-                            </spring:url>
-                            <a href="${fn:escapeXml(articleUrl)}">Detail</a>
-                        </div>
+                                <c:otherwise>
+                                    Text: <c:out value="${article.description}"/>
+                                </c:otherwise>
+                            </c:choose>
+                            <br/>
+                            <span class="">Last edited: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle="medium" timeStyle="medium"
+                                                                        value="${article.timestamp}"/></span>
+                        </p>
+
+                        <spring:url value="/articles/{articleId}" var="articleUrl">
+                            <spring:param name="articleId" value="${article.id}"/>
+                        </spring:url>
+                        <a href="${fn:escapeXml(articleUrl)}" class="btn btn-primary"><spring:message code="button_article_detail"/></a>
+
                     </div>
                 </div>
 
             </c:forEach>
             <tg:paging pagedListHolder="${pagedListHolder}" pagedLink="${pagedLink}"></tg:paging>
 
-
-            </ul>
-            </nav>
-        </div>
+            </div>
     </div>
 </main>
 

@@ -25,10 +25,6 @@ public class Article {
     private String description;
     @NotNull
     private Timestamp timestamp;
-    @NotEmpty
-    private String location;
-    @NotEmpty
-    private String price;
 
     @ManyToOne
     private Category category;
@@ -75,14 +71,6 @@ public class Article {
         this.timestamp = timestamp;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public Category getCategory() {
         return category;
     }
@@ -107,14 +95,6 @@ public class Article {
         this.comments = comments;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
     public List<ArticleImage> getImages() {
         return images;
     }
@@ -134,8 +114,6 @@ public class Article {
         if (name != null ? !name.equals(article.name) : article.name != null) return false;
         if (description != null ? !description.equals(article.description) : article.description != null) return false;
         if (timestamp != null ? !timestamp.equals(article.timestamp) : article.timestamp != null) return false;
-        if (location != null ? !location.equals(article.location) : article.location != null) return false;
-        if (price != null ? !price.equals(article.price) : article.price != null) return false;
         if (category != null ? !category.equals(article.category) : article.category != null) return false;
         if (user != null ? !user.equals(article.user) : article.user != null) return false;
         if (comments != null ? !comments.equals(article.comments) : article.comments != null) return false;
@@ -148,8 +126,6 @@ public class Article {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (timestamp != null ? timestamp.hashCode() : 0);
-        result = 31 * result + (location != null ? location.hashCode() : 0);
-        result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (comments != null ? comments.hashCode() : 0);

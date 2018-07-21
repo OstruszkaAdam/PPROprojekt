@@ -23,10 +23,10 @@ public class ValidatorTests {
     public void shouldNotValidateWhenUsernameEmpty() {
         LocaleContextHolder.setLocale(Locale.ENGLISH);
         User user = new User();
-        user.setUsername("");
+        user.setUsername("test");
         user.setFirstname("Test");
         user.setSurname("Test");
-        user.setPassword("asdf");
+        user.setPassword("test");
         user.setEmail("test@test.cz");
         user.setPhone("456798123");
         user.setCreationTime(new Timestamp(System.currentTimeMillis()));

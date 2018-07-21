@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
     <jsp:include page="template_header.jsp"/>
-    <title>DimaApplication</title>
+    <title><spring:message code="app_title_browser"/></title>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
 <main role="main">
 
     <div class="container">
-        <h1>Pridat/Upravit clanek</h1>
+        <h1><spring:message code="headline_add_or_edit_article"/></h1>
 
         <form:form method="POST" modelAttribute="articleDto" enctype="multipart/form-data">
             <fieldset>
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="bmd-label-floating"><b>Category</b></label><br>
+                    <label class="bmd-label-floating"><b><spring:message code="article_category"/></b></label>
                     <form:select name="category" class="form-control" path="category">
                         <c:forEach items="${categories}" var="categ">
                             <form:option value="${categ.name}"/>
@@ -39,32 +39,21 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="bmd-label-floating"><b>Location</b></label>
-                    <form:input path="location" class="form-control" type="text" required="true"/>
-                </div>
-
-                <div class="form-group">
-                    <label class="bmd-label-floating"><b>Description</b></label>
+                    <label class="bmd-label-floating"><b><spring:message code="article_text"/></b></label>
                     <form:textarea path="description" class="form-control" required="true"/>
                 </div>
 
                 <div class="form-group">
-                    <label class="bmd-label-floating"><b>Price</b></label>
-                    <form:input path="price" class="form-control" required="true"/>
-                </div>
-
-                <div class="form-group">
-                    <label class="bmd-label-floating">Image</label>
+                    <label class="bmd-label-floating"><spring:message code="article_images"/></label>
                     <form:input path="mpf" type="file" class="form-control-file" multiple="true"/>
                 </div>
                 <div class="clearfix"></div>
 
-                <a class="btn btn-default" role="button" href='<spring:url value="/" htmlEscape="true"/>'>Cancel</a>
-                <button type="submit" class="btn btn-primary btn-raised" role="button">Submit</button>
+                <a class="btn btn-default" role="button" href='<spring:url value="/" htmlEscape="true"/>'><spring:message code="button_cancel"/></a>
+                <button type="submit" class="btn btn-primary btn-raised" role="button"><spring:message code="button_new_article"/></button>
 
             </fieldset>
         </form:form>
-
 
     </div>
 

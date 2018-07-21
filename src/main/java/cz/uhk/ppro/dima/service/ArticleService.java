@@ -46,8 +46,6 @@ public class ArticleService {
         article.setName(articleDto.getName());
         article.setCategory(articleDto.getCategory());
         article.setDescription(articleDto.getDescription());
-        article.setLocation(articleDto.getLocation());
-        article.setPrice(articleDto.getPrice());
         article.setTimestamp(new Timestamp(System.currentTimeMillis()));
         article.setUser(user);
         articleRepo.save(article);

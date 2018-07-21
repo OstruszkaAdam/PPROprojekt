@@ -12,7 +12,7 @@
 <html lang="en">
 <head>
     <jsp:include page="template_header.jsp"/>
-    <title>DimaApplication</title>
+    <title><spring:message code="app_title_browser"/></title>
 </head>
 
 <body>
@@ -67,20 +67,18 @@
 
                                                 <c:choose>
                                                     <c:when test="${fn:length(desc) > 50}">
-                                                        <b>Description:</b> <c:out value="${fn:substring(desc,0,50)}"/>...
+                                                        <b>Text:</b> <c:out value="${fn:substring(desc,0,50)}"/>...
                                                     </c:when>
 
                                                     <c:otherwise>
-                                                        <b>Description:</b> <c:out value="${article.description}"/>
+                                                        <b>Text:</b> <c:out value="${article.description}"/>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </p>
                                         </div>
                                     </div>
                                     <span class="img-responsive pull-right"> <img src="/articleImage/imageDisplay?articleId=${article.id}" alt=""/></span>
-                                    Location: <c:out value="${article.location}"/>
                                     <br/>
-                                    Price: <c:out value="${article.price}"/>
                                     <br/>Last edited: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${article.timestamp}" />
                                     <ul class="actions">
                                         <li>
