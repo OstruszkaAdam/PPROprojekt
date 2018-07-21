@@ -15,20 +15,20 @@ public class ImagePersistor {
     public ImagePersistor() {
     }
 
-    public void saveImage(MultipartFile mpf, String imageUuid){
+    public void saveImage(MultipartFile mpf, String imageUuid) {
 
         try {
             byte[] imgOriginal = mpf.getBytes();
             byte[] imgResampled = imageResampler.downscaleImage(imgOriginal);
-            if(imgOriginal != null || imgResampled != null) {
+            if (imgOriginal != null || imgResampled != null) {
                 String uuid = imageUuid;
-                File file = new File("D:/PPRO/src/main/webapp/resources/images/resampled/"+uuid+".jpg");
+                File file = new File("D:/PPRO/src/main/webapp/resources/images/resampled/" + uuid + ".jpg");
                 OutputStream out = new FileOutputStream(file);
                 out.write(imgResampled);
                 out.flush();
                 out.close();
-                file = new File("D:/PPRO/src/main/webapp/resources/images/original/"+uuid+".jpg");
-                out= new FileOutputStream(file);
+                file = new File("D:/PPRO/src/main/webapp/resources/images/original/" + uuid + ".jpg");
+                out = new FileOutputStream(file);
                 out.write(imgOriginal);
                 out.flush();
                 out.close();

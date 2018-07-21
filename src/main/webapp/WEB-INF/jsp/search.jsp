@@ -24,12 +24,12 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="box">
-                    <h3 class="mt-0">Categories:</h3>
-                    <c:forEach items="${categories}" var="categ">
-                        <spring:url value="/articles/categories/{categoryId}" var = "articleCategoryUrl">
-                            <spring:param name="categoryId" value="${categ.id}"/>
+                    <h3 class="mt-0">Topics:</h3>
+                    <c:forEach items="${topics}" var="categ">
+                        <spring:url value="/articles/topics/{topicId}" var = "articleTopicUrl">
+                            <spring:param name="topicId" value="${categ.id}"/>
                         </spring:url>
-                        <p><a href="${fn:escapeXml(articleCategoryUrl)}"><c:out value="${categ.name}"/></a></p>
+                        <p><a href="${fn:escapeXml(articleTopicUrl)}"><c:out value="${categ.name}"/></a></p>
                     </c:forEach>
                 </div>
             </div>
@@ -56,14 +56,14 @@
                                             <a href="${fn:escapeXml(articleUrl)}"><c:out value="${article.name}"/></a>
                                         </h2>
                                     </div>
-                                    <div class="category">
-                                        <c:out value="${article.category.name}"/>
+                                    <div class="topic">
+                                        <c:out value="${article.topic.name}"/>
                                     </div>
                                     <div class="box">
                                         <div class="ClanekText">
                                             <p>
-                                                    <%--If the description is longer than a certain value, abbreviation is applied--%>
-                                                <c:set var="desc" value="${article.description}" />
+                                                    <%--If the text is longer than a certain value, abbreviation is applied--%>
+                                                <c:set var="desc" value="${article.text}" />
 
                                                 <c:choose>
                                                     <c:when test="${fn:length(desc) > 50}">
@@ -71,7 +71,7 @@
                                                     </c:when>
 
                                                     <c:otherwise>
-                                                        <b>Text:</b> <c:out value="${article.description}"/>
+                                                        <b>Text:</b> <c:out value="${article.text}"/>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </p>

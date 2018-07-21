@@ -21,17 +21,25 @@
                                     <a class="nav-link" href='<spring:url value="/" htmlEscape="true"/>'>Home</a>
                                 </li>
                                 --%>
-                <sec:authorize access="isAuthenticated()">
-                    <li class="">
-                        <a class="nav-link" href="<spring:url value="/logout" />"><spring:message code="menu_item_logout"/></a>
-                    </li>
-                    <li class="nav-item">
-                        <spring:url value="/users/{userId}" var="userUrl">
-                            <spring:param name="userId" value="${loggedUserId}"/>
-                        </spring:url>
-                        <a class="nav-link" href="${fn:escapeXml(userUrl)}"/><spring:message code="menu_item_profile"/></a>
-                    </li>
-                </sec:authorize>
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false"><spring:message code="article_category"/></a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+
+
+                        <c:forEach items="${topics}" var="categ">
+                            <spring:url value="/articles/topics/{categoryId}" var="articleTopicUrl">
+                                <spring:param name="topicId" value="${categ.id}"/>
+                            </spring:url>
+                            <a class="dropdown-item" href="${fn:escapeXml(articleTopicUrl)}"><c:out value="${categ.name}"/></a>
+                        </c:forEach>
+
+                        <%--<a class="dropdown-item" href="#">Action</a>--%>
+
+                    </div>
+                </li>
 
 
                 <%--            <sec:authorize access="isAuthenticated()">
@@ -45,34 +53,42 @@
                             </sec:authorize>
                 --%>
 
+                <%--    <sec:authorize access="isAuthenticated()">
+                        <li class="">
+                            <a class="nav-link" href="<spring:url value="/logout" />"><spring:message code="menu_item_logout"/></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <spring:url value="/users/{userId}" var="userUrl">
+                                <spring:param name="userId" value="${loggedUserId}"/>
+                            </spring:url>
+                            <a class="nav-link" href="${fn:escapeXml(userUrl)}"><spring:message code="menu_item_profile"/></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href='<spring:url value="/articles/new" htmlEscape="true"/>'><spring:message code="menu_item_insert_article"/></a>
+                        </li>
+                    </sec:authorize>
+
                 <sec:authorize access="isAnonymous()">
                     <li class="">
                         <a class="nav-link" href="<spring:url value="/login" />"><spring:message code="menu_item_login"/></a>
                     </li>
+
                     <li class="">
                         <a class="nav-link" href="<spring:url value="/registration" htmlEscape="true"/>"><spring:message code="menu_item_register"/></a>
                     </li>
-                </sec:authorize>
 
-                <li class="nav-item">
-                    <a class="nav-link" href='<spring:url value="/articles/new" htmlEscape="true"/>'><spring:message code="menu_item_insert_article"/></a>
-                </li>
 
-                <%--                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </li>
-                                --%>
+                </sec:authorize>--%>
+
 
             </ul>
 
 
             <form class="form-inline my-2 my-lg-0" action="/search" method="get">
-                <input class="form-control mr-sm-2" type="text" name="q" placeholder="<spring:message code="search_placeholder"/>" aria-label="<spring:message code="search_placeholder"/>">
+                <input class="form-control mr-sm-2" type="text" name="q" placeholder="<spring:message code="search_placeholder"/>"
+                       aria-label="<spring:message code="search_placeholder"/>">
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><spring:message code="search_button"/></button>
             </form>
 

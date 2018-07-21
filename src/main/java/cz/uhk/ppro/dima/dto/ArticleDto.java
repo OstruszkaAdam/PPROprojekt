@@ -1,6 +1,6 @@
 package cz.uhk.ppro.dima.dto;
 
-import cz.uhk.ppro.dima.model.Category;
+import cz.uhk.ppro.dima.model.Topic;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,13 +15,13 @@ public class ArticleDto {
     private String name;
 
     @NotEmpty
-    private String description;
+    private String text;
 
     @NotNull
     private List<MultipartFile> mpf;
 
     @NotNull
-    private Category category;
+    private Topic topic;
 
     public ArticleDto() {
     }
@@ -42,12 +42,12 @@ public class ArticleDto {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getText() {
+        return text;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public List<MultipartFile> getMpf() {
@@ -58,11 +58,11 @@ public class ArticleDto {
         this.mpf = mpf;
     }
 
-    public Category getCategory() {
-        return category;
+    public Topic getTopic() {
+        return topic;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 }

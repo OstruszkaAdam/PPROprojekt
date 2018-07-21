@@ -1,7 +1,7 @@
 package cz.uhk.ppro.dima.controller;
 
 import cz.uhk.ppro.dima.model.Article;
-import cz.uhk.ppro.dima.model.Category;
+import cz.uhk.ppro.dima.model.Topic;
 import cz.uhk.ppro.dima.model.User;
 import cz.uhk.ppro.dima.security.AuthenticationProvider;
 import cz.uhk.ppro.dima.service.ArticleService;
@@ -50,14 +50,14 @@ public class IndexController {
         pagedListHolder.setPageSize(5);
         modelMap.put("pagedListHolder", pagedListHolder);
 
-        List<Category> categoryList;
-        categoryList = articleService.findAllCategories();
-        modelMap.put("categories", categoryList );
+        List<Topic> topicList;
+        topicList = articleService.findAllTopics();
+        modelMap.put("topics", topicList);
         return "index";
     }
 
-    @RequestMapping(value ="/articles/categories/{categoryId}", method = RequestMethod.GET)
-    public String showArticlesInCategory(@PathVariable("categoryId") int categoryId, @ModelAttribute("article") Article article, ModelMap modelMap, HttpServletRequest request){
+    @RequestMapping(value ="/articles/topics/{topicId}", method = RequestMethod.GET)
+    public String showArticlesInTopic(@PathVariable("topicId") int topicId, @ModelAttribute("article") Article article, ModelMap modelMap, HttpServletRequest request){
         if (authentication.getAuthentication().isAuthenticated()) {
             Optional<User> user = userService.findByUsername(authentication.getAuthentication().getName());
             if(user.isPresent()) {
@@ -65,15 +65,15 @@ public class IndexController {
             }
         }
 
-        PagedListHolder pagedListHolder = new PagedListHolder(articleService.findArticlesInCategory(categoryId));
+        PagedListHolder pagedListHolder = new PagedListHolder(articleService.findArticlesInTopic(topicId));
         int page = ServletRequestUtils.getIntParameter(request,"p",0);
         pagedListHolder.setPage(page);
         pagedListHolder.setPageSize(5);
         modelMap.put("pagedListHolder", pagedListHolder);
 
-        List<Category> categoryList;
-        categoryList = articleService.findAllCategories();
-        modelMap.put("categories", categoryList );
+        List<Topic> topicList;
+        topicList = articleService.findAllTopics();
+        modelMap.put("topics", topicList);
         return "index";
     }
 }

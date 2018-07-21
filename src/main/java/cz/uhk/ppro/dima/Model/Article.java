@@ -22,12 +22,12 @@ public class Article {
     private String name;
     @NotEmpty
     @Column(columnDefinition = "TEXT")
-    private String description;
+    private String text;
     @NotNull
     private Timestamp timestamp;
 
     @ManyToOne
-    private Category category;
+    private Topic topic;
 
     @ManyToOne
     private User user;
@@ -55,12 +55,12 @@ public class Article {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getText() {
+        return text;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Timestamp getTimestamp() {
@@ -71,12 +71,12 @@ public class Article {
         this.timestamp = timestamp;
     }
 
-    public Category getCategory() {
-        return category;
+    public Topic getTopic() {
+        return topic;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 
     public User getUser() {
@@ -112,9 +112,9 @@ public class Article {
 
         if (id != article.id) return false;
         if (name != null ? !name.equals(article.name) : article.name != null) return false;
-        if (description != null ? !description.equals(article.description) : article.description != null) return false;
+        if (text != null ? !text.equals(article.text) : article.text != null) return false;
         if (timestamp != null ? !timestamp.equals(article.timestamp) : article.timestamp != null) return false;
-        if (category != null ? !category.equals(article.category) : article.category != null) return false;
+        if (topic != null ? !topic.equals(article.topic) : article.topic != null) return false;
         if (user != null ? !user.equals(article.user) : article.user != null) return false;
         if (comments != null ? !comments.equals(article.comments) : article.comments != null) return false;
         return images != null ? images.equals(article.images) : article.images == null;
@@ -124,9 +124,9 @@ public class Article {
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (text != null ? text.hashCode() : 0);
         result = 31 * result + (timestamp != null ? timestamp.hashCode() : 0);
-        result = 31 * result + (category != null ? category.hashCode() : 0);
+        result = 31 * result + (topic != null ? topic.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (comments != null ? comments.hashCode() : 0);
         result = 31 * result + (images != null ? images.hashCode() : 0);

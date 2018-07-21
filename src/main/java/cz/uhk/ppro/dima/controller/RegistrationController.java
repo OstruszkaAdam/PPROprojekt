@@ -22,7 +22,7 @@ public class RegistrationController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String showRegistrationForm(@ModelAttribute("user") UserDto user) {
-        return "registration";
+        return "userRegistration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -40,6 +40,6 @@ public class RegistrationController {
 
     @RequestMapping(value = "/registration/success",  method = RequestMethod.GET)
     public String showRegistrationSuccess() {
-        return "registrationSuccess";
+        return "userRegistrationSuccess";
     }
 }

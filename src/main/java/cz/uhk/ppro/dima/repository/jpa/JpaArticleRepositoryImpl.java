@@ -29,9 +29,9 @@ public class JpaArticleRepositoryImpl implements ArticleRepository {
     }
 
     @Override
-    public List<Article> findArticlesInCategory(int categoryId) {
-        Query query = this.em.createQuery("select article from Article article where article.category.id = :categoryId order by article.timestamp desc");
-        query.setParameter("categoryId", categoryId);
+    public List<Article> findArticlesInTopic(int topicId) {
+        Query query = this.em.createQuery("select article from Article article where article.topic.id = :topicId order by article.timestamp desc");
+        query.setParameter("topicId", topicId);
         return query.getResultList();
     }
 

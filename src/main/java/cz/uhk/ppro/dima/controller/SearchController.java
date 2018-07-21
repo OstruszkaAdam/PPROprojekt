@@ -1,6 +1,6 @@
 package cz.uhk.ppro.dima.controller;
 
-import cz.uhk.ppro.dima.model.Category;
+import cz.uhk.ppro.dima.model.Topic;
 import cz.uhk.ppro.dima.model.User;
 import cz.uhk.ppro.dima.repository.SearchRepository;
 import cz.uhk.ppro.dima.service.ArticleService;
@@ -48,9 +48,9 @@ public class SearchController {
         pagedListHolder.setPageSize(5);
         model.addAttribute("pagedListHolder", pagedListHolder);
 
-        List<Category> categoryList;
-        categoryList = articleService.findAllCategories();
-        model.addAttribute("categories", categoryList );
+        List<Topic> topicList;
+        topicList = articleService.findAllTopics();
+        model.addAttribute("topics", topicList);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated()) {

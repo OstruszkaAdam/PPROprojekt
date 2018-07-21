@@ -23,7 +23,7 @@
     <div class="container">
         <h2>${article.name}</h2>
         <p>
-        <p><b><spring:message code="article_text"/></b> ${article.description}</p>
+        <p><b><spring:message code="article_text"/></b> ${article.text}</p>
         <b><spring:message code="article_images"/></b><br>
         <c:forEach items="${article.images}" var="image">
             <a href="/resources/images/original/${image.uuid}.jpg" ><img src="/resources/images/resampled/${image.uuid}.jpg" width="200" height="150" alt=""/>

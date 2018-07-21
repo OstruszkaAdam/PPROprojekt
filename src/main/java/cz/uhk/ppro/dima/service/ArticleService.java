@@ -3,7 +3,7 @@ package cz.uhk.ppro.dima.service;
 import cz.uhk.ppro.dima.dto.ArticleDto;
 import cz.uhk.ppro.dima.model.*;
 import cz.uhk.ppro.dima.repository.ArticleRepository;
-import cz.uhk.ppro.dima.repository.CategoryRepository;
+import cz.uhk.ppro.dima.repository.TopicRepository;
 import cz.uhk.ppro.dima.repository.CommentRepository;
 import cz.uhk.ppro.dima.repository.ImageRepository;
 import cz.uhk.ppro.dima.util.ImagePersistor;
@@ -25,7 +25,7 @@ import java.util.UUID;
 public class ArticleService {
 
     @Autowired
-    private CategoryRepository categoryRepo;
+    private TopicRepository topicRepo;
     @Autowired
     private ArticleRepository articleRepo;
     @Autowired
@@ -44,8 +44,8 @@ public class ArticleService {
         List<MultipartFile> files = articleDto.getMpf();
 
         article.setName(articleDto.getName());
-        article.setCategory(articleDto.getCategory());
-        article.setDescription(articleDto.getDescription());
+        article.setTopic(articleDto.getTopic());
+        article.setText(articleDto.getText());
         article.setTimestamp(new Timestamp(System.currentTimeMillis()));
         article.setUser(user);
         articleRepo.save(article);
@@ -62,13 +62,13 @@ public class ArticleService {
     }
 
     @Transactional
-    public List<Category> findAllCategories() {
-        return categoryRepo.findAll();
+    public List<Topic> findAllTopics() {
+        return topicRepo.findAll();
     }
 
     @Transactional
-    public Category findCategoryByName(String name){
-        return categoryRepo.findByName(name);
+    public Topic findTopicByName(String name){
+        return topicRepo.findByName(name);
     }
 
     @Transactional()
@@ -110,7 +110,7 @@ public class ArticleService {
     }
 
     @Transactional
-    public List findArticlesInCategory(int categoryId) {
-        return articleRepo.findArticlesInCategory(categoryId);
+    public List findArticlesInTopic(int topicId) {
+        return articleRepo.findArticlesInTopic(topicId);
     }
 }

@@ -2,7 +2,7 @@ package cz.uhk.ppro.dima.controller;
 
 import cz.uhk.ppro.dima.dto.ArticleDto;
 import cz.uhk.ppro.dima.model.Article;
-import cz.uhk.ppro.dima.model.Category;
+import cz.uhk.ppro.dima.model.Topic;
 import cz.uhk.ppro.dima.model.Comment;
 import cz.uhk.ppro.dima.model.User;
 import cz.uhk.ppro.dima.security.AuthenticationProvider;
@@ -28,7 +28,7 @@ public class ArticleController {
     private final UserService userService;
     private final AuthenticationProvider authentication;
 
-    private static final String ARTICLEFORMVIEW = "saveOrEditArticle";
+    private static final String ARTICLEFORMVIEW = "articleEditor";
 
     @Autowired
     public ArticleController(ArticleService articleService, UserService userService, AuthenticationProvider authentication) {
@@ -56,7 +56,7 @@ public class ArticleController {
     }
 
     @RequestMapping(value ="/articles/{articleId}", method = RequestMethod.POST)
-    public String addRating(@PathVariable("articleId") int articleId, @ModelAttribute("addedComment") @Valid Comment comment) {
+    public String addComment(@PathVariable("articleId") int articleId, @ModelAttribute("addedComment") @Valid Comment comment) {
         Optional<User> author = userService.findByUsername(authentication.getAuthentication().getName());
         if(author.isPresent()) articleService.saveComment(comment, author.get(), articleId);
         return "redirect:/articles/{articleId}";
@@ -70,9 +70,9 @@ public class ArticleController {
         Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
         if(loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
-        List<Category> categoryList;
-        categoryList = articleService.findAllCategories();
-        mav.addObject("categories", categoryList);
+        List<Topic> topicList;
+        topicList = articleService.findAllTopics();
+        mav.addObject("topics", topicList);
         return mav;
     }
 
@@ -96,9 +96,9 @@ public class ArticleController {
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());
         if(loggedUser.isPresent()) model.addAttribute("loggedUserId", loggedUser.get().getId());
 
-        List<Category> categoryList;
-        categoryList = articleService.findAllCategories();
-        model.addAttribute("categories", categoryList);
+        List<Topic> topicList;
+        topicList = articleService.findAllTopics();
+        model.addAttribute("topics", topicList);
 
         return ARTICLEFORMVIEW;
     }

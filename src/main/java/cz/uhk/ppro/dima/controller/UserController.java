@@ -25,7 +25,7 @@ public class UserController {
 
     @RequestMapping(value ="/users/{userId}", method = RequestMethod.GET)
     public ModelAndView showOwner(@PathVariable("userId") int userId) {
-        ModelAndView mav = new ModelAndView("userDetail");
+        ModelAndView mav = new ModelAndView("userDashboard");
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());

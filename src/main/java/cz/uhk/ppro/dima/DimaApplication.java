@@ -21,7 +21,16 @@ public class DimaApplication {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.ENGLISH);
+
+
+/*        Locale[] CZECH = {
+                new Locale("cs"),
+                new Locale("cs", "CZ"),
+        };
+
+        slr.setDefaultLocale(CZECH);*/
+
+       slr.setDefaultLocale(Locale.ENGLISH);
         return slr;
     }
    /* In this case we use the SessionLocaleResolver which stores the selected locale (= language) in the user’s session.

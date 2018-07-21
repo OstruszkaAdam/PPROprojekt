@@ -23,7 +23,7 @@ public class ValidatorTests {
     public void shouldNotValidateWhenUsernameEmpty() {
         LocaleContextHolder.setLocale(Locale.ENGLISH);
         User user = new User();
-        user.setUsername("test");
+        user.setUsername("");
         user.setFirstname("Test");
         user.setSurname("Test");
         user.setPassword("test");

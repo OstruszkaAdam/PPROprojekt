@@ -32,22 +32,22 @@
     <div class="container">
         <!-- Example row of columns -->
         <div class="row">
-            <div class="col-md-4">
+<%--            <div class="col-md-4">
                 <h2><spring:message code="article_category"/></h2>
-                <c:forEach items="${categories}" var="categ">
-                    <spring:url value="/articles/categories/{categoryId}" var="articleCategoryUrl">
+                <c:forEach items="${topics}" var="categ">
+                    <spring:url value="/articles/topics/{categoryId}" var="articleCategoryUrl">
                         <spring:param name="categoryId" value="${categ.id}"/>
                     </spring:url>
                     <li class="collection-item"><a href="${fn:escapeXml(articleCategoryUrl)}"><c:out value="${categ.name}"/></a></li>
                 </c:forEach>
-            </div>
-            <div class="col-md-4">
+            </div>--%>
+            <div class="col-md-6">
                 <h2>Heading</h2>
                 <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa
                     justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
                 <p><a class="btn btn-secondary" href="#" role="button"><spring:message code="button_detail"/> &raquo;</a></p>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <h2>Heading</h2>
                 <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce
                     dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
@@ -76,19 +76,19 @@
                         <h5 class="card-title">${article.name}</h5>
                         <p class="card-text">
                                 <%--If the description is longer than a certain value, abbreviation is applied--%>
-                            <c:set var="desc" value="${article.description}"/>
+                            <c:set var="desc" value="${article.text}"/>
 
                             <c:choose>
-                                <c:when test="${fn:length(desc) > 50}">
-                                    Text:<c:out value="${fn:substring(desc,0,50)}"/>...
+                                <c:when test="${fn:length(desc) > 150}">
+                                    <c:out value="${fn:substring(desc,0,150)}"/>...
                                 </c:when>
 
                                 <c:otherwise>
-                                    Text: <c:out value="${article.description}"/>
+                                    <c:out value="${article.text}"/>
                                 </c:otherwise>
                             </c:choose>
                             <br/>
-                            <span class="">Last edited: <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle="medium" timeStyle="medium"
+                            <span class=""><spring:message code="article_last_edited"/> <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle="medium" timeStyle="medium"
                                                                         value="${article.timestamp}"/></span>
                         </p>
 
