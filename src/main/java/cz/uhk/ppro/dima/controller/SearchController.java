@@ -34,6 +34,8 @@ public class SearchController {
 
     @RequestMapping("/search")
     public String search(String q, Model model, HttpServletRequest request) {
+        model.addAttribute("searchQuery", q);
+
         List searchResults = null;
 
         try {
@@ -60,7 +62,7 @@ public class SearchController {
             }
         }
 
-        return "search";
+        return "listSearchResults";
 
     }
 }

@@ -21,9 +21,11 @@
 <main role="main">
 
     <div class="container">
-        <h2>${article.name}</h2>
-        <p>
-        <p><b><spring:message code="article_text"/></b> ${article.text}</p>
+        <h1>${article.name}</h1>
+
+        <div class="col l8 article-listing">
+        <p class="text-justify">${article.text}</p>
+
         <b><spring:message code="article_images"/></b><br>
         <c:forEach items="${article.images}" var="image">
             <a href="/resources/images/original/${image.uuid}.jpg" ><img src="/resources/images/resampled/${image.uuid}.jpg" width="200" height="150" alt=""/>
@@ -52,24 +54,27 @@
         </c:forEach>
 
         <p>
+        </div>
+    </div>
+    <div class="container">
             <form:form method="POST" modelAttribute="addedComment">
         <fieldset>
+            <sec:authorize access="isAuthenticated()">
             <div class="input-field">
                 <label class="bmd-label-floating"><spring:message code="comment_field_placeholder"/></label>
                 <form:textarea path="commentText" class="form-control" required ="true" />
             </div>
             <div class="clearfix">
-                <sec:authorize access="isAuthenticated()">
+
                     <button type="submit" class="btn btn-primary" ><spring:message code="button_add_comment"/></button>
                 </sec:authorize>
                 <sec:authorize access="isAnonymous()">
-                    <button type="submit" class="btn btn-primary" disabled><spring:message code="button_add_comment"/></button><br>
                     <span class="red-text"><spring:message code="comment_form_disabled"/></span>
                 </sec:authorize>
             </div>
         </fieldset>
         </form:form>
-        </p>
+
     </div>
 </main>
 

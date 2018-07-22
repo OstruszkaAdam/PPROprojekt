@@ -49,7 +49,7 @@
                 <p><span class="text-danger"><spring:message code="registration_requied_fields"/></span></p>
                 <div class="clearfix">
                     <a href="/">
-                        <button type="button" class="btn btn-default"><spring:message code="button_cancel"/></button>
+                        <button type="button" class="btn btn-outline-secondary"><spring:message code="button_cancel"/></button>
                     </a>
                     <button type="submit" class="btn btn-primary btn-raised"><spring:message code="button_register"/></button>
                 </div>

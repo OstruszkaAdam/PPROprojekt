@@ -50,7 +50,7 @@ public class ArticleService {
         article.setUser(user);
         articleRepo.save(article);
 
-        for(MultipartFile f:files) {
+        for (MultipartFile f : files) {
             String imgUUID = UUID.randomUUID().toString();
             imagePersistor.saveImage(f, imgUUID);
             ArticleImage a = new ArticleImage();
@@ -67,7 +67,7 @@ public class ArticleService {
     }
 
     @Transactional
-    public Topic findTopicByName(String name){
+    public Topic findTopicByName(String name) {
         return topicRepo.findByName(name);
     }
 
@@ -75,6 +75,8 @@ public class ArticleService {
     public List<Article> findArticles() throws DataAccessException {
         return articleRepo.findAll();
     }
+
+
     @Transactional
     public Optional<Article> findById(int id) {
         return articleRepo.findById(id);
@@ -91,15 +93,15 @@ public class ArticleService {
     @Transactional
     public void removeArticle(int articleId) {
         Optional<Article> article = articleRepo.findById(articleId);
-        if(article.isPresent()) {
+        if (article.isPresent()) {
             List<ArticleImage> articleImages = article.get().getImages();
             File f;
-            for(ArticleImage ai : articleImages) {
+            for (ArticleImage ai : articleImages) {
                 try {
-                    f =new File("D:/PPRO/src/main/webapp/resources/images/original/"+ ai.getUuid() +".jpg");
+                    f = new File("D:/PPRO/src/main/webapp/resources/images/original/" + ai.getUuid() + ".jpg");
                     Files.delete(f.toPath());
 
-                    f = new File("D:/PPRO/src/main/webapp/resources/images/downscaled/"+ ai.getUuid() +".jpg");
+                    f = new File("D:/PPRO/src/main/webapp/resources/images/downscaled/" + ai.getUuid() + ".jpg");
                     Files.delete(f.toPath());
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -110,7 +112,7 @@ public class ArticleService {
     }
 
     @Transactional
-    public List findArticlesInTopic(int topicId) {
+    public List findArticlesOnTopic(int topicId) {
         return articleRepo.findArticlesInTopic(topicId);
     }
 }

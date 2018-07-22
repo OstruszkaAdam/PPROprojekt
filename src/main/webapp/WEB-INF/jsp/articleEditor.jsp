@@ -30,10 +30,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="bmd-label-floating"><b><spring:message code="article_category"/></b></label>
+                    <label class="bmd-label-floating"><b><spring:message code="article_topic"/></b></label>
                     <form:select name="topic" class="form-control" path="topic">
-                        <c:forEach items="${topics}" var="categ">
-                            <form:option value="${categ.name}"/>
+                        <c:forEach items="${topics}" var="temata">
+                            <form:option value="${temata.name}"/>
                         </c:forEach>
                     </form:select>
                 </div>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <a class="btn btn-default" role="button" href='<spring:url value="/" htmlEscape="true"/>'><spring:message code="button_cancel"/></a>
+                <a class="btn btn-outline-secondary" role="button" href='<spring:url value="/" htmlEscape="true"/>'><spring:message code="button_cancel"/></a>
                 <button type="submit" class="btn btn-primary btn-raised" role="button"><spring:message code="button_new_article"/></button>
 
             </fieldset>

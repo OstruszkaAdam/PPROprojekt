@@ -18,46 +18,13 @@
 <body>
 <jsp:include page="template_menu.jsp"/>
 
-<main role="main" class="index">
-
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-        <div class="container">
-            <h1 class="display-3 text-light"><spring:message code="headline_app_title"/></h1>
-            <p class="text-light"><spring:message code="app_description"/></p>
-            <p><a class="btn btn-outline-light btn-lg" href="#" role="button"><spring:message code="button_detail"/> &raquo;</a></p>
-        </div>
-    </div>
+<main role="main">
 
     <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-<%--            <div class="col-md-4">
-                <h2><spring:message code="article_category"/></h2>
-                <c:forEach items="${topics}" var="categ">
-                    <spring:url value="/articles/topics/{categoryId}" var="articleCategoryUrl">
-                        <spring:param name="categoryId" value="${categ.id}"/>
-                    </spring:url>
-                    <li class="collection-item"><a href="${fn:escapeXml(articleCategoryUrl)}"><c:out value="${categ.name}"/></a></li>
-                </c:forEach>
-            </div>--%>
-            <div class="col-md-6">
-                <h2>Heading</h2>
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa
-                    justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                <p><a class="btn btn-secondary" href="#" role="button"><spring:message code="button_detail"/> &raquo;</a></p>
-            </div>
-            <div class="col-md-6">
-                <h2>Heading</h2>
-                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce
-                    dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                <p><a class="btn btn-secondary" href="#" role="button"><spring:message code="button_detail"/> &raquo;</a></p>
-            </div>
-        </div>
+        <h1><spring:message code="headline_articles_on_topic"/></h1>
+        <%--       <h1>${topic.name}</h1>
+               <h2><c:out value="${topic.name}"/></h2>--%>
 
-    </div> <!-- /container -->
-
-    <div class="container">
         <div class="col l8 article-listing">
             <jsp:useBean id="pagedListHolder" scope="request" type="org.springframework.beans.support.PagedListHolder"/>
             <%--pagination works relatively to current URL--%>
@@ -69,7 +36,6 @@
             </c:if>
             <c:forEach items="${pagedListHolder.pageList}" var="article">
                 <div class="card bg-light mb-3">
-                    <div class="card-header">${article.topic.name}</div>
                     <div class="card-img-top">
                         <img src="/resources/images/original/${article.images[0].uuid}.jpg" alt=""/>
                     </div>
@@ -90,7 +56,7 @@
                             </c:choose>
                             <br/>
                             <span class=""><spring:message code="article_last_edited"/> <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle="medium" timeStyle="medium"
-                                                                        value="${article.timestamp}"/></span>
+                                                                                                        value="${article.timestamp}"/></span>
                         </p>
 
                         <spring:url value="/articles/{articleId}" var="articleUrl">
@@ -104,7 +70,7 @@
             </c:forEach>
             <tg:paging pagedListHolder="${pagedListHolder}" pagedLink="${pagedLink}"></tg:paging>
 
-            </div>
+        </div>
     </div>
 </main>
 

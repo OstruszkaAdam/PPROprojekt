@@ -25,15 +25,15 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                       aria-expanded="false"><spring:message code="article_category"/></a>
+                       aria-expanded="false"><spring:message code="article_topics"/></a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
 
 
-                        <c:forEach items="${topics}" var="categ">
-                            <spring:url value="/articles/topics/{categoryId}" var="articleTopicUrl">
-                                <spring:param name="topicId" value="${categ.id}"/>
+                        <c:forEach items="${topics}" var="temata">
+                            <spring:url value="/articles/topics/{topicId}" var="articleTopicUrl">
+                                <spring:param name="topicId" value="${temata.id}"/>
                             </spring:url>
-                            <a class="dropdown-item" href="${fn:escapeXml(articleTopicUrl)}"><c:out value="${categ.name}"/></a>
+                            <a class="dropdown-item" href="${fn:escapeXml(articleTopicUrl)}"><c:out value="${temata.name}"/></a>
                         </c:forEach>
 
                         <%--<a class="dropdown-item" href="#">Action</a>--%>

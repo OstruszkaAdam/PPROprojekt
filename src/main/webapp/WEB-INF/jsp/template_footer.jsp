@@ -16,9 +16,24 @@
 
                 <a class="btn btn-secondary" href="<spring:url value="/logout" />" role="button"><spring:message code="menu_item_logout"/></a>
 
-                <spring:url value="/users/{userId}" var="userUrl">
-                    <spring:param name="userId" value="${loggedUserId}"/>
-                </spring:url>
+                <c:choose>
+                    <c:when test="${loggedUserId!=null}">
+                        <spring:url value="/users/{userId}" var="userUrl">
+                            <spring:param name="userId" value="${loggedUserId}"/>
+                        </spring:url>
+                    </c:when>
+                    <c:otherwise>
+                        <spring:url value="/users/{userId}" var="userUrl">
+                            <spring:param name="userId" value="${1}"/>
+                        </spring:url>
+                    </c:otherwise>
+
+                </c:choose>
+
+
+                <%--<spring:url value="/users/{userId}" var="userUrl">--%>
+                    <%--<spring:param name="userId" value="${loggedUserId}"/>--%>
+
 
                 <a class="btn btn-secondary" href="${fn:escapeXml(userUrl)}" role="button"><spring:message code="menu_item_profile"/></a>
 

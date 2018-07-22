@@ -10,8 +10,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <jsp:include page="template_header.jsp"/>
+    <!-- Custom style for this page -->
     <link type="text/css" rel="stylesheet" href="/resources/css/login.css"/>
+
+    <jsp:include page="template_header.jsp"/>
     <title><spring:message code="app_title_browser"/></title>
 </head>
 
@@ -30,20 +32,19 @@
 
     <input name="password" type="password" id="inputPassword" class="form-control" placeholder="<spring:message code="password"/>" required>
 
-<%--
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
-    </div>
---%>
+    <%--
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+    --%>
 
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
     <button class="btn btn btn-raised btn-lg btn-primary btn-block" type="submit"><spring:message code="button_login"/></button>
-        <a href="/">
-            <button type="button" class="btn btn-outline-secondary btn-lg btn-block"><spring:message code="button_cancel"/></button>
-        </a>
+
+    <button type="button" href="/" class="btn btn-outline-secondary btn-lg btn-block"><spring:message code="button_cancel"/></button>
 
 
     <%--    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>--%>

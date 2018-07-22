@@ -33,7 +33,7 @@
                 </div>
 
                 <input type="hidden" name="${_csrf.parameterName}"value="${_csrf.token}"/>
-                <a href="/"> <button type="button"  class="btn btn-default"><spring:message code="button_cancel"/></button></a>
+                <a href="/"> <button type="button"  class="btn btn-outline-secondary"><spring:message code="button_cancel"/></button></a>
                 <button type="submit" class="btn btn-primary btn-raised"><spring:message code="button_login"/></button>
             </form>
         </div>
