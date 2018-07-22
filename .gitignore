@@ -1,3 +1,4 @@
+### Build files ###
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -23,4 +24,9 @@ dist/
 nbdist/
 .nb-gradle/
 
-/src/main/webapp/resources/images/
+### Uploaded images ###
+/src/main/webapp/resources/images/original/
+/src/main/webapp/resources/images/resampled/
+
+### Temporary files ###
+var/

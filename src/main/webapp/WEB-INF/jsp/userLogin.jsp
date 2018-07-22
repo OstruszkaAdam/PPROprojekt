@@ -11,16 +11,52 @@
 <html lang="en">
 <head>
     <jsp:include page="template_header.jsp"/>
+    <link type="text/css" rel="stylesheet" href="/resources/css/login.css"/>
     <title><spring:message code="app_title_browser"/></title>
 </head>
 
+
 <body class="text-center">
 <jsp:include page="template_menu.jsp"/>
+<form class="form-signin" method="POST" action="<c:url value='/login'/>">
+    <%--<img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">--%>
+    <h1 class="h3 mb-3 font-weight-normal"><spring:message code="headline_login"/></h1>
 
-<main role="main">
 
-    <div class="container">
-        <div class="col-md-4">
+    <label for="inputUsername" class="sr-only"><spring:message code="username"/></label>
+    <input name="username" type="text" id="inputUsername" class="form-control" placeholder="<spring:message code="username"/>" required autofocus>
+
+    <label for="inputPassword" class="sr-only"><spring:message code="password"/></label>
+
+    <input name="password" type="password" id="inputPassword" class="form-control" placeholder="<spring:message code="password"/>" required>
+
+<%--
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" value="remember-me"> Remember me
+        </label>
+    </div>
+--%>
+
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+    <button class="btn btn btn-raised btn-lg btn-primary btn-block" type="submit"><spring:message code="button_login"/></button>
+        <a href="/">
+            <button type="button" class="btn btn-outline-secondary btn-lg btn-block"><spring:message code="button_cancel"/></button>
+        </a>
+
+
+    <%--    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>--%>
+
+
+</form>
+</body>
+</html>
+
+
+<%--
+
+
         <form method="POST" action="<c:url value='/login'/>">
             <div class="form-group bmd-form-group">
                 <label for="formGroupExampleInput2" class="bmd-label-floating"><spring:message code="username"/></label>
@@ -36,10 +72,4 @@
             <a href="/"> <button type="button"  class="btn btn-default"><spring:message code="button_cancel"/></button></a>
             <button type="submit" class="btn btn-primary btn-raised"><spring:message code="button_login"/></button>
         </form>
-        </div>
-    </div>
-</main>
-
-<jsp:include page="template_footer.jsp"/>
-</body>
-</html>
+--%>

@@ -30,7 +30,7 @@
             <sec:authorize access="isAnonymous()">
 
                 <a class="btn btn-secondary" href="<spring:url value="/login" />" role="button"><spring:message code="menu_item_login"/></a>
-
+                
                 <a class="btn btn-secondary" href="<spring:url value="/registration" htmlEscape="true"/>" role="button"><spring:message code="menu_item_register"/></a>
 
 

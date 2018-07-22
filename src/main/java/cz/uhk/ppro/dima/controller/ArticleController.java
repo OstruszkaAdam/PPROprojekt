@@ -113,8 +113,12 @@ public class ArticleController {
         }
 
         articleDto.setId(articleId);
-        if(author.isPresent()) this.articleService.saveArticle(articleDto, author.get());
-        return "redirect:/articles/{articleId}";
+        if(author.isPresent()){
+            this.articleService.saveArticle(articleDto, author.get());
+            this.articleService.removeArticle(articleId);
+        }
+        String articleName = articleDto.getName();
+        return "redirect:/search?q=" + articleName;
     }
 
     @PostMapping(value = "/articles/{articleId}/delete")
