@@ -33,7 +33,7 @@ public class ArticlesOnTopicController{
         this.authentication = authenticationProvider;
     }
 
-    @RequestMapping(value ="/{topicName}", method = RequestMethod.GET)
+    @RequestMapping(value ="/topics/{topicName}", method = RequestMethod.GET)
     public String showArticlesOnTopic(@PathVariable("topicName") String topicName, @ModelAttribute("article") Article article, ModelMap modelMap, HttpServletRequest request){
 
         if (authentication.getAuthentication().isAuthenticated()) {

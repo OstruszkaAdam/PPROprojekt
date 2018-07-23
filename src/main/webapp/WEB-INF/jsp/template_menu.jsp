@@ -30,7 +30,7 @@
 
 
                         <c:forEach items="${topics}" var="temata">
-                            <spring:url value="/{topicName}" var="articleTopicUrl">
+                            <spring:url value="/topics/{topicName}" var="articleTopicUrl">
                                 <spring:param name="topicName" value="${temata.urlName}"/>
                             </spring:url>
                             <a class="dropdown-item" href="${fn:escapeXml(articleTopicUrl)}"><c:out value="${temata.name}"/></a>
