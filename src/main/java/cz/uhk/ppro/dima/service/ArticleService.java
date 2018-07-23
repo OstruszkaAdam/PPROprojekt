@@ -144,4 +144,5 @@ public class ArticleService {
     public List findArticlesOnTopicByName(String topicUrlName) {
         return articleRepo.findArticlesInTopic(topicUrlName);
     }
+
 }

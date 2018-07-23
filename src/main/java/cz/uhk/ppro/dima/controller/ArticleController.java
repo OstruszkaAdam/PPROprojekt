@@ -9,6 +9,8 @@ import cz.uhk.ppro.dima.security.AuthenticationProvider;
 import cz.uhk.ppro.dima.service.ArticleService;
 import cz.uhk.ppro.dima.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -45,16 +47,20 @@ public class ArticleController {
         if (loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
         Optional<Article> article = articleService.findById(articleId);
+        if (!article.isPresent()) return new ModelAndView("redirect:/notfound.html");
 
-        List<Article> articles = loggedUser.get().getArticles();
+        //vrati clanky jenom za zalogovaneho uzivatele
+//        List<Article> articles = loggedUser.get().getArticles();
 
+        List<Article> articles = articleService.findArticles();
+        //vyhleda kategorie pro menu
+        List<Topic> topicList = articleService.findAllTopics();
         boolean hasPermission = false;
         for (Article art : articles) {
             if (art.getId() == articleId) hasPermission = true;
         }
 
-        //vyhleda kategorie pro menu
-        List<Topic> topicList = articleService.findAllTopics();
+
 
         if (article.isPresent()) {
             mav.addObject("article", article.get());

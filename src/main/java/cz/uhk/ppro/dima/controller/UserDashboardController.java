@@ -5,12 +5,12 @@ import cz.uhk.ppro.dima.model.User;
 import cz.uhk.ppro.dima.service.ArticleService;
 import cz.uhk.ppro.dima.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -39,12 +39,13 @@ public class UserDashboardController {
         List<Topic> topicList = articleService.findAllTopics();
 
         Optional<User> user = userService.findById(userId);
+        if(!user.isPresent()) return new ModelAndView("redirect:/notfound.html");
+
         if(user.isPresent()) {
             mav.addObject("articles", user.get().getArticles());
             mav.addObject("user", user.get());
             mav.addObject("topics", topicList);
         }
-
 
         if(loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 

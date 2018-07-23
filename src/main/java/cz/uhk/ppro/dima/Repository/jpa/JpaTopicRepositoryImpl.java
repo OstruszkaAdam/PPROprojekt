@@ -27,5 +27,12 @@ public class JpaTopicRepositoryImpl implements TopicRepository {
         return (Topic) query.getSingleResult();
     }
 
+    @Override
+    public List<Topic> findByUrlName(String name) {
+        Query query = this.em.createQuery("SELECT c from Topic c where c.urlName =:name");
+        query.setParameter("name", name);
+        return query.getResultList();
+    }
+
 
 }

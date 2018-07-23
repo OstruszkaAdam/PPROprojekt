@@ -3,10 +3,10 @@ package cz.uhk.ppro.dima.controller;
 import cz.uhk.ppro.dima.model.Article;
 import cz.uhk.ppro.dima.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -36,4 +36,5 @@ public class ImageController {
 
         response.getOutputStream().close();
     }
+
 }

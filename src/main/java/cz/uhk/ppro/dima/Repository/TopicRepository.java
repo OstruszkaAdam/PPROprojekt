@@ -7,4 +7,5 @@ import java.util.List;
 public interface TopicRepository {
     List<Topic> findAll();
     Topic findByName(String name);
+    List findByUrlName(String name);
 }
