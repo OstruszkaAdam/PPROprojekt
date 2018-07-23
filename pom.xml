@@ -69,15 +69,16 @@
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-search-orm</artifactId>
-            <version>5.10.1.Final</version>
-        </dependency>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>5.3.1.Final</version>
+		</dependency>
 
+		<!--Vyhledavaci engine Hibernate Search-->
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-            <version>5.3.1.Final</version>
-		</dependency>
+			<artifactId>hibernate-search-orm</artifactId>
+            <version>5.10.2.Final</version>
+        </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
@@ -91,6 +92,7 @@
 			<version>3.5</version>
 		</dependency>
 
+		<!--JavaServer Pages Standard Tag Library-->
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
@@ -125,13 +127,6 @@
 			<version>4.2.3.RELEASE</version>
 		</dependency>
 
-		<!-- Prevzorkovani obrazku -->
-		<dependency>
-			<groupId>org.imgscalr</groupId>
-			<artifactId>imgscalr-lib</artifactId>
-			<version>4.2</version>
-		</dependency>
-
 		<!-- Test Artifacts -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -147,22 +142,34 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
+       <!-- Mockito - unit test framework-->
+        <dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+        <!--Json-smart is a performance focused, JSON processor lib-->
         <dependency>
             <groupId>net.minidev</groupId>
             <artifactId>json-smart</artifactId>
             <version>2.2.1</version>
             <scope>compile</scope>
         </dependency>
+
+       <!-- API for CDI (Contexts and Dependency Injection for Java)-->
 		<dependency>
 			<groupId>javax.enterprise</groupId>
 			<artifactId>cdi-api</artifactId>
 			<version>1.0</version>
 		</dependency>
+
+        <!-- Prevzorkovani obrazku -->
+        <dependency>
+            <groupId>org.imgscalr</groupId>
+            <artifactId>imgscalr-lib</artifactId>
+            <version>4.2</version>
+        </dependency>
 
 		<!-- Apache Tiles
         <dependency>

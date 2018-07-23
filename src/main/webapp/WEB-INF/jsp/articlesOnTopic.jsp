@@ -21,7 +21,7 @@
 <main role="main">
 
     <div class="container">
-        <h1><spring:message code="headline_articles_on_topic"/>  <c:out value="${topicName}"/></h1>
+        <h1><spring:message code="headline_articles_on_topic"/> <c:out value="${topicName}"/></h1>
 
         <div class="col l8 article-listing">
             <jsp:useBean id="pagedListHolder" scope="request" type="org.springframework.beans.support.PagedListHolder"/>

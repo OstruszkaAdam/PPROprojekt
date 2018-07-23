@@ -28,7 +28,7 @@
 
             <b><spring:message code="article_images"/></b><br>
             <c:forEach items="${article.images}" var="image">
-                <a href="/resources/images/original/${image.uuid}.jpg"><img
+                <a href="/resources/images/original/${image.uuid}.jpg" ><img
                         src="/resources/images/resampled/${image.uuid}.jpg"
                         width=auto height="150" alt=""/>
                 </a>

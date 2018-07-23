@@ -10,22 +10,29 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Indexed
+@Indexed //zahrnuti clanku do vyhledavaciho indexu
+//@Analyzer //pro umozneni vyhledavani ruznych tvaru slov
 @Table(name = "posts", schema = "dima")
 public class Article {
     //edited
     @Id
     @GeneratedValue
     private int id;
-    @Field(index = Index.YES, analyze = Analyze.YES,store = Store.NO)
+
+    @Field(index = Index.YES, analyze = Analyze.YES,store = Store.NO) //Whether this data is stored in the index or not has nothing to do with the ability to search for it
     @NotEmpty
     private String name;
+
+    @Field(index = Index.YES, analyze = Analyze.YES,store = Store.NO)
     @NotEmpty
+    //@Analyzer //pro umozneni vyhledavani ruznych tvaru slov
     @Column(columnDefinition = "TEXT")
     private String text;
+
     @NotNull
     private Timestamp timestamp;
 
+   // @IndexedEmbedded
     @ManyToOne
     private Topic topic;
 

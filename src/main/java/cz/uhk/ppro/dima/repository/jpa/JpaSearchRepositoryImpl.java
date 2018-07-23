@@ -21,7 +21,7 @@ public class JpaSearchRepositoryImpl implements SearchRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List search(String text) {
+    public List search(String hledanyVyraz) {
 
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
         QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
@@ -29,13 +29,15 @@ public class JpaSearchRepositoryImpl implements SearchRepository {
 
         Query query = queryBuilder
                 .phrase()
-                .onField("name")
-                .sentence(text)
+                .withSlop(4) // slop factor = this works like a within or near operator = maximalni mezera (pocet slov) mezi vyhledavanymi slovy
+                .onField("name") //vyhledavani v nazvech clanku
+                .andField("text") // vyhledavani v poli text
+                .sentence(hledanyVyraz)
                 .createQuery();
 
         FullTextQuery jpaQuery = fullTextEntityManager.createFullTextQuery(query, Article.class);
 
-        @SuppressWarnings("unchecked")
+        // execute search
         List results = jpaQuery.getResultList();
 
         return results;
