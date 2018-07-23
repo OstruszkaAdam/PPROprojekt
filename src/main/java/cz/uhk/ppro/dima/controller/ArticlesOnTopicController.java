@@ -15,48 +15,25 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class IndexController {
+public class ArticlesOnTopicController{
     private final UserService userService;
     private final ArticleService articleService;
     private final AuthenticationProvider authentication;
 
     @Autowired
-    public IndexController(UserService userService, ArticleService articleService, AuthenticationProvider authenticationProvider) {
+    public ArticlesOnTopicController(UserService userService, ArticleService articleService, AuthenticationProvider authenticationProvider) {
         this.userService = userService;
         this.articleService = articleService;
         this.authentication = authenticationProvider;
     }
 
-    @RequestMapping(value ="/", method = RequestMethod.GET)
-    public String showIndex( @ModelAttribute("article") Article article, ModelMap modelMap, HttpServletRequest request) {
-        ModelAndView mav = new ModelAndView("/index");
-        if (authentication.getAuthentication().isAuthenticated()) {
-            Optional<User> user = userService.findByUsername(authentication.getAuthentication().getName());
-            if(user.isPresent()) {
-                modelMap.put("loggedUserId", user.get().getId());
-            }
-        }
-
-        PagedListHolder pagedListHolder = new PagedListHolder(articleService.findArticles());
-        int page = ServletRequestUtils.getIntParameter(request,"p",0);
-        pagedListHolder.setPage(page);
-        pagedListHolder.setPageSize(5);
-        modelMap.put("pagedListHolder", pagedListHolder);
-
-        List<Topic> topicList;
-        topicList = articleService.findAllTopics();
-        modelMap.put("topics", topicList);
-        return "index";
-    }
-
-/*    @RequestMapping(value ="/articles/topics/{topicId}", method = RequestMethod.GET)
+    @RequestMapping(value ="/articles/topics/{topicId}", method = RequestMethod.GET)
     public String showArticlesOnTopic(@PathVariable("topicId") int topicId, @ModelAttribute("article") Article article, ModelMap modelMap, HttpServletRequest request){
 
         if (authentication.getAuthentication().isAuthenticated()) {
@@ -72,9 +49,17 @@ public class IndexController {
         pagedListHolder.setPageSize(5);
         modelMap.put("pagedListHolder", pagedListHolder);
 
-        List<Topic> topicList;
-        topicList = articleService.findAllTopics();
+        //vyhledavani nazvu temat pro predani do jsp
+        List<Topic> topicList = articleService.findAllTopics();
+        int topicID;
+        String name = "";
+        for(Topic topic : topicList){
+            topicID = topic.getId();
+            if (topicID == topicId) name = topic.getName();
+        }
+
+        modelMap.put("topicName", name);
         modelMap.put("topics", topicList);
-        return "ArticlesOnTopic";
-    }*/
+        return "articlesOnTopic";
+    }
 }

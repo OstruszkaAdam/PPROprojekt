@@ -50,14 +50,7 @@ public class ArticleService {
         article.setUser(user);
         articleRepo.save(article);
 
-        for (MultipartFile f : files) {
-            String imgUUID = UUID.randomUUID().toString();
-            imagePersistor.saveImage(f, imgUUID);
-            ArticleImage a = new ArticleImage();
-            a.setUuid(imgUUID);
-            a.setArticle(article);
-            imageRepo.save(a);
-        }
+        saveImages(article, files);
 
     }
 
@@ -76,6 +69,37 @@ public class ArticleService {
         return articleRepo.findAll();
     }
 
+    @Transactional
+    public void editArticle(ArticleDto articleDto){
+        int articleId = articleDto.getId();
+        Optional<Article> a = this.findById(articleId);
+
+        Article article = a.get();
+
+        article.setText(articleDto.getText());
+        article.setName(articleDto.getName());
+        article.setTopic(articleDto.getTopic());
+        article.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        article.setImages(null);
+
+
+        List<MultipartFile> files = articleDto.getMpf();
+        saveImages(article, files);
+
+        articleRepo.save(article);
+
+    }
+
+    private void saveImages(Article article, List<MultipartFile> files) {
+        for (MultipartFile file : files) {
+            String imgUUID = UUID.randomUUID().toString();
+            imagePersistor.saveImage(file, imgUUID);
+            ArticleImage a = new ArticleImage();
+            a.setUuid(imgUUID);
+            a.setArticle(article);
+            imageRepo.save(a);
+        }
+    }
 
     @Transactional
     public Optional<Article> findById(int id) {

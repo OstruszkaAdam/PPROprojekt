@@ -62,7 +62,7 @@ public class SearchController {
             }
         }
 
-        return "listSearchResults";
+        return "searchResults";
 
     }
 }

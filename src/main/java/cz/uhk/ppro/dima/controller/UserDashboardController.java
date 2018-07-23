@@ -14,12 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Optional;
 
 @Controller
-public class UserController {
+public class UserDashboardController {
 
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserDashboardController(UserService userService) {
         this.userService = userService;
     }
 

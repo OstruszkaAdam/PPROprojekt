@@ -24,57 +24,72 @@
         <h1>${article.name}</h1>
 
         <div class="col l8 article-listing">
-        <p class="text-justify">${article.text}</p>
+            <p class="text-justify">${article.text}</p>
 
-        <b><spring:message code="article_images"/></b><br>
-        <c:forEach items="${article.images}" var="image">
-            <a href="/resources/images/original/${image.uuid}.jpg" ><img src="/resources/images/resampled/${image.uuid}.jpg" width="200" height="150" alt=""/>
-            </a>
-        </c:forEach>
-        </p>
-        <p><b><spring:message code="article_author"/></b>
-            <spring:url value="/users/{userId}" var = "userUrl">
-                <spring:param name="userId" value="${article.user.id}"/>
-            </spring:url>
-            <a href="${fn:escapeXml(userUrl)}"><c:out value="${article.user.username}"/></a><br>
-            <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${article.timestamp}" /><br>
-        </p>
-        </p>
+            <b><spring:message code="article_images"/></b><br>
+            <c:forEach items="${article.images}" var="image">
+                <a href="/resources/images/original/${image.uuid}.jpg"><img
+                        src="/resources/images/resampled/${image.uuid}.jpg"
+                        width=auto height="150" alt=""/>
+                </a>
+            </c:forEach>
 
-        <h3><spring:message code="article_comments"/></h3>
-        <c:forEach items="${comments}" var="comment">
-            <p>
-                <spring:url value="/users/{userId}" var = "userUrl">
-                    <spring:param name="userId" value="${comment.author.id}"/>
+            <p><b><spring:message code="article_author"/></b>
+                <spring:url value="/users/{userId}" var="userUrl">
+                    <spring:param name="userId" value="${article.user.id}"/>
                 </spring:url>
-                <a href="${fn:escapeXml(userUrl)}"><c:out value="${comment.author.username}"/></a>
-                <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle = "medium" timeStyle = "medium" value = "${comment.postDate}" /><br>
-                <c:out value="${comment.commentText}"/><br>
+                <a href="${fn:escapeXml(userUrl)}"><c:out value="${article.user.username}"/></a><br>
+                <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle="medium" timeStyle="medium"
+                                value="${article.timestamp}"/><br>
             </p>
-        </c:forEach>
 
-        <p>
+            <h3><spring:message code="article_comments"/></h3>
+            <c:forEach items="${comments}" var="comment">
+                <p>
+                    <spring:url value="/users/{userId}" var="userUrl">
+                        <spring:param name="userId" value="${comment.author.id}"/>
+                    </spring:url>
+                    <a href="${fn:escapeXml(userUrl)}"><c:out value="${comment.author.username}"/></a>
+                    <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle="medium" timeStyle="medium"
+                                    value="${comment.postDate}"/><br>
+                    <c:out value="${comment.commentText}"/><br>
+                </p>
+            </c:forEach>
+
+            <p>
         </div>
     </div>
     <div class="container">
-            <form:form method="POST" modelAttribute="addedComment">
-        <fieldset>
-            <sec:authorize access="isAuthenticated()">
-            <div class="input-field">
-                <label class="bmd-label-floating"><spring:message code="comment_field_placeholder"/></label>
-                <form:textarea path="commentText" class="form-control" required ="true" />
-            </div>
-            <div class="clearfix">
+        <form:form method="POST" modelAttribute="addComment">
+            <fieldset>
+                <sec:authorize access="isAuthenticated()">
+                <div class="input-field">
+                    <label class="bmd-label-floating"><spring:message code="comment_field_placeholder"/></label>
+                    <form:textarea path="commentText" class="form-control" required="true"/>
+                </div>
+                <div class="clearfix">
 
-                    <button type="submit" class="btn btn-primary" ><spring:message code="button_add_comment"/></button>
-                </sec:authorize>
-                <sec:authorize access="isAnonymous()">
-                    <span class="red-text"><spring:message code="comment_form_disabled"/></span>
-                </sec:authorize>
-            </div>
-        </fieldset>
+                    <button type="submit" class="btn btn-primary"><spring:message code="button_add_comment"/></button>
+
+                    </sec:authorize>
+                    <sec:authorize access="isAnonymous()">
+                        <span class="red-text"><spring:message code="comment_form_disabled"/></span>
+                    </sec:authorize>
+                </div>
+            </fieldset>
         </form:form>
+    </div>
+    <div class="container">
 
+        <sec:authorize access="isAuthenticated()">
+            <c:if test="${hasPermission eq true}">
+                <spring:url value="/articles/{articleId}/edit" var="editArticle">
+                    <spring:param name="articleId" value="${article.id}"/>
+                </spring:url>
+
+                <a class="btn btn-primary" href="${fn:escapeXml(editArticle)}"><spring:message code="edit_article"/></a>
+            </c:if>
+        </sec:authorize>
     </div>
 </main>
 

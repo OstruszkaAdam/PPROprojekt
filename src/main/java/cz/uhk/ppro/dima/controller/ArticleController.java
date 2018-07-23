@@ -38,7 +38,7 @@ public class ArticleController {
     }
 
     @RequestMapping(value ="/articles/{articleId}", method = RequestMethod.GET)
-    public ModelAndView showArticle(@PathVariable("articleId") int articleId, @ModelAttribute("addedComment") Comment comment) {
+    public ModelAndView showArticle(@PathVariable("articleId") int articleId, @ModelAttribute("addComment") Comment comment) {
         ModelAndView mav = new ModelAndView("articleDetail");
 
         Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
@@ -46,10 +46,18 @@ public class ArticleController {
 
         Optional<Article> article = articleService.findById(articleId);
 
+        List<Article> articles = loggedUser.get().getArticles();
+
+        boolean hasPermission = false;
+        for (Article art : articles){
+            if (art.getId() == articleId) hasPermission = true;
+        }
+
         if(article.isPresent()) {
             mav.addObject("article", article.get());
             mav.addObject("images", article.get().getImages());
             mav.addObject("comments", article.get().getComments());
+            mav.addObject("hasPermission", hasPermission);
         }
 
         return mav;
@@ -100,6 +108,8 @@ public class ArticleController {
         topicList = articleService.findAllTopics();
         model.addAttribute("topics", topicList);
 
+
+
         return ARTICLEFORMVIEW;
     }
 
@@ -114,11 +124,11 @@ public class ArticleController {
 
         articleDto.setId(articleId);
         if(author.isPresent()){
-            this.articleService.saveArticle(articleDto, author.get());
-            this.articleService.removeArticle(articleId);
+            this.articleService.editArticle(articleDto);
         }
-        String articleName = articleDto.getName();
-        return "redirect:/search?q=" + articleName;
+
+        return "redirect:/articles/{articleId}";
+
     }
 
     @PostMapping(value = "/articles/{articleId}/delete")

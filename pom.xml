@@ -125,6 +125,7 @@
 			<version>4.2.3.RELEASE</version>
 		</dependency>
 
+		<!-- Prevzorkovani obrazku -->
 		<dependency>
 			<groupId>org.imgscalr</groupId>
 			<artifactId>imgscalr-lib</artifactId>
