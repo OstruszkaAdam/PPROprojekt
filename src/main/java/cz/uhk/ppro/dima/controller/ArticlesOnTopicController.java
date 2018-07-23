@@ -33,8 +33,8 @@ public class ArticlesOnTopicController{
         this.authentication = authenticationProvider;
     }
 
-    @RequestMapping(value ="/articles/topics/{topicId}", method = RequestMethod.GET)
-    public String showArticlesOnTopic(@PathVariable("topicId") int topicId, @ModelAttribute("article") Article article, ModelMap modelMap, HttpServletRequest request){
+    @RequestMapping(value ="/{topicName}", method = RequestMethod.GET)
+    public String showArticlesOnTopic(@PathVariable("topicName") String topicName, @ModelAttribute("article") Article article, ModelMap modelMap, HttpServletRequest request){
 
         if (authentication.getAuthentication().isAuthenticated()) {
             Optional<User> user = userService.findByUsername(authentication.getAuthentication().getName());
@@ -43,21 +43,22 @@ public class ArticlesOnTopicController{
             }
         }
 
-        PagedListHolder pagedListHolder = new PagedListHolder(articleService.findArticlesOnTopic(topicId));
+        PagedListHolder pagedListHolder = new PagedListHolder(articleService.findArticlesOnTopicByName(topicName));
         int page = ServletRequestUtils.getIntParameter(request,"p",0);
         pagedListHolder.setPage(page);
         pagedListHolder.setPageSize(5);
         modelMap.put("pagedListHolder", pagedListHolder);
 
-        //vyhledavani nazvu temat pro predani do jsp
+        //vyhledavani nazvu temat pro predani do jsp TODO DODĚLAT VYHLEDAVANI PRO MENU
         List<Topic> topicList = articleService.findAllTopics();
-        int topicID;
+        String topicUrlName;
         String name = "";
         for(Topic topic : topicList){
-            topicID = topic.getId();
-            if (topicID == topicId) name = topic.getName();
+            topicUrlName = topic.getUrlName();
+            if (topicUrlName.equals(topicName)) name = topic.getName();
         }
 
+        System.out.println("posilame do jmena " + name);
         modelMap.put("topicName", name);
         modelMap.put("topics", topicList);
         return "articlesOnTopic";

@@ -13,7 +13,11 @@ public class Topic {
     private int id;
 
     @NotEmpty
+    private String urlName;
+
+    @NotEmpty
     private String name;
+
 
     @OneToMany(mappedBy = "topic")
     private List<Article> articles;
@@ -26,6 +30,13 @@ public class Topic {
         this.id = id;
     }
 
+    public String getUrlName() {
+        return urlName;
+    }
+
+    public void setUrlName(String urlName) {
+        this.urlName = urlName;
+    }
 
     public String getName() {
         return name;
