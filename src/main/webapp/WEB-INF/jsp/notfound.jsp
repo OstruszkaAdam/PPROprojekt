@@ -18,15 +18,18 @@
 <jsp:include page="template_menu.jsp"/>
 
 <main role="main">
-    <div class="container">
-        <h1>Oops, něco se pokazilo!</h1> <br>
-        <div class="text-center">
-        <img src="http://thinkspace.com/wp-content/uploads/2014/01/404.png">
-        </div>
-        <br><br>
-        <a href="/" class="btn btn-large"><spring:message code="error_back_to_index"/></a>
-    </div>
 
+    <div class="container">
+        <h1><spring:message code="headline_error"/></h1>
+        <div class="text-center">
+            <br>
+            <a href="/" class="btn btn-outline-primary btn-large"><spring:message code="error_back_to_index"/></a>
+            <br><br>
+            <img src="http://thinkspace.com/wp-content/uploads/2014/01/404.png">
+            <br><br>
+        </div>
+
+    </div>
 
 </main>
 
