@@ -37,36 +37,40 @@ public class ArticleController {
         this.authentication = authentication;
     }
 
-    @RequestMapping(value ="/articles/{articleId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/articles/{articleId}", method = RequestMethod.GET)
     public ModelAndView showArticle(@PathVariable("articleId") int articleId, @ModelAttribute("addComment") Comment comment) {
         ModelAndView mav = new ModelAndView("articleDetail");
 
         Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
-        if(loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
+        if (loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
         Optional<Article> article = articleService.findById(articleId);
 
         List<Article> articles = loggedUser.get().getArticles();
 
         boolean hasPermission = false;
-        for (Article art : articles){
+        for (Article art : articles) {
             if (art.getId() == articleId) hasPermission = true;
         }
 
-        if(article.isPresent()) {
+        //vyhleda kategorie pro menu
+        List<Topic> topicList = articleService.findAllTopics();
+
+        if (article.isPresent()) {
             mav.addObject("article", article.get());
             mav.addObject("images", article.get().getImages());
             mav.addObject("comments", article.get().getComments());
             mav.addObject("hasPermission", hasPermission);
+            mav.addObject("topics", topicList);
         }
 
         return mav;
     }
 
-    @RequestMapping(value ="/articles/{articleId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/articles/{articleId}", method = RequestMethod.POST)
     public String addComment(@PathVariable("articleId") int articleId, @ModelAttribute("addedComment") @Valid Comment comment) {
         Optional<User> author = userService.findByUsername(authentication.getAuthentication().getName());
-        if(author.isPresent()) articleService.saveComment(comment, author.get(), articleId);
+        if (author.isPresent()) articleService.saveComment(comment, author.get(), articleId);
         return "redirect:/articles/{articleId}";
     }
 
@@ -76,7 +80,7 @@ public class ArticleController {
         mav.setViewName(ARTICLEFORMVIEW);
 
         Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
-        if(loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
+        if (loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
         List<Topic> topicList;
         topicList = articleService.findAllTopics();
@@ -86,11 +90,11 @@ public class ArticleController {
 
     @RequestMapping(value = "/articles/new", method = RequestMethod.POST)
     public String createNewArticle(@Valid ArticleDto articleDto, BindingResult result) throws IOException {
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             return "redirect:/articles/new?error=true";
         }
         Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
-        if(loggedUser.isPresent()) articleService.saveArticle(articleDto, loggedUser.get());
+        if (loggedUser.isPresent()) articleService.saveArticle(articleDto, loggedUser.get());
         return "redirect:/articles/new/success";
     }
 
@@ -98,17 +102,15 @@ public class ArticleController {
     public String showEditArticleForm(@PathVariable("articleId") int articleId, @ModelAttribute("articleDto") Article article, Model model) {
         Optional<Article> a = this.articleService.findById(articleId);
         //TODO map a to a DTO object
-        if(a.isPresent()) model.addAttribute("articleDto", a);
+        if (a.isPresent()) model.addAttribute("articleDto", a);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());
-        if(loggedUser.isPresent()) model.addAttribute("loggedUserId", loggedUser.get().getId());
+        if (loggedUser.isPresent()) model.addAttribute("loggedUserId", loggedUser.get().getId());
 
         List<Topic> topicList;
         topicList = articleService.findAllTopics();
         model.addAttribute("topics", topicList);
-
-
 
         return ARTICLEFORMVIEW;
     }
@@ -118,12 +120,12 @@ public class ArticleController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> author = userService.findByUsername(authentication.getName());
 
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             return "redirect:/articles/{articleId}/edit?error=true";
         }
 
         articleDto.setId(articleId);
-        if(author.isPresent()){
+        if (author.isPresent()) {
             this.articleService.editArticle(articleDto);
         }
 
