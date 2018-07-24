@@ -36,7 +36,7 @@
         </c:if>
 
         <c:if test="${MESSAGE_CODE_ARTICLE != null}">
-            <c:if test="${MESSAGE_CODE_ARTICLE ==1}"><jsp:include page="_alert_article_new_success.jsp"/></c:if>
+            <c:if test="${MESSAGE_CODE_ARTICLE ==1}"><jsp:include page="_alert_article_success.jsp"/></c:if>
             <c:if test="${MESSAGE_CODE_ARTICLE ==2}"><jsp:include page="_alert_article_delete.jsp"/></c:if>
         </c:if>
 
