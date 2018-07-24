@@ -10,17 +10,21 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <jsp:include page="template_header.jsp"/>
+    <jsp:include page="_header.jsp"/>
     <title><spring:message code="app_title_browser"/></title>
 </head>
 
 <body>
-<jsp:include page="template_menu.jsp"/>
+<jsp:include page="_menu.jsp"/>
 
 <main role="main">
 
     <div class="container">
         <h1><spring:message code="headline_add_or_edit_article"/></h1>
+
+        <c:if test="${MESSAGE_CODE_ARTICLE ==0}">
+            <jsp:include page="_alert_article_error.jsp"/>
+        </c:if>
 
         <form:form method="POST" modelAttribute="articleDto" enctype="multipart/form-data">
             <fieldset>
@@ -50,7 +54,7 @@
                 <div class="clearfix"></div>
 
                 <a class="btn btn-outline-secondary" role="button" href='<spring:url value="/" htmlEscape="true"/>'><spring:message code="button_cancel"/></a>
-                <button type="submit" class="btn btn-primary btn-raised" role="button"><spring:message code="button_new_article"/></button>
+                <button type="submit" class="btn btn-primary btn-raised" role="button"><spring:message code="button_publish_article"/></button>
 
             </fieldset>
         </form:form>
@@ -59,6 +63,6 @@
 
 </main>
 
-<jsp:include page="template_footer.jsp"/>
+<jsp:include page="_footer.jsp"/>
 </body>
 </html>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -19,6 +20,7 @@ public class RegistrationController {
 
     private final UserService userService;
     private final ArticleService articleService;
+    Integer message_code = 0; // 0 = error, 1 = success
 
     @Autowired
     RegistrationController(UserService userService, ArticleService articleService) {
@@ -30,25 +32,40 @@ public class RegistrationController {
     public ModelAndView showRegistrationForm(@ModelAttribute("user") UserDto user) {
         List<Topic> topicList = articleService.findAllTopics();
         ModelAndView mav = new ModelAndView("userRegistration");
-        mav.addObject("topics",topicList);
+        mav.addObject("topics", topicList);
         return mav;
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registerNewUser(@ModelAttribute("user") @Valid UserDto userDto, BindingResult result) {
-        if(result.hasErrors() || !userDto.getPassword().equals(userDto.getPasswordRepeat()))
-            return "redirect:registration?unsuccesful";
+    public String registerNewUser(@ModelAttribute("user") @Valid UserDto userDto, BindingResult result, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors() || !userDto.getPassword().equals(userDto.getPasswordRepeat()))
+            return redirectError(redirectAttributes);
 
-        if(userService.findByUsername(userDto.getUsername()).isPresent() == false){
+        if (userService.findByUsername(userDto.getUsername()).isPresent() == false) { // pokud uzivatel se zadanym jmenem jeste neexistuje
             userService.createNewUser(userDto);
-            return "redirect:registration/success";
+            return redirectSuccess(redirectAttributes);
         }
+        return redirectError(redirectAttributes);
+
+    }
+
+    private String redirectError(RedirectAttributes redirectAttributes) {
+        message_code = 0; // toto cislo se preda do jsp a v zavislosti na nem se vypise hlaska
+        redirectAttributes.addFlashAttribute("MESSAGE_CODE_REGISTRATION", message_code); // zde se cislo predava do jsp jako parametr pri presmerovani
         return "redirect:registration?unsuccesful";
     }
 
-    @RequestMapping(value = "/registration/success",  method = RequestMethod.GET)
+    private String redirectSuccess(RedirectAttributes redirectAttributes) {
+        message_code = 1; // toto cislo se preda do jsp a v zavislosti na nem se vypise hlaska
+        redirectAttributes.addFlashAttribute("MESSAGE_CODE_REGISTRATION", message_code); // zde se cislo predava do jsp jako parametr pri presmerovani
+        return "redirect:/";
+    }
+
+ /*   
+ @RequestMapping(value = "/registration/success",  method = RequestMethod.GET)
     public String showRegistrationSuccess() {
         return "userRegistrationSuccess";
     }
+    */
 
 }

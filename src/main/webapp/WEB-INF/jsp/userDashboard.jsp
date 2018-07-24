@@ -10,12 +10,12 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <jsp:include page="template_header.jsp"/>
+    <jsp:include page="_header.jsp"/>
     <title><spring:message code="app_title_browser"/></title>
 </head>
 
 <body>
-<jsp:include page="template_menu.jsp"/>
+<jsp:include page="_menu.jsp"/>
 
 <main role="main">
 
@@ -82,7 +82,7 @@
                                 <input id="articleId" name="articleId" type="hidden" value="<c:out value="${article.id}"/>"/>
                                 <%--TODO Vymenit hlasku v potvrzovacim okne za string ze souboru Messages--%>
                                 <button type="submit"  class="btn btn-primary" onClick="return confirm('Opravdu smazat?')"><spring:message code="action_delete"/></button>
-                                <%--TODO Rozjet modalni okno template_model_window--%>
+                                <%--TODO Rozjet modalni okno _modal_window--%>
                                 <%-- <input type="submit" class="btn btn-primary" value="Delete"  data-toggle="modal" data-target="#exampleModal"/>--%>
                             </form:form></td>
                         </c:if>
@@ -95,6 +95,6 @@
 
 </main>
 
-<jsp:include page="template_footer.jsp"/>
+<jsp:include page="_footer.jsp"/>
 </body>
 </html>

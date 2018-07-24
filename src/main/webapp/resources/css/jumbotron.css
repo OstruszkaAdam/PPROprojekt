@@ -7,6 +7,10 @@ main{
     padding-top: 3.5rem;
 }
 
+footer{
+    padding-top: 2.0rem ;
+}
+
 main.index{
     padding-top: 0rem;
 }

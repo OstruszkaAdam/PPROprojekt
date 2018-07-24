@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -31,6 +32,8 @@ public class ArticleController {
     private final AuthenticationProvider authentication;
 
     private static final String ARTICLEFORMVIEW = "articleEditor";
+
+    Integer message_code = 0; // 0 = error, 1 = success, 2 = deleted
 
     @Autowired
     public ArticleController(ArticleService articleService, UserService userService, AuthenticationProvider authentication) {
@@ -114,13 +117,15 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/articles/new", method = RequestMethod.POST)
-    public String createNewArticle(@Valid ArticleDto articleDto, BindingResult result) throws IOException {
+    public String createNewArticle(@Valid ArticleDto articleDto, BindingResult result, RedirectAttributes redirectAttributes) throws IOException {
         if (result.hasErrors()) {
-            return "redirect:/articles/new?error=true";
+            return redirectError(redirectAttributes);
         }
         Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
         if (loggedUser.isPresent()) articleService.saveArticle(articleDto, loggedUser.get());
-        return "redirect:/articles/new/success";
+        {
+            return redirectSuccess(redirectAttributes);
+        }
     }
 
     @RequestMapping(value = "/articles/{articleId}/edit", method = RequestMethod.GET)
@@ -141,12 +146,12 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/articles/{articleId}/edit", method = RequestMethod.POST)
-    public String processEditArticle(@Valid ArticleDto articleDto, BindingResult result, @PathVariable("articleId") int articleId) {
+    public String processEditArticle(@Valid ArticleDto articleDto, BindingResult result, @PathVariable("articleId") int articleId, RedirectAttributes redirectAttributes) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> author = userService.findByUsername(authentication.getName());
 
         if (result.hasErrors()) {
-            return "redirect:/articles/{articleId}/edit?error=true";
+            return redirectError(redirectAttributes);
         }
 
         articleDto.setId(articleId);
@@ -154,20 +159,46 @@ public class ArticleController {
             this.articleService.editArticle(articleDto);
         }
 
-        return "redirect:/articles/{articleId}";
+        return redirectEdited(redirectAttributes);
 
     }
 
     @PostMapping(value = "/articles/{articleId}/delete")
-    public String processDeleteArticle(@PathVariable("articleId") int articleId) {
+    public String processDeleteArticle(@PathVariable("articleId") int articleId, RedirectAttributes redirectAttributes) {
         articleService.removeArticle(articleId);
+        return redirectDeleted(redirectAttributes);
+    }
+
+    private String redirectError(RedirectAttributes redirectAttributes) {
+        message_code = 0; // toto cislo se preda do jsp a v zavislosti na nem se vypise hlaska
+        redirectAttributes.addFlashAttribute("MESSAGE_CODE_ARTICLE", message_code); // zde se cislo predava do jsp jako parametr pri presmerovani
+        return "redirect:/articles/{articleId}/edit?error=true";
+    }
+
+    private String redirectSuccess(RedirectAttributes redirectAttributes) {
+        message_code = 1; // toto cislo se preda do jsp a v zavislosti na nem se vypise hlaska
+        redirectAttributes.addFlashAttribute("MESSAGE_CODE_ARTICLE", message_code); // zde se cislo predava do jsp jako parametr pri presmerovani
         return "redirect:/";
     }
 
+    private String redirectEdited(RedirectAttributes redirectAttributes) {
+        message_code = 1; // toto cislo se preda do jsp a v zavislosti na nem se vypise hlaska
+        redirectAttributes.addFlashAttribute("MESSAGE_CODE_ARTICLE", message_code); // zde se cislo predava do jsp jako parametr pri presmerovani
+        return "redirect:/articles/{articleId}";
+    }
+
+    private String redirectDeleted(RedirectAttributes redirectAttributes) {
+        message_code = 2; // toto cislo se preda do jsp a v zavislosti na nem se vypise hlaska
+        redirectAttributes.addFlashAttribute("MESSAGE_CODE_ARTICLE", message_code); // zde se cislo predava do jsp jako parametr pri presmerovani
+        return "redirect:/";
+    }
+
+/*
     @RequestMapping(value = "/articles/new/success")
     public String showArticleSuccess() {
         return "articleSuccess";
     }
+*/
 
 }
 

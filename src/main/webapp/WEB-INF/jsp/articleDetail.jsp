@@ -11,16 +11,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <jsp:include page="template_header.jsp"/>
+    <jsp:include page="_header.jsp"/>
     <title><spring:message code="app_title_browser"/></title>
 </head>
 
 <body>
-<jsp:include page="template_menu.jsp"/>
+<jsp:include page="_menu.jsp"/>
 
 <main role="main">
 
     <div class="container">
+        <c:if test="${MESSAGE_CODE_ARTICLE == 1}">
+            <jsp:include page="_alert_article_success.jsp"/>
+        </c:if>
         <h1>${article.name}</h1>
 
         <div class="col l8 article-listing">
@@ -105,6 +108,6 @@
     </div>
 </main>
 
-<jsp:include page="template_footer.jsp"/>
+<jsp:include page="_footer.jsp"/>
 </body>
 </html>

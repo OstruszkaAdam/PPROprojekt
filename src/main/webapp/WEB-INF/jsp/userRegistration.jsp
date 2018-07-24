@@ -6,15 +6,20 @@
 
 <html>
 <head>
-    <jsp:include page="template_header.jsp"/>
+    <jsp:include page="_header.jsp"/>
     <title><spring:message code="app_title_browser"/></title>
 </head>
 <body>
-<jsp:include page="template_menu.jsp"/>
+<jsp:include page="_menu.jsp"/>
 <main role="main">
 
     <div class="container">
         <h1><spring:message code="headline_registration"/></h1>
+
+        <c:if test="${MESSAGE_CODE_REGISTRATION ==0}">
+            <jsp:include page="_alert_registration_error.jsp"/>
+        </c:if>
+
 
         <form:form method="POST" modelAttribute="user">
             <fieldset>
@@ -76,6 +81,6 @@
 
 </main>
 
-<jsp:include page="template_footer.jsp"/>
+<jsp:include page="_footer.jsp"/>
 </body>
 </html>
