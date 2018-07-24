@@ -14,6 +14,8 @@
     <jsp:include page="_header.jsp"/>
     <title><spring:message code="app_title_browser"/></title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.2.15/cytoscape.js"></script>
+    <script src='resources/scripts/graph_elements.js'></script>
+    <script src='resources/scripts/graphView.js'></script>
 </head>
 
 <body>
@@ -111,10 +113,11 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-6" id="cy"><%--id je dulezite - nezapomenout--%>
+            <div class="col-md-6" id="cy"><%--toto id je pro funkcnost Cytoscape.js nutne - nezapomenout--%>
             </div>
 
-            <script>
+
+<%--            <script>
                 var cy = cytoscape({
                     container: document.getElementById('cy'),
                     elements: [
@@ -203,7 +206,8 @@
                         }]
 
                 });
-            </script>
+            </script>--%>
+
             <br>
         </div>
     </div>
