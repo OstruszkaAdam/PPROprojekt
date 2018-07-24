@@ -47,10 +47,13 @@ public class ArticleController {
         if (loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
         Optional<Article> article = articleService.findById(articleId);
-        if (!article.isPresent()) return new ModelAndView("redirect:/notfound.html");
-
-        //vrati clanky jenom za zalogovaneho uzivatele
-//        List<Article> articles = loggedUser.get().getArticles();
+        //redirrect na 404 pokud zadny takovy clanek neexistuje
+        if (!article.isPresent()){
+            ModelAndView newMav = new ModelAndView("redirect:/topics/notfound");
+            List<Topic> topicList = articleService.findAllTopics();
+            newMav.addObject("topics", topicList);
+            return newMav;
+        }
 
         List<Article> articles = articleService.findArticles();
         //vyhleda kategorie pro menu
@@ -59,8 +62,6 @@ public class ArticleController {
         for (Article art : articles) {
             if (art.getId() == articleId) hasPermission = true;
         }
-
-
 
         if (article.isPresent()) {
             mav.addObject("article", article.get());

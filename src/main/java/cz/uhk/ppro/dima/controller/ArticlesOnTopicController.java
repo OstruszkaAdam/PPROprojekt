@@ -42,7 +42,7 @@ public class ArticlesOnTopicController{
         }
 
         List topList = topicRepository.findByUrlName(topicName);
-        if (topList.isEmpty()) return "/notfound";
+        if (topList.isEmpty()) return "error";
 
         PagedListHolder pagedListHolder = new PagedListHolder(articleService.findArticlesOnTopicByName(topicName));
         int page = ServletRequestUtils.getIntParameter(request,"p",0);

@@ -23,12 +23,12 @@ public class UserDashboardController {
     private final ArticleService articleService;
 
     @Autowired
-    public UserDashboardController(UserService userService,  ArticleService articleService) {
+    public UserDashboardController(UserService userService, ArticleService articleService) {
         this.userService = userService;
         this.articleService = articleService;
     }
 
-    @RequestMapping(value ="/users/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/users/{userId}", method = RequestMethod.GET)
     public ModelAndView showOwner(@PathVariable("userId") int userId) {
         ModelAndView mav = new ModelAndView("userDashboard");
 
@@ -38,18 +38,24 @@ public class UserDashboardController {
         //vyhleda kategorie pro menu
         List<Topic> topicList = articleService.findAllTopics();
 
+        //pokud se nenajde dany uzivatel, vrati 404
         Optional<User> user = userService.findById(userId);
-        if(!user.isPresent()) return new ModelAndView("redirect:/notfound.html");
+        if (!user.isPresent()) {
+            ModelAndView newMav = new ModelAndView("redirect:/topics/notfound");
+            newMav.addObject("topics", topicList);
+            return newMav;
 
-        if(user.isPresent()) {
+        }
+
+        if (user.isPresent()) {
             mav.addObject("articles", user.get().getArticles());
             mav.addObject("user", user.get());
             mav.addObject("topics", topicList);
         }
 
-        if(loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
+        if (loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
-        if(loggedUser.isPresent() && user.isPresent() && loggedUser.get().getId() == user.get().getId())
+        if (loggedUser.isPresent() && user.isPresent() && loggedUser.get().getId() == user.get().getId())
             mav.addObject("isLoggedUsersProfile", true);
 
         return mav;
