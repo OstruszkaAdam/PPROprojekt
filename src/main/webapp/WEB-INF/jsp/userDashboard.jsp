@@ -51,7 +51,7 @@
             </tbody>
         </table>
         <h3><spring:message code="user_articles"/></h3>
-        <a href="<spring:url value="/articles/new" />" class="btn btn-primary"><spring:message code="button_new_article"/></a>
+        <a href="<spring:url value="/articles/new" />" class="btn btn-primary"><spring:message code="menu_item_insert_article"/></a>
 
         <div class="table-responsive ">
             <table class="table table-striped table-hover">

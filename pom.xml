@@ -92,7 +92,7 @@
 			<version>3.5</version>
 		</dependency>
 
-		<!--JavaServer Pages Standard Tag Library-->
+		<!--JavaServer Pages Standard Tag Library - pro jsp stranky-->
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
@@ -204,6 +204,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>

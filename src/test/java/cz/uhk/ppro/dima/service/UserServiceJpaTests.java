@@ -29,9 +29,10 @@ public class UserServiceJpaTests {
     @Autowired
     UserRepository userRepository;
 
+    // mel by uspesne probehnout nasledujic 1 test (ve vypisu bude Tests run: 1)
     @Test
     @Transactional
-    public void shouldInsertUsers() {
+    public void shouldInsertUsers() { // po probehnuti testu se automaticky vykona rollback (tzn. dostaneme pouze vysledek testu a ne data v db)
         Collection<User> users = this.userService.findUsersByLastName("Smith");
         int found = users.size();
 
@@ -42,7 +43,7 @@ public class UserServiceJpaTests {
         userDto.setSurname("Smith");
         userDto.setPassword("1234");
         userDto.setPasswordRepeat("1234");
-        userDto.setEmail("test@test.cz");
+        userDto.setEmail("test@test.test");
         userDto.setPhoneNumber("737737737");
         this.userService.createNewUser(userDto);
 

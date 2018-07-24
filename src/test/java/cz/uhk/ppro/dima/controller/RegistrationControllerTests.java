@@ -19,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+
 @RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(classes={DimaApplication.class})
 //@WebMvcTest(value = RegistrationController.class, secure = false)
@@ -41,6 +42,7 @@ public class RegistrationControllerTests {
         this.mockMvc = MockMvcBuilders.standaloneSetup(registrationController).setViewResolvers(viewResolver).build();
     }
 
+    // mely by uspesne probehnout nasledujici 3 testy (ve vypisu bude Tests run: 3)
     @Test
     public void contextLoads() throws Exception {
         assertThat(registrationController).isNotNull();
@@ -51,7 +53,7 @@ public class RegistrationControllerTests {
         mockMvc.perform(get("/registration"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("user"))
-                .andExpect(view().name("registration"));
+                .andExpect(view().name("userRegistration"));
     }
 
     @Test
@@ -60,13 +62,13 @@ public class RegistrationControllerTests {
                 .param("username", UUID.randomUUID().toString())
                 .param("password", "123456")
                 .param("passwordRepeat", "123456")
-                .param("email", "test@test.com")
-                .param("firstname", "John")
-                .param("surname", "White")
+                .param("email", "test@test.test")
+                .param("firstname", "Pokud tohle vidis")
+                .param("surname", "Pak je vsechno OK")
                 .param("phoneNumber", "777 777 777")
         )
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:registration/registrationSuccess"));
+                .andExpect(view().name("redirect:registration/success"));
     }
 
 }
