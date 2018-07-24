@@ -53,6 +53,17 @@
                     <fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle="medium" timeStyle="medium"
                                     value="${comment.postDate}"/><br>
                     <c:out value="${comment.commentText}"/><br>
+
+
+                <%--<spring:url value="/articles/{articleId}/{commentId}" var="articleCommentUrl">--%>
+                    <%--<spring:param name="articleCommentId" value="${comment.id}"/>--%>
+                <%--</spring:url>--%>
+                    <c:url var="deleteCommentUrl" value="/articles/delete/${article.id}/${comment.id}"/>
+                    <form:form action="${deleteCommentUrl}" method="POST">
+
+                    <button type="submit" class="btn btn-primary" onClick="return confirm('Opravdu smazat?')"><spring:message code="button_delete_comment"/></button>
+
+                    </form:form>
                 </p>
             </c:forEach>
 
@@ -66,6 +77,7 @@
                 <div class="input-field">
                     <label class="bmd-label-floating"><spring:message code="comment_field_placeholder"/></label>
                     <form:textarea path="commentText" class="form-control" required="true"/>
+
                 </div>
                 <div class="clearfix">
 

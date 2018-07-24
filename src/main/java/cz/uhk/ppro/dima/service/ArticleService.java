@@ -115,6 +115,11 @@ public class ArticleService {
     }
 
     @Transactional
+    public void deleteComment(Comment comment) {
+        commentRepo.delete(comment);
+    }
+
+    @Transactional
     public void removeArticle(int articleId) {
         Optional<Article> article = articleRepo.findById(articleId);
         if (article.isPresent()) {

@@ -47,17 +47,18 @@ public class ArticleController {
         if (loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
         Optional<Article> article = articleService.findById(articleId);
+
+        //vyhleda kategorie pro menu
+        List<Topic> topicList = articleService.findAllTopics();
+
         //redirrect na 404 pokud zadny takovy clanek neexistuje
         if (!article.isPresent()){
             ModelAndView newMav = new ModelAndView("redirect:/topics/notfound");
-            List<Topic> topicList = articleService.findAllTopics();
             newMav.addObject("topics", topicList);
             return newMav;
         }
 
         List<Article> articles = articleService.findArticles();
-        //vyhleda kategorie pro menu
-        List<Topic> topicList = articleService.findAllTopics();
         boolean hasPermission = false;
         for (Article art : articles) {
             if (art.getId() == articleId) hasPermission = true;
@@ -80,6 +81,23 @@ public class ArticleController {
         if (author.isPresent()) articleService.saveComment(comment, author.get(), articleId);
         return "redirect:/articles/{articleId}";
     }
+
+    @PostMapping(value = "/articles/delete/{articleId}/{commentId}")
+//    @RequestMapping(value="/articles/delete/{articleId}/{commentId}", method = RequestMethod.POST)
+    public String deleteComment(@PathVariable("articleId") int articleId, @PathVariable("commentId") int commentId) {
+        Optional<User> author = userService.findByUsername(authentication.getAuthentication().getName());
+
+        Optional<Article> article = articleService.findById(articleId);
+        List<Comment> commentsOnTopic = article.get().getComments();
+        Comment commentOnTopic = new Comment();
+        for (Comment com : commentsOnTopic){
+            if (com.getId() == commentId) commentOnTopic = com;
+        }
+        if (author.isPresent()) articleService.deleteComment(commentOnTopic);
+
+        return "redirect:/articles/{articleId}";
+    }
+
 
     @RequestMapping(value = "/articles/new", method = RequestMethod.GET)
     public ModelAndView showNewArticleForm(ArticleDto articleDto, BindingResult result) {

@@ -16,4 +16,11 @@ public class JpaCommentRepositoryImpl implements CommentRepository {
     public void save(Comment comment) {
         em.persist(comment);
     }
+
+    @Override
+    public void delete(Comment comment) {
+        em.remove(comment);
+    }
+
+
 }
