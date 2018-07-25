@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "Topics", schema = "dima")
+@Table(name = "topics", schema = "dima")
 public class Topic {
     @Id
     @GeneratedValue

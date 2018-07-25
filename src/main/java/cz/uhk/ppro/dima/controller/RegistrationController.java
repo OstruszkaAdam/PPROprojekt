@@ -30,9 +30,12 @@ public class RegistrationController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView showRegistrationForm(@ModelAttribute("user") UserDto user) {
-        List<Topic> topicList = articleService.findAllTopics();
         ModelAndView mav = new ModelAndView("userRegistration");
+
+        //vyhledani nazvu temat pro menu
+        List<Topic> topicList = articleService.findAllTopics();
         mav.addObject("topics", topicList);
+
         return mav;
     }
 

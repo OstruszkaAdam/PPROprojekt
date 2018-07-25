@@ -25,6 +25,7 @@ public class AlgorithmController {
 
         ModelAndView mav = new ModelAndView("algoritmus");
 
+        //vyhledani nazvu temat pro menu
         List<Topic> topicList = articleService.findAllTopics();
         mav.addObject("topics", topicList);
 

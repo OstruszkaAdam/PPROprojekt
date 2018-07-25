@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Table(name = "Users", schema = "dima")
+@Table(name = "users", schema = "dima")
 public class User {
 
     @Id

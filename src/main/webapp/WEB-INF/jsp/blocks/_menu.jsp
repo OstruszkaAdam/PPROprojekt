@@ -51,7 +51,7 @@
 
                 <li>
                     <a class="nav-link" href='<spring:url value="/articleLatest" htmlEscape="true"/>'><spring:message
-                            code="menu_item_articleLatest"/></a>
+                            code="menu_item_latest"/></a>
                 </li>
 
                 <%--            <sec:authorize access="isAuthenticated()">

@@ -23,7 +23,7 @@
         <h1><spring:message code="headline_error"/></h1>
         <div class="text-center">
             <br>
-            <a href="/" class="btn btn-outline-primary btn-large"><spring:message code="error_back_to_index"/></a>
+            <a href="/" class="btn btn-outline-primary btn-large"><spring:message code="button_back_to_homepage"/></a>
             <br><br>
             <img src="http://thinkspace.com/wp-content/uploads/2014/01/404.png">
             <br><br>

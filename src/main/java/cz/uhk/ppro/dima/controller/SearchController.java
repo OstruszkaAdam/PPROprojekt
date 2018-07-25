@@ -54,8 +54,8 @@ public class SearchController {
         pagedListHolder.setPageSize(5);
         model.addAttribute("pagedListHolder", pagedListHolder);
 
-        List<Topic> topicList;
-        topicList = articleService.findAllTopics();
+        //vyhledani nazvu temat pro menu
+        List<Topic> topicList = articleService.findAllTopics();
         model.addAttribute("topics", topicList);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

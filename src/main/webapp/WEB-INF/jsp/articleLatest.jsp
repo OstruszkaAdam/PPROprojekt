@@ -21,7 +21,8 @@
 <main role="main">
 
     <div class="container">
-        <!-- Example row of columns -->
+        <h1><spring:message code="headline_articles_latest"/></h1>
+
         <c:if test="${MESSAGE_CODE_REGISTRATION != null}">
             <jsp:include page="blocks/_alert_registration_success.jsp"/>
         </c:if>

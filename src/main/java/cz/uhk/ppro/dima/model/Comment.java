@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "Comments", schema = "dima")
+@Table(name = "comments", schema = "dima")
 public class Comment {
     @Id
     @GeneratedValue

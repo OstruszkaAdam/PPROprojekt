@@ -32,8 +32,8 @@ public class IndexController {
     @RequestMapping(value ="/", method = RequestMethod.GET)
     public String showIndex( @ModelAttribute("article") Article article, ModelMap modelMap, HttpServletRequest request) {
 
-        List<Topic> topicList;
-        topicList = articleService.findAllTopics();
+        //vyhledani nazvu temat pro menu
+        List<Topic> topicList = articleService.findAllTopics();
         modelMap.put("topics", topicList);
         return "index";
     }

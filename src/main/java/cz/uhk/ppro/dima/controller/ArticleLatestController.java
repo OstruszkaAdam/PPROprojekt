@@ -32,7 +32,7 @@ public class ArticleLatestController {
         this.authentication = authenticationProvider;
     }
 
-    @RequestMapping(value ="/articleLatest", method = RequestMethod.GET)
+    @RequestMapping(value ="/latest-articles", method = RequestMethod.GET)
     public String showIndex( @ModelAttribute("article") Article article, ModelMap modelMap, HttpServletRequest request) {
         if (authentication.getAuthentication().isAuthenticated()) {
             Optional<User> user = userService.findByUsername(authentication.getAuthentication().getName());
@@ -47,9 +47,10 @@ public class ArticleLatestController {
         pagedListHolder.setPageSize(5);
         modelMap.put("pagedListHolder", pagedListHolder);
 
-        List<Topic> topicList;
-        topicList = articleService.findAllTopics();
+        //vyhledani nazvu temat pro menu
+        List<Topic> topicList = articleService.findAllTopics();
         modelMap.put("topics", topicList);
+        
         return "articleLatest";
     }
 

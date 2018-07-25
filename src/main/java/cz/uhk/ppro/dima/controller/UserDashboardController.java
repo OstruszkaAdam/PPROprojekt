@@ -35,8 +35,9 @@ public class UserDashboardController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());
 
-        //vyhleda kategorie pro menu
+        //vyhledani nazvu temat pro menu
         List<Topic> topicList = articleService.findAllTopics();
+        mav.addObject("topics", topicList);
 
         //pokud se nenajde dany uzivatel, vrati 404
         Optional<User> user = userService.findById(userId);
@@ -50,7 +51,6 @@ public class UserDashboardController {
         if (user.isPresent()) {
             mav.addObject("articles", user.get().getArticles());
             mav.addObject("user", user.get());
-            mav.addObject("topics", topicList);
         }
 
         if (loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());

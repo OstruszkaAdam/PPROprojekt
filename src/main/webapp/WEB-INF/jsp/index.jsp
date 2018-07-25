@@ -20,15 +20,36 @@
 
 <main role="main" class="index">
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
+
+    <div id="jumbotron">
         <div class="container">
-            <h1 class="display-3 text-light"><spring:message code="headline_app_title"/></h1>
-            <p class="text-light"><spring:message code="app_description"/></p>
-            <p><a class="btn btn-outline-light btn-lg" href="/articleLatest" role="button"><spring:message code="button_detail"/> &raquo;</a></p>
+            <div class="jumbotron-text">
+                <h1 class="display-3 text-light"><spring:message code="headline_app_title"/></h1>
+                <p><spring:message code="app_description"/></p>
+                <%--<p class="text-light"><spring:message code="app_description"/></p>--%>
+                <a class="btn btn-outline-light btn-lg" href="/articleLatest" role="button"><spring:message code="button_detail"/> &raquo;</a>
+            </div>
         </div>
     </div>
 
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <c:if test="${MESSAGE_CODE_REGISTRATION != null}">
+            <jsp:include page="blocks/_alert_registration_success.jsp"/>
+        </c:if>
+
+        <c:if test="${MESSAGE_CODE_ARTICLE != null}">
+            <%--  <c:if test="${MESSAGE_CODE_ARTICLE ==1}"><jsp:include page="blocks/_alert_article_success.jsp"/></c:if>--%>
+            <c:if test="${MESSAGE_CODE_ARTICLE ==2}">
+                <jsp:include page="blocks/_alert_article_delete.jsp"/>
+            </c:if>
+        </c:if>
+
+        <c:if test="${MESSAGE_CODE_GRAPH != null}">
+            <jsp:include page="blocks/_alert_graph_success.jsp"/>
+        </c:if>
+    </div>
 </main>
 
 <jsp:include page="blocks/_footer.jsp"/>

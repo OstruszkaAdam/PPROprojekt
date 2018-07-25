@@ -51,8 +51,9 @@ public class ArticleController {
 
         Optional<Article> article = articleService.findById(articleId);
 
-        //vyhleda kategorie pro menu
+        //vyhledani nazvu temat pro menu
         List<Topic> topicList = articleService.findAllTopics();
+        mav.addObject("topics", topicList);
 
         //presmerovani na 404 pokud zadny takovy clanek neexistuje
         if (!article.isPresent()){
@@ -72,7 +73,6 @@ public class ArticleController {
             mav.addObject("images", article.get().getImages());
             mav.addObject("comments", article.get().getComments());
             mav.addObject("hasPermission", hasPermission);
-            mav.addObject("topics", topicList);
         }
 
         return mav;
@@ -109,9 +109,10 @@ public class ArticleController {
         Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
         if (loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
-        List<Topic> topicList;
-        topicList = articleService.findAllTopics();
+        //vyhledani nazvu temat pro menu
+        List<Topic> topicList = articleService.findAllTopics();
         mav.addObject("topics", topicList);
+
         return mav;
     }
 
@@ -123,7 +124,7 @@ public class ArticleController {
         Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
         if (loggedUser.isPresent()) articleService.saveArticle(articleDto, loggedUser.get());
         {
-            //nalezeni posledniho id pro jeho zobrazeni
+            //nalezeni posledniho id pro zobrazeni posledniho pridaneho clanku
             List<Article> articleList = articleService.findArticles();
             Integer redirectId = articleList.size();
             return redirectSuccess(redirectAttributes, redirectId);
@@ -139,8 +140,8 @@ public class ArticleController {
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());
         if (loggedUser.isPresent()) model.addAttribute("loggedUserId", loggedUser.get().getId());
 
-        List<Topic> topicList;
-        topicList = articleService.findAllTopics();
+        //vyhledani nazvu temat pro menu
+        List<Topic> topicList = articleService.findAllTopics();
         model.addAttribute("topics", topicList);
 
         return ARTICLEFORMVIEW;

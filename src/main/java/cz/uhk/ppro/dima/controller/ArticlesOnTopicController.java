@@ -50,8 +50,11 @@ public class ArticlesOnTopicController{
         pagedListHolder.setPageSize(5);
         modelMap.put("pagedListHolder", pagedListHolder);
 
-        //vyhledavani nazvu temat pro predani do jsp
+        //vyhledani nazvu temat pro menu
         List<Topic> topicList = articleService.findAllTopics();
+        modelMap.put("topics", topicList);
+
+        //vyhledani jmena aktualne zobrazovaneho tematu
         String topicUrlName;
         String name = "";
         for(Topic topic : topicList){
@@ -59,9 +62,8 @@ public class ArticlesOnTopicController{
             if (topicUrlName.equals(topicName)) name = topic.getName();
         }
 
-        System.out.println("posilame do jmena " + name);
         modelMap.put("topicName", name);
-        modelMap.put("topics", topicList);
+
         return "articlesOnTopic";
     }
 

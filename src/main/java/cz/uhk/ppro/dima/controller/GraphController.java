@@ -1,7 +1,6 @@
 package cz.uhk.ppro.dima.controller;
 
 import cz.uhk.ppro.dima.dto.GraphDto;
-import cz.uhk.ppro.dima.model.Article;
 import cz.uhk.ppro.dima.model.Graph;
 import cz.uhk.ppro.dima.model.Topic;
 import cz.uhk.ppro.dima.model.User;
@@ -11,7 +10,6 @@ import cz.uhk.ppro.dima.service.GraphService;
 import cz.uhk.ppro.dima.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,8 +46,9 @@ public class GraphController {
 
         Optional<Graph> graph = graphService.findById(graphId);
 
-        //vyhleda kategorie pro menu
+        //vyhledani nazvu temat pro menu
         List<Topic> topicList = articleService.findAllTopics();
+        mav.addObject("topics", topicList);
 
 /*        //presmerovani na 404 pokud zadny takovy graf neexistuje
         if (!article.isPresent()){
@@ -67,7 +66,6 @@ public class GraphController {
         if (graph.isPresent()) {
             mav.addObject("graph", graph.get());
 /*            mav.addObject("hasPermission", hasPermission);*/
-            mav.addObject("topics", topicList);
         }
 
         return mav;
@@ -99,7 +97,7 @@ public class GraphController {
         Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
         if (loggedUser.isPresent()) graphService.saveGraph(graphDto, loggedUser.get());
         {
-            //nalezeni posledniho id pro jeho zobrazeni
+            //nalezeni posledniho id pro zobrazeni posledniho pridaneho grafu
             List<Graph> GraphList = graphService.findGraphs();
             Integer redirectId = GraphList.size();
             return redirectSuccess(redirectAttributes, redirectId);
