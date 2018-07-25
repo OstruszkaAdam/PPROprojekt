@@ -1,5 +1,5 @@
-/* Move down content because we have a fixed navbar that is 3.5rem tall */
 body {
+    /* Move down content because we have a fixed navbar that is 3.5rem tall */
     padding-top: 1.5rem;
 }
 
@@ -15,11 +15,6 @@ main.index{
     padding-top: 0rem;
 }
 
-.vertical_space{
-    padding-top: 1.5rem ;
-}
-
-
 .jumbotron {
     width: 100%;
     background: linear-gradient(45deg, rgba(29, 224, 153, 0.8), rgba(29, 200, 205, 0.8))
@@ -28,4 +23,12 @@ main.index{
     background-size: cover;
     position: relative;
     border-radius: 0rem;
+}
+
+.progress {
+    margin-top: 2rem ;
+}
+
+#myTab{
+    margin-bottom: 1rem ;
 }
