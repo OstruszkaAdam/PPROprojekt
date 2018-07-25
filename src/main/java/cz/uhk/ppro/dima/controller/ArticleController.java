@@ -123,7 +123,10 @@ public class ArticleController {
         Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
         if (loggedUser.isPresent()) articleService.saveArticle(articleDto, loggedUser.get());
         {
-            return redirectSuccess(redirectAttributes);
+            //nalezeni posledniho id pro jeho zobrazeni
+            List<Article> articleList = articleService.findArticles();
+            int redirectId = articleList.size();
+            return redirectSuccess(redirectAttributes, String.valueOf(redirectId));
         }
     }
 
@@ -173,10 +176,10 @@ public class ArticleController {
         return "redirect:/articles/{articleId}/edit?error=true";
     }
 
-    private String redirectSuccess(RedirectAttributes redirectAttributes) {
+    private String redirectSuccess(RedirectAttributes redirectAttributes, String articleId) {
         message_code = 1; // toto cislo se preda do jsp a v zavislosti na nem se vypise hlaska
         redirectAttributes.addFlashAttribute("MESSAGE_CODE_ARTICLE", message_code); // zde se cislo predava do jsp jako parametr pri presmerovani
-        return "redirect:/";
+        return "redirect:/articles/" + articleId;
     }
 
     private String redirectEdited(RedirectAttributes redirectAttributes) {

@@ -21,10 +21,12 @@
 <main role="main">
 
     <div class="container">
-        <c:if test="${MESSAGE_CODE_ARTICLE == 1}">
-            <jsp:include page="_alert_article_success.jsp"/>
+        <c:if test="${MESSAGE_CODE_ARTICLE != null}">
+            <c:if test="${MESSAGE_CODE_ARTICLE ==1}"><jsp:include page="_alert_article_success.jsp"/></c:if>
         </c:if>
+
         <h1>${article.name}</h1>
+
 
         <div class="col l8 article-listing">
             <p class="text-justify">${article.text}</p>
