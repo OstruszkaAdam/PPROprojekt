@@ -8,7 +8,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "Graph", schema = "dima")
+@Table(name = "graphs", schema = "dima")
 public class Graph {
 
     @Id
@@ -17,6 +17,9 @@ public class Graph {
 
     @NotEmpty
     private String name;
+
+    @ManyToOne
+    private User user;
 
     public Graph() {
     }
@@ -29,7 +32,13 @@ public class Graph {
         this.name = name;
     }
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -97,7 +97,7 @@ public class GraphController {
             return redirectError(redirectAttributes);
         }
         Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
-        if (loggedUser.isPresent()) graphService.saveGraph(graphDto);
+        if (loggedUser.isPresent()) graphService.saveGraph(graphDto, loggedUser.get());
         {
             //nalezeni posledniho id pro jeho zobrazeni
             List<Graph> GraphList = graphService.findGraphs();

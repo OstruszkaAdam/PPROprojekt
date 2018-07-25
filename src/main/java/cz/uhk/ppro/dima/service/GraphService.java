@@ -6,6 +6,7 @@ import cz.uhk.ppro.dima.model.Article;
 import cz.uhk.ppro.dima.model.ArticleImage;
 import cz.uhk.ppro.dima.model.Graph;
 
+import cz.uhk.ppro.dima.model.User;
 import cz.uhk.ppro.dima.repository.GraphRepository;
 import cz.uhk.ppro.dima.util.GraphPersistor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +28,13 @@ public class GraphService {
     private GraphPersistor graphPersistor;
 
     @Transactional
-    public void saveGraph(GraphDto graphDto) {
+    public void saveGraph(GraphDto graphDto, User user) {
         Graph graph = new Graph();
 
         List<MultipartFile> files = graphDto.getMpf();
-
         graph.setName(graphDto.getName());
-
-        graphRepo.save(graph);
-
+        graph.setUser(user);
         saveGraph(graph, files);
-
     }
 
     private void saveGraph(Graph graph, List<MultipartFile> files) {
@@ -46,8 +43,8 @@ public class GraphService {
             graphPersistor.saveGraph(file, graph.getName());
             Graph g = new Graph();
             g.setName(graph.getName());
+            g.setUser(graph.getUser());
             graphRepo.save(g);
-
         }
     }
 

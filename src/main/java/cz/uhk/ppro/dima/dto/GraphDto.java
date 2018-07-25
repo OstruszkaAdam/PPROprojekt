@@ -16,6 +16,7 @@ public class GraphDto {
     @NotNull
     private List<MultipartFile> mpf;
 
+
     public String getName() {
         return name;
     }

@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Indexed //zahrnuti clanku do vyhledavaciho indexu
 //@Analyzer //pro umozneni vyhledavani ruznych tvaru slov
-@Table(name = "posts", schema = "dima")
+@Table(name = "articles", schema = "dima")
 public class Article {
     //edited
     @Id

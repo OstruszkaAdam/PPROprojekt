@@ -8,7 +8,8 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary text-white">
     <div class="container">
         <%-- <a class="navbar-brand" href="#"><spring:message code="app_title"/></a>--%>
-        <a class="navbar-brand" href='<spring:url value="/" htmlEscape="true"/>'><spring:message code="headline_app_title"/></a>
+        <a class="navbar-brand" href='<spring:url value="/" htmlEscape="true"/>'><spring:message
+                code="headline_app_title"/></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
         <%-- data-target="#navbarsExample07" aria-controls="navbarsExample07"--%>
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -24,7 +25,8 @@
 
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+                    <a class="nav-link dropdown-toggle" href="/" id="dropdown01" data-toggle="dropdown"
+                       aria-haspopup="true"
                        aria-expanded="false"><spring:message code="article_topics"/></a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
 
@@ -33,7 +35,8 @@
                             <spring:url value="/topics/{topicName}" var="articleTopicUrl">
                                 <spring:param name="topicName" value="${temata.urlName}"/>
                             </spring:url>
-                            <a class="dropdown-item" href="${fn:escapeXml(articleTopicUrl)}"><c:out value="${temata.name}"/></a>
+                            <a class="dropdown-item" href="${fn:escapeXml(articleTopicUrl)}"><c:out
+                                    value="${temata.name}"/></a>
                         </c:forEach>
 
                         <%--<a class="dropdown-item" href="#">Action</a>--%>
@@ -42,9 +45,14 @@
                 </li>
 
                 <li>
-                    <a class="nav-link" href='<spring:url value="/algoritmus" htmlEscape="true"/>'><spring:message code="menu_item_algorithm"/></a>
+                    <a class="nav-link" href='<spring:url value="/algoritmus" htmlEscape="true"/>'><spring:message
+                            code="menu_item_algorithm"/></a>
                 </li>
 
+                <li>
+                    <a class="nav-link" href='<spring:url value="/articleLatest" htmlEscape="true"/>'><spring:message
+                            code="menu_item_articleLatest"/></a>
+                </li>
 
                 <%--            <sec:authorize access="isAuthenticated()">
                                 <spring:url value="/users/{userId}" var="userUrl">
@@ -91,9 +99,11 @@
 
 
             <form class="form-inline my-2 my-lg-0" action="/search" method="get">
-                <input class="form-control mr-sm-2" type="text" name="q" placeholder="<spring:message code="search_placeholder"/>"
+                <input class="form-control mr-sm-2" type="text" name="q"
+                       placeholder="<spring:message code="search_placeholder"/>"
                        aria-label="<spring:message code="search_placeholder"/>">
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><spring:message code="search_button"/></button>
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><spring:message
+                        code="search_button"/></button>
             </form>
 
         </div>

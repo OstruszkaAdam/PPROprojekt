@@ -39,6 +39,17 @@ public class User {
     @OneToMany(mappedBy = "author")
     private List<Comment> commentsPosted;
 
+    @OneToMany(mappedBy = "user")
+    private List<Graph> graphsPosted;
+
+    public List<Graph> getGraphsPosted() {
+        return graphsPosted;
+    }
+
+    public void setGraphsPosted(List<Graph> graphsPosted) {
+        this.graphsPosted = graphsPosted;
+    }
+
     public int getId() {
         return id;
     }
