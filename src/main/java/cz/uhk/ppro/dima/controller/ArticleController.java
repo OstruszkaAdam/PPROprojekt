@@ -86,7 +86,6 @@ public class ArticleController {
     }
 
     @PostMapping(value = "/articles/delete/{articleId}/{commentId}")
-//    @RequestMapping(value="/articles/delete/{articleId}/{commentId}", method = RequestMethod.POST)
     public String deleteComment(@PathVariable("articleId") int articleId, @PathVariable("commentId") int commentId) {
         Optional<User> author = userService.findByUsername(authentication.getAuthentication().getName());
 
@@ -103,7 +102,7 @@ public class ArticleController {
 
 
     @RequestMapping(value = "/articles/new", method = RequestMethod.GET)
-    public ModelAndView showNewArticleForm(ArticleDto articleDto, BindingResult result) {
+    public ModelAndView showNewArticleForm(ArticleDto articleDto) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName(ARTICLEFORMVIEW);
 
@@ -131,7 +130,6 @@ public class ArticleController {
     @RequestMapping(value = "/articles/{articleId}/edit", method = RequestMethod.GET)
     public String showEditArticleForm(@PathVariable("articleId") int articleId, @ModelAttribute("articleDto") Article article, Model model) {
         Optional<Article> a = this.articleService.findById(articleId);
-        //TODO map a to a DTO object
         if (a.isPresent()) model.addAttribute("articleDto", a);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

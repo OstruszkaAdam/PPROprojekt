@@ -38,6 +38,7 @@
                 <a class="btn btn-secondary" href="${fn:escapeXml(userUrl)}" role="button"><spring:message code="menu_item_profile"/></a>
 
                 <a class="btn btn-secondary" href="<spring:url value="/articles/new" htmlEscape="true"/>"><spring:message code="menu_item_insert_article"/></a>
+                <a class="btn btn-secondary" href="<spring:url value="/graph/new" htmlEscape="true"/>"><spring:message code="menu_item_insert_graph"/></a>
 
 
             </sec:authorize>

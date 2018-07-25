@@ -40,31 +40,31 @@
             <c:if test="${MESSAGE_CODE_ARTICLE ==2}"><jsp:include page="_alert_article_delete.jsp"/></c:if>
         </c:if>
 
-        <div class="row">
-            <%--            <div class="col-md-4">
-                            <h2><spring:message code="article_category"/></h2>
-                            <c:forEach items="${topics}" var="categ">
-                                <spring:url value="/articles/topics/{categoryId}" var="articleCategoryUrl">
-                                    <spring:param name="categoryId" value="${categ.id}"/>
-                                </spring:url>
-                                <li class="collection-item"><a href="${fn:escapeXml(articleCategoryUrl)}"><c:out value="${categ.name}"/></a></li>
-                            </c:forEach>
-                        </div>--%>
-            <div class="col-md-6">
-                <h2>Heading</h2>
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa
-                    justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                <p><a class="btn btn-secondary" href="#" role="button"><spring:message code="button_detail"/> &raquo;</a></p>
-            </div>
-            <div class="col-md-6">
-                <h2>Heading</h2>
-                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce
-                    dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                <p><a class="btn btn-secondary" href="#" role="button"><spring:message code="button_detail"/> &raquo;</a></p>
-            </div>
-        </div>
+        <%--<div class="row">--%>
+            <%--&lt;%&ndash;            <div class="col-md-4">--%>
+                            <%--<h2><spring:message code="article_category"/></h2>--%>
+                            <%--<c:forEach items="${topics}" var="categ">--%>
+                                <%--<spring:url value="/articles/topics/{categoryId}" var="articleCategoryUrl">--%>
+                                    <%--<spring:param name="categoryId" value="${categ.id}"/>--%>
+                                <%--</spring:url>--%>
+                                <%--<li class="collection-item"><a href="${fn:escapeXml(articleCategoryUrl)}"><c:out value="${categ.name}"/></a></li>--%>
+                            <%--</c:forEach>--%>
+                        <%--</div>&ndash;%&gt;--%>
+            <%--<div class="col-md-6">--%>
+                <%--<h2>Heading</h2>--%>
+                <%--<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa--%>
+                    <%--justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>--%>
+                <%--<p><a class="btn btn-secondary" href="#" role="button"><spring:message code="button_detail"/> &raquo;</a></p>--%>
+            <%--</div>--%>
+            <%--<div class="col-md-6">--%>
+                <%--<h2>Heading</h2>--%>
+                <%--<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce--%>
+                    <%--dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>--%>
+                <%--<p><a class="btn btn-secondary" href="#" role="button"><spring:message code="button_detail"/> &raquo;</a></p>--%>
+            <%--</div>--%>
+        <%--</div>--%>
 
-    </div> <!-- /container -->
+    <%--</div> <!-- /container -->--%>
 
     <div class="container">
         <div class="col l8 article-listing">
