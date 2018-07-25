@@ -50,7 +50,7 @@
                 </li>
 
                 <li>
-                    <a class="nav-link" href='<spring:url value="/articleLatest" htmlEscape="true"/>'><spring:message
+                    <a class="nav-link" href='<spring:url value="/latest-articles" htmlEscape="true"/>'><spring:message
                             code="menu_item_latest"/></a>
                 </li>
 

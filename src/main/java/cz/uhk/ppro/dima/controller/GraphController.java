@@ -50,22 +50,13 @@ public class GraphController {
         List<Topic> topicList = articleService.findAllTopics();
         mav.addObject("topics", topicList);
 
-/*        //presmerovani na 404 pokud zadny takovy graf neexistuje
-        if (!article.isPresent()){
+        //presmerovani na 404 pokud zadny takovy graf neexistuje
+        if (!graph.isPresent()) {
             ModelAndView newMav = new ModelAndView("redirect:/topics/notfound");
             newMav.addObject("topics", topicList);
             return newMav;
-        }*/
-
-/*        List<Graph> graphs = graphService.findGraphs();
-        boolean hasPermission = false;
-        for (Graph gr : graphs) {
-            if (gr.getId() == articleId) hasPermission = true;
-        }*/
-
-        if (graph.isPresent()) {
+        } else {
             mav.addObject("graph", graph.get());
-/*            mav.addObject("hasPermission", hasPermission);*/
         }
 
         return mav;
@@ -81,7 +72,7 @@ public class GraphController {
         if (loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 
         GraphDto graphDto = new GraphDto();
-        mav.addObject("graphDto",graphDto);
+        mav.addObject("graphDto", graphDto);
 
         List<Topic> topicList = articleService.findAllTopics();
         mav.addObject("topics", topicList);
@@ -104,6 +95,18 @@ public class GraphController {
         }
     }
 
+    @RequestMapping(value = "/graphs/delete/{graphId}", method = RequestMethod.POST)
+    public String deleteGraph(@PathVariable("graphId") int graphId, RedirectAttributes redirectAttributes) {
+        Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
+        if (loggedUser.isPresent()) ;
+        {
+            graphService.remove(graphId);
+            Optional<User> foundUser = userService.findById(loggedUser.get().getId());
+            int userID = foundUser.get().getId();
+            return "redirect:/users/" + userID;
+        }
+    }
+
     private String redirectError(RedirectAttributes redirectAttributes) {
         message_code = 0; // toto cislo se preda do jsp a v zavislosti na nem se vypise hlaska
         redirectAttributes.addFlashAttribute("MESSAGE_CODE_GRAPH", message_code); // zde se cislo predava do jsp jako parametr pri presmerovani
@@ -115,6 +118,5 @@ public class GraphController {
         redirectAttributes.addFlashAttribute("MESSAGE_CODE_GRAPH", message_code); // zde se cislo predava do jsp jako parametr pri presmerovani
         return "redirect:/graph/" + graphId;
     }
-
-
+    
 }

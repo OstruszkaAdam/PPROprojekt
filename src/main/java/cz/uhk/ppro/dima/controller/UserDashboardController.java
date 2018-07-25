@@ -43,13 +43,14 @@ public class UserDashboardController {
         Optional<User> user = userService.findById(userId);
         if (!user.isPresent()) {
             ModelAndView newMav = new ModelAndView("redirect:/topics/notfound");
-            newMav.addObject("topics", topicList);
             return newMav;
 
         }
 
         if (user.isPresent()) {
             mav.addObject("articles", user.get().getArticles());
+            mav.addObject("graphs", user.get().getGraphsPosted());
+            mav.addObject("topics", topicList);
             mav.addObject("user", user.get());
         }
 

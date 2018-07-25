@@ -57,4 +57,9 @@ public class GraphService {
     public Optional<Graph> findById(int id) {
         return graphRepo.findById(id);
     }
+
+    @Transactional
+    public void remove(int graphId) {
+        graphRepo.delete(findById(graphId).get());
+    }
 }

@@ -91,6 +91,40 @@
             </table>
             
         </div>
+        <h3><spring:message code="user_graphs"/></h3>
+
+        <div class="table-responsive ">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col"><spring:message code="graph_headline"/></th>
+                    <c:if test="${isLoggedUsersProfile}">
+                        <th scope="col"><spring:message code="article_actions"/></th>
+                    </c:if>
+                </tr>
+                </thead>
+
+                <c:forEach items="${graphs}" var="graph">
+                    <spring:url value="/graph/{graphId}" var="graphUrl">
+                        <spring:param name="graphId" value="${graph.id}"/>
+                    </spring:url>
+                    <tr>
+                        <td><a href="${fn:escapeXml(graphUrl)}"><c:out value="${graph.name}"/></a></td>
+                            <%--Logged in user can edit or delete his articles--%>
+                        <c:if test="${isLoggedUsersProfile}">
+
+                            <c:url var="deleteUrl" value="/graphs/delete/${graph.id}"/>
+                            <td><form:form action="${deleteUrl}" method="POST">
+                                <input id="graphId" name="graphId" type="hidden" value="<c:out value="${graph.id}"/>"/>
+                                <button type="submit"  class="btn btn-primary" onClick="return confirm('Opravdu smazat?')"><spring:message code="action_delete"/></button>
+
+                            </form:form></td>
+                        </c:if>
+                    </tr>
+                </c:forEach>
+            </table>
+
+        </div>
     </div>
 
 </main>

@@ -36,6 +36,10 @@ public class Graph {
         return user;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setUser(User user) {
         this.user = user;
     }
