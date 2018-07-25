@@ -1,7 +1,8 @@
 package cz.uhk.ppro.dima.controller;
 
-import cz.uhk.ppro.dima.dto.ArticleDto;
 import cz.uhk.ppro.dima.dto.GraphDto;
+import cz.uhk.ppro.dima.model.Article;
+import cz.uhk.ppro.dima.model.Graph;
 import cz.uhk.ppro.dima.model.Topic;
 import cz.uhk.ppro.dima.model.User;
 import cz.uhk.ppro.dima.security.AuthenticationProvider;
@@ -10,6 +11,8 @@ import cz.uhk.ppro.dima.service.GraphService;
 import cz.uhk.ppro.dima.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,6 +39,41 @@ public class GraphController {
         this.articleService = articleService;
     }
 
+    @RequestMapping(value = "/graph/{graphId}", method = RequestMethod.GET)
+    public ModelAndView showGraph(@PathVariable("graphId") int graphId) {
+        ModelAndView mav = new ModelAndView("graphDetail");
+
+        Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
+        if (loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
+
+        Optional<Graph> graph = graphService.findById(graphId);
+
+        //vyhleda kategorie pro menu
+        List<Topic> topicList = articleService.findAllTopics();
+
+/*        //presmerovani na 404 pokud zadny takovy graf neexistuje
+        if (!article.isPresent()){
+            ModelAndView newMav = new ModelAndView("redirect:/topics/notfound");
+            newMav.addObject("topics", topicList);
+            return newMav;
+        }*/
+
+/*        List<Graph> graphs = graphService.findGraphs();
+        boolean hasPermission = false;
+        for (Graph gr : graphs) {
+            if (gr.getId() == articleId) hasPermission = true;
+        }*/
+
+        if (graph.isPresent()) {
+            mav.addObject("graph", graph.get());
+/*            mav.addObject("hasPermission", hasPermission);*/
+            mav.addObject("topics", topicList);
+        }
+
+        return mav;
+    }
+
+
     @RequestMapping(value = "/graph/new", method = RequestMethod.GET)
     public ModelAndView algoritmus() {
 
@@ -61,20 +99,23 @@ public class GraphController {
         Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
         if (loggedUser.isPresent()) graphService.saveGraph(graphDto);
         {
-            return redirectSuccess(redirectAttributes);
+            //nalezeni posledniho id pro jeho zobrazeni
+            List<Graph> GraphList = graphService.findGraphs();
+            Integer redirectId = GraphList.size();
+            return redirectSuccess(redirectAttributes, redirectId);
         }
     }
 
     private String redirectError(RedirectAttributes redirectAttributes) {
         message_code = 0; // toto cislo se preda do jsp a v zavislosti na nem se vypise hlaska
-        redirectAttributes.addFlashAttribute("MESSAGE_CODE_ARTICLE", message_code); // zde se cislo predava do jsp jako parametr pri presmerovani
-        return "redirect:/articles/{articleId}/edit?error=true";
+        redirectAttributes.addFlashAttribute("MESSAGE_CODE_GRAPH", message_code); // zde se cislo predava do jsp jako parametr pri presmerovani
+        return "redirect:/graph/{graphName}/edit?error=true";
     }
 
-    private String redirectSuccess(RedirectAttributes redirectAttributes) {
+    private String redirectSuccess(RedirectAttributes redirectAttributes, Integer graphId) {
         message_code = 1; // toto cislo se preda do jsp a v zavislosti na nem se vypise hlaska
-        redirectAttributes.addFlashAttribute("MESSAGE_CODE_ARTICLE", message_code); // zde se cislo predava do jsp jako parametr pri presmerovani
-        return "redirect:/";
+        redirectAttributes.addFlashAttribute("MESSAGE_CODE_GRAPH", message_code); // zde se cislo predava do jsp jako parametr pri presmerovani
+        return "redirect:/graph/" + graphId;
     }
 
 

@@ -11,15 +11,15 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <jsp:include page="_header.jsp"/>
+    <jsp:include page="blocks/_header.jsp"/>
     <title><spring:message code="app_title_browser"/></title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.2.15/cytoscape.js"></script>
-    <script src='resources/scripts/graph_elements.js'></script>
-    <script src='resources/scripts/graphView.js'></script>
+    <script src='/resources/graphs/graph_elements.js'></script>
+    <script src='/resources/graphs/graphView.js'></script>
 </head>
 
 <body>
-<jsp:include page="_menu.jsp"/>
+<jsp:include page="blocks/_menu.jsp"/>
 
 <main role="main">
     <div class="container">
@@ -181,6 +181,6 @@
     </div>
 </main>
 
-<jsp:include page="_footer.jsp"/>
+<jsp:include page="blocks/_footer.jsp"/>
 </body>
 </html>

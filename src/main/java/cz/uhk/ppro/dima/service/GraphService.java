@@ -9,11 +9,13 @@ import cz.uhk.ppro.dima.model.Graph;
 import cz.uhk.ppro.dima.repository.GraphRepository;
 import cz.uhk.ppro.dima.util.GraphPersistor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -47,5 +49,15 @@ public class GraphService {
             graphRepo.save(g);
 
         }
+    }
+
+    @Transactional()
+    public List<Graph> findGraphs() throws DataAccessException {
+        return graphRepo.findAll();
+    }
+
+    @Transactional
+    public Optional<Graph> findById(int id) {
+        return graphRepo.findById(id);
     }
 }

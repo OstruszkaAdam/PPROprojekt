@@ -29,14 +29,14 @@ public class JpaArticleRepositoryImpl implements ArticleRepository {
     }
 
     @Override
-    public List<Article> findArticlesInTopic(int topicId) {
+    public List<Article> findArticlesOnTopic(int topicId) {
         Query query = this.em.createQuery("select article from Article article where article.topic.id = :topicId order by article.timestamp desc");
         query.setParameter("topicId", topicId);
         return query.getResultList();
     }
 
     @Override
-    public List<Article> findArticlesInTopic(String topicUrlName) {
+    public List<Article> findArticlesOnTopic(String topicUrlName) {
         Query query = this.em.createQuery("select article from Article article where article.topic.urlName = :topicUrlName order by article.timestamp desc");
         query.setParameter("topicUrlName", topicUrlName);
         return query.getResultList();

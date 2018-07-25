@@ -142,12 +142,12 @@ public class ArticleService {
 
     @Transactional
     public List findArticlesOnTopic(int topicId) {
-        return articleRepo.findArticlesInTopic(topicId);
+        return articleRepo.findArticlesOnTopic(topicId);
     }
 
     @Transactional
     public List findArticlesOnTopicByName(String topicUrlName) {
-        return articleRepo.findArticlesInTopic(topicUrlName);
+        return articleRepo.findArticlesOnTopic(topicUrlName);
     }
 
 }

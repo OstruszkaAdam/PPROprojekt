@@ -10,26 +10,26 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <jsp:include page="_header.jsp"/>
+    <jsp:include page="blocks/_header.jsp"/>
     <title><spring:message code="app_title_browser"/></title>
 </head>
 
 <body>
-<jsp:include page="_menu.jsp"/>
+<jsp:include page="blocks/_menu.jsp"/>
 
 <main role="main">
 
     <div class="container">
-        <h1><spring:message code="headline_add_or_edit_article"/></h1>
+        <h1><spring:message code="headline_article_editor"/></h1>
 
         <c:if test="${MESSAGE_CODE_ARTICLE ==0}">
-            <jsp:include page="_alert_article_error.jsp"/>
+            <jsp:include page="blocks/_alert_article_error.jsp"/>
         </c:if>
 
         <form:form method="POST" modelAttribute="articleDto" enctype="multipart/form-data">
             <fieldset>
                 <div class="form-group">
-                    <label class="bmd-label-floating"><b>Name</b></label>
+                    <label class="bmd-label-floating"><b><spring:message code="article_name"/></b></label>
                     <form:input path="name" class="form-control" type="text" required="true"/>
                 </div>
 
@@ -63,6 +63,6 @@
 
 </main>
 
-<jsp:include page="_footer.jsp"/>
+<jsp:include page="blocks/_footer.jsp"/>
 </body>
 </html>

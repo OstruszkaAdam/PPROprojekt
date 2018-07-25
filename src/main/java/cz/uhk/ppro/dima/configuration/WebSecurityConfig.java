@@ -68,11 +68,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        //Web resources
+        // zdroje pro staticke stranky
         web.ignoring().antMatchers("/css/**");
         web.ignoring().antMatchers("/static/**");
         web.ignoring().antMatchers("/scripts/**");
+        // zdroje pro dynamicke stranky
+        web.ignoring().antMatchers("/resources/css/**");
         web.ignoring().antMatchers("/resources/images/**");
+        web.ignoring().antMatchers("/resources/graphs/**");
     }
 }
 

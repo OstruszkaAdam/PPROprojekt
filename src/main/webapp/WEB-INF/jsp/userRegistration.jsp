@@ -6,18 +6,18 @@
 
 <html>
 <head>
-    <jsp:include page="_header.jsp"/>
+    <jsp:include page="blocks/_header.jsp"/>
     <title><spring:message code="app_title_browser"/></title>
 </head>
 <body>
-<jsp:include page="_menu.jsp"/>
+<jsp:include page="blocks/_menu.jsp"/>
 <main role="main">
 
     <div class="container">
         <h1><spring:message code="headline_registration"/></h1>
 
         <c:if test="${MESSAGE_CODE_REGISTRATION ==0}">
-            <jsp:include page="_alert_registration_error.jsp"/>
+            <jsp:include page="blocks/_alert_registration_error.jsp"/>
         </c:if>
 
 
@@ -81,6 +81,6 @@
 
 </main>
 
-<jsp:include page="_footer.jsp"/>
+<jsp:include page="blocks/_footer.jsp"/>
 </body>
 </html>

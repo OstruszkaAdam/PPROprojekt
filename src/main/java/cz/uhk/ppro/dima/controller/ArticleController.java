@@ -54,7 +54,7 @@ public class ArticleController {
         //vyhleda kategorie pro menu
         List<Topic> topicList = articleService.findAllTopics();
 
-        //redirrect na 404 pokud zadny takovy clanek neexistuje
+        //presmerovani na 404 pokud zadny takovy clanek neexistuje
         if (!article.isPresent()){
             ModelAndView newMav = new ModelAndView("redirect:/topics/notfound");
             newMav.addObject("topics", topicList);
@@ -125,8 +125,8 @@ public class ArticleController {
         {
             //nalezeni posledniho id pro jeho zobrazeni
             List<Article> articleList = articleService.findArticles();
-            int redirectId = articleList.size();
-            return redirectSuccess(redirectAttributes, String.valueOf(redirectId));
+            Integer redirectId = articleList.size();
+            return redirectSuccess(redirectAttributes, redirectId);
         }
     }
 
@@ -176,7 +176,7 @@ public class ArticleController {
         return "redirect:/articles/{articleId}/edit?error=true";
     }
 
-    private String redirectSuccess(RedirectAttributes redirectAttributes, String articleId) {
+    private String redirectSuccess(RedirectAttributes redirectAttributes, Integer articleId) {
         message_code = 1; // toto cislo se preda do jsp a v zavislosti na nem se vypise hlaska
         redirectAttributes.addFlashAttribute("MESSAGE_CODE_ARTICLE", message_code); // zde se cislo predava do jsp jako parametr pri presmerovani
         return "redirect:/articles/" + articleId;
@@ -193,13 +193,6 @@ public class ArticleController {
         redirectAttributes.addFlashAttribute("MESSAGE_CODE_ARTICLE", message_code); // zde se cislo predava do jsp jako parametr pri presmerovani
         return "redirect:/";
     }
-
-/*
-    @RequestMapping(value = "/articles/new/success")
-    public String showArticleSuccess() {
-        return "articleSuccess";
-    }
-*/
 
 }
 

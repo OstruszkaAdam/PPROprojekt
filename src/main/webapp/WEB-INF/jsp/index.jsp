@@ -11,12 +11,12 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <jsp:include page="_header.jsp"/>
+    <jsp:include page="blocks/_header.jsp"/>
     <title><spring:message code="app_title_browser"/></title>
 </head>
 
 <body>
-<jsp:include page="_menu.jsp"/>
+<jsp:include page="blocks/_menu.jsp"/>
 
 <main role="main" class="index">
 
@@ -32,12 +32,16 @@
     <div class="container">
         <!-- Example row of columns -->
         <c:if test="${MESSAGE_CODE_REGISTRATION != null}">
-            <jsp:include page="_alert_registration_success.jsp"/>
+            <jsp:include page="blocks/_alert_registration_success.jsp"/>
         </c:if>
 
         <c:if test="${MESSAGE_CODE_ARTICLE != null}">
-            <c:if test="${MESSAGE_CODE_ARTICLE ==1}"><jsp:include page="_alert_article_success.jsp"/></c:if>
-            <c:if test="${MESSAGE_CODE_ARTICLE ==2}"><jsp:include page="_alert_article_delete.jsp"/></c:if>
+          <%--  <c:if test="${MESSAGE_CODE_ARTICLE ==1}"><jsp:include page="blocks/_alert_article_success.jsp"/></c:if>--%>
+            <c:if test="${MESSAGE_CODE_ARTICLE ==2}"><jsp:include page="blocks/_alert_article_delete.jsp"/></c:if>
+        </c:if>
+
+        <c:if test="${MESSAGE_CODE_GRAPH != null}">
+            <jsp:include page="blocks/_alert_graph_success.jsp"/>
         </c:if>
 
         <%--<div class="row">--%>
@@ -118,6 +122,6 @@
     </div>
 </main>
 
-<jsp:include page="_footer.jsp"/>
+<jsp:include page="blocks/_footer.jsp"/>
 </body>
 </html>

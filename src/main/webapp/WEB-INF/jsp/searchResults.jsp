@@ -11,12 +11,12 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <jsp:include page="_header.jsp"/>
+    <jsp:include page="blocks/_header.jsp"/>
     <title><spring:message code="app_title_browser"/></title>
 </head>
 
 <body>
-<jsp:include page="_menu.jsp"/>
+<jsp:include page="blocks/_menu.jsp"/>
 
 <main role="main">
 
@@ -73,6 +73,6 @@
     </div>
 </main>
 
-<jsp:include page="_footer.jsp"/>
+<jsp:include page="blocks/_footer.jsp"/>
 </body>
 </html>

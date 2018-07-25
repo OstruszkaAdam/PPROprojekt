@@ -7,30 +7,36 @@
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+
 <!doctype html>
 <html lang="en">
 <head>
     <jsp:include page="blocks/_header.jsp"/>
     <title><spring:message code="app_title_browser"/></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.2.15/cytoscape.js"></script>
+    <script src='/resources/graphs/uploaded/${graph.name}.js'></script>
+    <script src='/resources/graphs/graphView.js'></script>
 </head>
 
 <body>
 <jsp:include page="blocks/_menu.jsp"/>
 
 <main role="main">
-
     <div class="container">
-        <h1><spring:message code="headline_error"/></h1>
-        <div class="text-center">
-            <br>
-            <a href="/" class="btn btn-outline-primary btn-large"><spring:message code="error_back_to_index"/></a>
-            <br><br>
-            <img src="http://thinkspace.com/wp-content/uploads/2014/01/404.png">
-            <br><br>
-        </div>
+
+        <c:if test="${MESSAGE_CODE_GRAPH != null}">
+            <c:if test="${MESSAGE_CODE_GRAPH == 1}">
+                <jsp:include page="blocks/_alert_graph_success.jsp"/>
+            </c:if>
+        </c:if>
+
+        <h1>${graph.name}</h1>
+
+
+        <div class="col-md-12 graph-fullscreen" id="cy"></div>
+
 
     </div>
-
 </main>
 
 <jsp:include page="blocks/_footer.jsp"/>

@@ -13,13 +13,13 @@
     <!-- Custom style for this page -->
     <link type="text/css" rel="stylesheet" href="/resources/css/login.css"/>
 
-    <jsp:include page="_header.jsp"/>
+    <jsp:include page="blocks/_header.jsp"/>
     <title><spring:message code="app_title_browser"/></title>
 </head>
 
 
 <body class="text-center">
-<jsp:include page="_menu.jsp"/>
+<jsp:include page="blocks/_menu.jsp"/>
 <form class="form-signin" method="POST" action="<c:url value='/login'/>">
     <%--<img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">--%>
     <h1 class="h3 mb-3 font-weight-normal"><spring:message code="headline_login"/></h1>

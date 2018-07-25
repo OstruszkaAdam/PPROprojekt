@@ -8,8 +8,8 @@ import java.util.Optional;
 public interface ArticleRepository {
     Optional<Article> findById(int id);
     List<Article> findAll();
-    List<Article> findArticlesInTopic(int topicId);
-    List<Article> findArticlesInTopic(String topicUrlName);
+    List<Article> findArticlesOnTopic(int topicId);
+    List<Article> findArticlesOnTopic(String topicUrlName);
     void save(Article article);
     void remove(Article article);
 }

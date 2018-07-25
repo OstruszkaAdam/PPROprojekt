@@ -11,37 +11,39 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <jsp:include page="_header.jsp"/>
+    <jsp:include page="blocks/_header.jsp"/>
     <title><spring:message code="app_title_browser"/></title>
 </head>
 
 <body>
-<jsp:include page="_menu.jsp"/>
+<jsp:include page="blocks/_menu.jsp"/>
 
 <main role="main">
 
     <div class="container">
-    <form:form method="POST" modelAttribute="graphDto" enctype="multipart/form-data">
-        <fieldset>
-            <div class="form-group">
-                <label class="bmd-label-floating"><b><spring:message code="file_name"/></b></label>
-                <form:input path="name" class="form-control" type="text" required="true"/>
-            </div>
+        <h1><spring:message code="headline_graph_editor"/></h1>
 
-            <div class="form-group">
-                <label class="bmd-label-floating"><spring:message code="choose_graph"/></label>
-                <form:input path="mpf" type="file" class="form-control-file" multiple="true"/>
-            </div>
+        <form:form method="POST" modelAttribute="graphDto" enctype="multipart/form-data">
+            <fieldset>
+                <div class="form-group">
+                    <label class="bmd-label-floating"><b><spring:message code="graph_name"/></b></label>
+                    <form:input path="name" class="form-control" type="text" required="true"/>
+                </div>
 
+                <div class="form-group">
+                    <label class="bmd-label-floating"><spring:message code="graph_file"/></label>
+                    <form:input path="mpf" type="file" accept=".js" class="form-control-file" multiple="true"/>
+                    <%--The accept attribute of the input tag is not supported in Internet Explorer 9 (and earlier versions), and Safari 5 (and earlier).--%>
+                </div>
 
-            <a class="btn btn-outline-secondary" role="button" href='<spring:url value="/" htmlEscape="true"/>'><spring:message code="button_cancel"/></a>
-            <button type="submit" class="btn btn-primary btn-raised" role="button"><spring:message code="button_upload"/></button>
+                <a class="btn btn-outline-secondary" role="button" href='<spring:url value="/" htmlEscape="true"/>'><spring:message code="button_cancel"/></a>
+                <button type="submit" class="btn btn-primary btn-raised" role="button"><spring:message code="button_upload"/></button>
 
-        </fieldset>
-    </form:form>
+            </fieldset>
+        </form:form>
     </div>
 </main>
 
-<jsp:include page="_footer.jsp"/>
+<jsp:include page="blocks/_footer.jsp"/>
 </body>
 </html>

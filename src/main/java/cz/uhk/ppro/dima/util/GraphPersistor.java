@@ -19,7 +19,7 @@ public class GraphPersistor {
         try {
             byte[] graph = mpf.getBytes();
             if (graph != null) {
-                File file = new File("D:/PPRO/src/main/webapp/resources/scripts/" + graphName + ".js");
+                File file = new File("D:/PPRO/src/main/webapp/resources/graphs/uploaded/" + graphName + ".js");
                 OutputStream out = new FileOutputStream(file);
                 out.write(graph);
                 out.flush();
