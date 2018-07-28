@@ -1,7 +1,6 @@
 package cz.uhk.ppro.dima.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -18,15 +17,19 @@ public class User {
     @NotEmpty
     @Column(unique = true)
     private String username;
+
     @NotEmpty
     private String password;
-    @NotEmpty
-    private String firstname;
-    @NotEmpty
-    private String surname;
+
     @NotEmpty
     private String email;
-    private String phone;
+
+    @NotEmpty
+    private String firstName;
+
+    @NotEmpty
+    private String lastName;
+
     @NotNull
     private Timestamp creationTime;
 
@@ -76,21 +79,21 @@ public class User {
         this.password = password;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstName) {
-        this.firstname = firstName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
 
@@ -101,16 +104,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
 
     public Timestamp getCreationTime() {
         return creationTime;
@@ -154,10 +147,9 @@ public class User {
         if (id != user.id) return false;
         if (username != null ? !username.equals(user.username) : user.username != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (!firstname.equals(user.firstname)) return false;
-        if (!surname.equals(user.surname)) return false;
+        if (!firstName.equals(user.firstName)) return false;
+        if (!lastName.equals(user.lastName)) return false;
         if (!email.equals(user.email)) return false;
-        if (!phone.equals(user.phone)) return false;
         return creationTime != null ? creationTime.equals(user.creationTime) : user.creationTime == null;
     }
 
@@ -166,10 +158,9 @@ public class User {
         int result = id;
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + firstname.hashCode();
-        result = 31 * result + surname.hashCode();
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
         result = 31 * result + email.hashCode();
-        result = 31 * result + phone.hashCode();
         result = 31 * result + (creationTime != null ? creationTime.hashCode() : 0);
         return result;
     }

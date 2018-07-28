@@ -76,7 +76,7 @@ jQuery(document).ready(function($) {
 
   // Smoth scroll on page hash links
   $('.nav-menu a, #mobile-nav a, .scrollto').on('click', function() {
-    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostName == this.hostName) {
       var target = $(this.hash);
       if (target.length) {
         var top_space = 0;

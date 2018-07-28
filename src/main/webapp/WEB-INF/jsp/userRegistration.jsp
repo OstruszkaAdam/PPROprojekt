@@ -41,15 +41,11 @@
                 </div>
                 <div class="form-group">
                     <label class="bmd-label-floating"><b><spring:message code="first_name"/></b><span class="text-danger"> *</span></label>
-                    <form:input path="firstname" class="form-control" type="text" required="true"/>
+                    <form:input path="firstName" class="form-control" type="text" required="true"/>
                 </div>
                 <div class="form-group">
                     <label class="bmd-label-floating"><b><spring:message code="last_name"/></b><span class="text-danger"> *</span></label>
-                    <form:input path="surname" class="form-control" type="text" required="true"/>
-                </div>
-                <div class="form-group">
-                    <label class="bmd-label-floating"><b><spring:message code="phone"/></b></label>
-                    <form:input path="phoneNumber" class="form-control" type="text"/>
+                    <form:input path="lastName" class="form-control" type="text" required="true"/>
                 </div>
                 <p><span class="text-danger"><spring:message code="registration_requied_fields"/></span></p>
                 <div class="clearfix">

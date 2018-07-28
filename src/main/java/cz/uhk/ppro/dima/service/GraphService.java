@@ -33,6 +33,7 @@ public class GraphService {
 
         List<MultipartFile> files = graphDto.getMpf();
         graph.setName(graphDto.getName());
+        graph.setDescription(graphDto.getDescription());
         graph.setUser(user);
         saveGraph(graph, files);
     }
@@ -43,6 +44,7 @@ public class GraphService {
             graphPersistor.saveGraph(file, graph.getName());
             Graph g = new Graph();
             g.setName(graph.getName());
+            g.setDescription(graph.getDescription());
             g.setUser(graph.getUser());
             graphRepo.save(g);
         }

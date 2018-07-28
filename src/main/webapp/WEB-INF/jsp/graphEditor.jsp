@@ -31,6 +31,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="bmd-label-floating"><b><spring:message code="graph_description"/></b></label>
+                    <form:input path="description" class="form-control" type="text" required="false"/>
+                </div>
+
+                <div class="form-group">
                     <label class="bmd-label-floating"><spring:message code="graph_file"/></label>
                     <form:input path="mpf" type="file" accept=".js" class="form-control-file" multiple="true"/>
                     <%--The accept attribute of the input tag is not supported in Internet Explorer 9 (and earlier versions), and Safari 5 (and earlier).--%>

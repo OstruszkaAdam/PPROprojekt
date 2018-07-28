@@ -39,12 +39,11 @@ public class UserServiceJpaTests {
         UserDto userDto = new UserDto();
 
         userDto.setUsername(UUID.randomUUID().toString());
-        userDto.setFirstname("John");
-        userDto.setSurname("Smith");
+        userDto.setFirstName("John");
+        userDto.setLastName("Smith");
         userDto.setPassword("1234");
         userDto.setPasswordRepeat("1234");
         userDto.setEmail("test@test.test");
-        userDto.setPhoneNumber("737737737");
         this.userService.createNewUser(userDto);
 
         users = this.userService.findUsersByLastName("Smith");

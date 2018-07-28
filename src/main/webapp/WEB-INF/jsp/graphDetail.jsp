@@ -24,14 +24,21 @@
 <main role="main">
     <div class="container">
 
+        <!--==========================
+            Zobrazeni upozorneni
+        ============================-->
         <c:if test="${MESSAGE_CODE_GRAPH != null}">
             <c:if test="${MESSAGE_CODE_GRAPH == 1}">
                 <jsp:include page="blocks/_alert_graph_success.jsp"/>
             </c:if>
         </c:if>
 
+        <!--==========================
+            Zobrazeni grafu
+        ============================-->
         <h1>${graph.name}</h1>
 
+        <p class="text-justify text-long">${graph.description}</p>
 
         <div class="col-md-12 graph-fullscreen" id="cy"></div>
 

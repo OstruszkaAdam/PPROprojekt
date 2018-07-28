@@ -42,7 +42,7 @@ public class JpaUserRepositoryImpl implements UserRepository {
 
     @Override
     public Collection<User> findByLastName(String lastName) {
-        Query query = this.em.createQuery("SELECT u FROM User u WHERE u.surname LIKE :lastName");
+        Query query = this.em.createQuery("SELECT u FROM User u WHERE u.lastName LIKE :lastName");
         query.setParameter("lastName", lastName + "%");
         return query.getResultList();
     }

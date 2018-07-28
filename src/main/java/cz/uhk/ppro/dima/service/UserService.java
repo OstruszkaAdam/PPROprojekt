@@ -37,9 +37,8 @@ public class UserService {
         user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
-        user.setFirstname(userDto.getFirstname());
-        user.setSurname(userDto.getSurname());
-        user.setPhone(userDto.getPhoneNumber());
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
         user.setRole(roleRepo.findByName("USER").get());
         user.setCreationTime(new Timestamp(System.currentTimeMillis()));
         userRepo.save(user);

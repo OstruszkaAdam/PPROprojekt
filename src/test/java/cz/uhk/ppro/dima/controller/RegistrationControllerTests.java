@@ -63,9 +63,8 @@ public class RegistrationControllerTests {
                 .param("password", "123456")
                 .param("passwordRepeat", "123456")
                 .param("email", "test@test.test")
-                .param("firstname", "Pokud tohle vidis")
-                .param("surname", "Pak je vsechno OK")
-                .param("phoneNumber", "777 777 777")
+                .param("firstName", "Pokud tohle vidis")
+                .param("lastName", "Pak je vsechno OK")
         )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:registration/success"));

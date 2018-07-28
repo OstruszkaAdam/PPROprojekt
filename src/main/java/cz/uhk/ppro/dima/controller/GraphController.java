@@ -57,6 +57,7 @@ public class GraphController {
             return newMav;
         } else {
             mav.addObject("graph", graph.get());
+            mav.addObject("description", graph.get().getDescription());
         }
 
         return mav;

@@ -13,11 +13,9 @@ public class UserDto {
     @NotEmpty
     private String email;
     @NotEmpty
-    private String firstname;
+    private String firstName;
     @NotEmpty
-    private String surname;
-
-    private String phoneNumber;
+    private String lastName;
 
     public UserDto() {
     }
@@ -54,28 +52,20 @@ public class UserDto {
         this.email = email;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @Override
@@ -87,12 +77,11 @@ public class UserDto {
 
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (passwordRepeat != null ? !passwordRepeat.equals(that.passwordRepeat) : that.passwordRepeat != null)
-            return false;
+        if (passwordRepeat != null ? !passwordRepeat.equals(that.passwordRepeat) : that.passwordRepeat != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
-        if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
-        return phoneNumber != null ? phoneNumber.equals(that.phoneNumber) : that.phoneNumber == null;
+        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
+        return false;
     }
 
     @Override
@@ -101,9 +90,8 @@ public class UserDto {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (passwordRepeat != null ? passwordRepeat.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
-        result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         return result;
     }
 }

@@ -3,8 +3,6 @@ package cz.uhk.ppro.dima.model;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 
 @Entity
@@ -18,6 +16,8 @@ public class Graph {
     @NotEmpty
     private String name;
 
+    private String description;
+
     @ManyToOne
     private User user;
 
@@ -30,6 +30,14 @@ public class Graph {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public User getUser() {
@@ -60,6 +68,7 @@ public class Graph {
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
 

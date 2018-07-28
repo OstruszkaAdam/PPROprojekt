@@ -16,12 +16,7 @@ target/
 *.iml
 *.ipr
 
-### Uploaded images ###
-/src/main/webapp/resources/images/original/
-/src/main/webapp/resources/images/resampled/
 
-### Uploaded graphs ###
-/src/main/webapp/resources/graphs/uploaded/
 
 ### Hibernate Search index files ###
 var/

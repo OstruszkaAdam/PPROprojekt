@@ -19,17 +19,16 @@ public class ValidatorTests {
         return localValidatorFactoryBean;
     }
 
-    // mel by uspesne probehnout nasledujic 1 test (ve vypisu bude Tests run: 3)
+    // mel by uspesne probehnout nasledujici 1 test (ve vypisu bude Tests run: 3)
     @Test
     public void shouldNotValidateWhenUsernameEmpty() {
         LocaleContextHolder.setLocale(Locale.ENGLISH);
         User user = new User();
         user.setUsername("");
-        user.setFirstname("Test");
-        user.setSurname("Test");
+        user.setFirstName("Test");
+        user.setLastName("Test");
         user.setPassword("test");
         user.setEmail("test@test.test");
-        user.setPhone("456798123");
         user.setCreationTime(new Timestamp(System.currentTimeMillis()));
 
         Validator validator = createValidator();
@@ -46,11 +45,10 @@ public class ValidatorTests {
         LocaleContextHolder.setLocale(Locale.ENGLISH);
         User user = new User();
         user.setUsername("Test");
-        user.setFirstname("Test");
-        user.setSurname("Test");
+        user.setFirstName("Test");
+        user.setLastName("Test");
         user.setPassword("test");
         user.setEmail("");
-        user.setPhone("456798123");
         user.setCreationTime(new Timestamp(System.currentTimeMillis()));
 
         Validator validator = createValidator();
@@ -67,11 +65,10 @@ public class ValidatorTests {
         LocaleContextHolder.setLocale(Locale.ENGLISH);
         User user = new User();
         user.setUsername("Test");
-        user.setFirstname("Test");
-        user.setSurname("Test");
+        user.setFirstName("Test");
+        user.setLastName("Test");
         user.setPassword("");
         user.setEmail("test@test.test");
-        user.setPhone("456798123");
         user.setCreationTime(new Timestamp(System.currentTimeMillis()));
 
         Validator validator = createValidator();
