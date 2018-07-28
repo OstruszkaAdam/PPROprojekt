@@ -7,130 +7,6 @@
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<!doctype html>
-<html lang="en">
-<head>
-    <jsp:include page="blocks/_header.jsp"/>
-    <title><spring:message code="app_title_browser"/></title>
-</head>
-
-<body>
-<jsp:include page="blocks/_menu.jsp"/>
-
-<main role="main">
-
-    <div class="container">
-        <h1><spring:message code="headline_user_profile"/></h1>
-
-        <table class="table table-striped table-hover">
-            <tbody>
-            <tr>
-                <th scope="col"><spring:message code="username"/></th>
-                <td>${user.username}</td>
-            </tr>
-            <tr>
-                <th scope="col"><spring:message code="first_name"/></th>
-                <td>${user.firstName}</td>
-            </tr>
-            <tr>
-                <th scope="col"><spring:message code="last_name"/></th>
-                <td>${user.lastName}</td>
-            </tr>
-            <tr>
-                <th scope="col"><spring:message code="email"/></th>
-                <td>${user.email}</td>
-            </tr>
-            <tr>
-                <th scope="col"><spring:message code="registration_date"/></th>
-                <td><fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle="medium" timeStyle="medium" value="${user.creationTime}"/></td>
-            </tr>
-            </tbody>
-        </table>
-        <h3><spring:message code="user_articles"/></h3>
-        <a href="<spring:url value="/articles/new" />" class="btn btn-primary"><spring:message code="menu_item_insert_article"/></a>
-
-        <div class="table-responsive ">
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th scope="col"><spring:message code="article_headline"/></th>
-                    <c:if test="${isLoggedUsersProfile}">
-                        <th scope="col"><spring:message code="article_actions"/></th>
-                    </c:if>
-                </tr>
-                </thead>
-
-                <c:forEach items="${articles}" var="article">
-                    <spring:url value="/articles/{articleId}" var="articleUrl">
-                        <spring:param name="articleId" value="${article.id}"/>
-                    </spring:url>
-                    <tr>
-                        <td><a href="${fn:escapeXml(articleUrl)}"><c:out value="${article.name}"/></a></td>
-                            <%--Logged in user can edit or delete his articles--%>
-                        <c:if test="${isLoggedUsersProfile}">
-                            <spring:url value="/articles/{articleId}/edit" var="editArticle">
-                                <spring:param name="articleId" value="${article.id}"/>
-                            </spring:url>
-                            <td><a class="btn btn-primary" href="${fn:escapeXml(editArticle)}"><spring:message code="action_edit"/></a></td>
-
-                            <c:url var="deleteUrl" value="/articles/${article.id}/delete"/>
-                            <td><form:form action="${deleteUrl}" method="POST">
-                                <input id="articleId" name="articleId" type="hidden" value="<c:out value="${article.id}"/>"/>
-                                <%--TODO Vymenit hlasku v potvrzovacim okne za string ze souboru Messages--%>
-                                <button type="submit"  class="btn btn-primary" onClick="return confirm('Opravdu smazat?')"><spring:message code="action_delete"/></button>
-                                <%--TODO Rozjet modalni okno _modal_window--%>
-                                <%-- <input type="submit" class="btn btn-primary" value="Delete"  data-toggle="modal" data-target="#exampleModal"/>--%>
-                            </form:form></td>
-                        </c:if>
-                    </tr>
-                </c:forEach>
-            </table>
-            
-        </div>
-        <h3><spring:message code="user_graphs"/></h3>
-
-        <div class="table-responsive ">
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th scope="col"><spring:message code="graph_headline"/></th>
-                    <c:if test="${isLoggedUsersProfile}">
-                        <th scope="col"><spring:message code="article_actions"/></th>
-                    </c:if>
-                </tr>
-                </thead>
-
-                <c:forEach items="${graphs}" var="graph">
-                    <spring:url value="/graph/{graphId}" var="graphUrl">
-                        <spring:param name="graphId" value="${graph.id}"/>
-                    </spring:url>
-                    <tr>
-                        <td><a href="${fn:escapeXml(graphUrl)}"><c:out value="${graph.name}"/></a></td>
-                            <%--Logged in user can edit or delete his articles--%>
-                        <c:if test="${isLoggedUsersProfile}">
-
-                            <c:url var="deleteUrl" value="/graphs/delete/${graph.id}"/>
-                            <td><form:form action="${deleteUrl}" method="POST">
-                                <input id="graphId" name="graphId" type="hidden" value="<c:out value="${graph.id}"/>"/>
-                                <button type="submit"  class="btn btn-primary" onClick="return confirm('Opravdu smazat?')"><spring:message code="action_delete"/></button>
-
-                            </form:form></td>
-                        </c:if>
-                    </tr>
-                </c:forEach>
-            </table>
-
-        </div>
-    </div>
-
-</main>
-
-<jsp:include page="blocks/_footer.jsp"/>
-</body>
-</html>
-
-
-<%--
 
 <!doctype html>
 <html lang="en">
@@ -140,65 +16,65 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title><spring:message code="app_title_browser"/></title>
 
     <!-- Material Design for Bootstrap CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+          integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
     <link type="text/css" rel="stylesheet" href="/resources/css/dashboard.css"/>
 </head>
 
 <body>
+
+<!--==========================
+    Horni menu
+============================-->
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
+
+    <input class="form-control form-control-dark w-100" type="text"
+           placeholder="<spring:message code="search_placeholder"/>"
+           aria-label="<spring:message code="search_placeholder"/>">
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">Sign out</a>
+            <a class="nav-link" href="<spring:url value="/logout" />" role="button"><spring:message code="menu_item_logout"/></a>
         </li>
     </ul>
 </nav>
 
+
 <div class="container-fluid">
     <div class="row">
+        <!--==========================
+            Bocni menu
+        ============================-->
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link" href="/">
                             <span data-feather="home"></span>
-                            Dashboard <span class="sr-only">(current)</span>
+                            <spring:message code="admin_menu_homepage"/>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file"></span>
-                            Orders
+                        <a class="nav-link active" href="#clanky">
+                            <span data-feather="book"></span>
+                            <spring:message code="admin_menu_articles"/><span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="shopping-cart"></span>
-                            Products
+                        <a class="nav-link" href="#grafy">
+                            <span data-feather="git-branch"></span>
+                            <spring:message code="admin_menu_graphs"/>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="users"></span>
-                            Customers
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="bar-chart-2"></span>
-                            Reports
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="layers"></span>
-                            Integrations
+                        <a class="nav-link" href="#info">
+                            <span data-feather="user"></span>
+                            <spring:message code="admin_menu_user"/>
                         </a>
                     </li>
                 </ul>
@@ -238,151 +114,160 @@
             </div>
         </nav>
 
+        <!--==========================
+            Hlavni obsah
+        ============================-->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h1 class="h2">Dashboard</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
+                <h1><spring:message code="headline_user_dashboard"/></h1>
+                <%--<div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-outline-secondary">Share</button>
-                        <button class="btn btn-sm btn-outline-secondary">Export</button>
+                        <button class="btn btn-outline-secondary">Share</button>
+                        <button class="btn btn-outline-secondary">Export</button>
                     </div>
-                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <span data-feather="calendar"></span>
-                        This week
-                    </button>
-                </div>
+                </div>--%>
             </div>
 
-            <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+            <!--==========================
+                Prehled clanku
+            ============================-->
 
-            <h2>Section title</h2>
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
+            <h3 class="page-section-header" id="clanky"><spring:message code="user_articles"/></h3>
+            <a href="<spring:url value="/articles/new" />" class="btn btn-primary btn-outline"><spring:message code="menu_item_insert_article"/></a>
+
+            <div class="table-responsive ">
+                <table class="table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
+                        <th scope="col"><spring:message code="article_headline"/></th>
+                        <th scope="col"><spring:message code="timestamp"/></th>
+                        <th scope="col"><spring:message code="created_by"/></th>
+
+                        <c:if test="${isLoggedUsersProfile}">
+                            <th scope="col"><spring:message code="article_actions"/></th>
+                        </c:if>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td>1,001</td>
-                        <td>Lorem</td>
-                        <td>ipsum</td>
-                        <td>dolor</td>
-                        <td>sit</td>
-                    </tr>
-                    <tr>
-                        <td>1,002</td>
-                        <td>amet</td>
-                        <td>consectetur</td>
-                        <td>adipiscing</td>
-                        <td>elit</td>
-                    </tr>
-                    <tr>
-                        <td>1,003</td>
-                        <td>Integer</td>
-                        <td>nec</td>
-                        <td>odio</td>
-                        <td>Praesent</td>
-                    </tr>
-                    <tr>
-                        <td>1,003</td>
-                        <td>libero</td>
-                        <td>Sed</td>
-                        <td>cursus</td>
-                        <td>ante</td>
-                    </tr>
-                    <tr>
-                        <td>1,004</td>
-                        <td>dapibus</td>
-                        <td>diam</td>
-                        <td>Sed</td>
-                        <td>nisi</td>
-                    </tr>
-                    <tr>
-                        <td>1,005</td>
-                        <td>Nulla</td>
-                        <td>quis</td>
-                        <td>sem</td>
-                        <td>at</td>
-                    </tr>
-                    <tr>
-                        <td>1,006</td>
-                        <td>nibh</td>
-                        <td>elementum</td>
-                        <td>imperdiet</td>
-                        <td>Duis</td>
-                    </tr>
-                    <tr>
-                        <td>1,007</td>
-                        <td>sagittis</td>
-                        <td>ipsum</td>
-                        <td>Praesent</td>
-                        <td>mauris</td>
-                    </tr>
-                    <tr>
-                        <td>1,008</td>
-                        <td>Fusce</td>
-                        <td>nec</td>
-                        <td>tellus</td>
-                        <td>sed</td>
-                    </tr>
-                    <tr>
-                        <td>1,009</td>
-                        <td>augue</td>
-                        <td>semper</td>
-                        <td>porta</td>
-                        <td>Mauris</td>
-                    </tr>
-                    <tr>
-                        <td>1,010</td>
-                        <td>massa</td>
-                        <td>Vestibulum</td>
-                        <td>lacinia</td>
-                        <td>arcu</td>
-                    </tr>
-                    <tr>
-                        <td>1,011</td>
-                        <td>eget</td>
-                        <td>nulla</td>
-                        <td>Class</td>
-                        <td>aptent</td>
-                    </tr>
-                    <tr>
-                        <td>1,012</td>
-                        <td>taciti</td>
-                        <td>sociosqu</td>
-                        <td>ad</td>
-                        <td>litora</td>
-                    </tr>
-                    <tr>
-                        <td>1,013</td>
-                        <td>torquent</td>
-                        <td>per</td>
-                        <td>conubia</td>
-                        <td>nostra</td>
-                    </tr>
-                    <tr>
-                        <td>1,014</td>
-                        <td>per</td>
-                        <td>inceptos</td>
-                        <td>himenaeos</td>
-                        <td>Curabitur</td>
-                    </tr>
-                    <tr>
-                        <td>1,015</td>
-                        <td>sodales</td>
-                        <td>ligula</td>
-                        <td>in</td>
-                        <td>libero</td>
-                    </tr>
-                    </tbody>
+
+                    <c:forEach items="${articles}" var="article">
+                        <spring:url value="/articles/{articleId}" var="articleUrl">
+                            <spring:param name="articleId" value="${article.id}"/>
+                        </spring:url>
+                        <tr>
+                            <td><a href="${fn:escapeXml(articleUrl)}"><c:out value="${article.name}"/></a></td>
+
+                            <td><c:out value="${article.timestamp}"/></td>
+
+                            <td><c:out value="${article.user.username}"/></td>
+
+                            <c:if test="${isLoggedUsersProfile}">
+                                <spring:url value="/articles/{articleId}/edit" var="editArticle">
+                                    <spring:param name="articleId" value="${article.id}"/>
+                                </spring:url>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" href="${fn:escapeXml(editArticle)}"><spring:message code="action_edit"/>
+                                    </a>
+                                </td>
+
+                                <c:url var="deleteUrl" value="/articles/${article.id}/delete"/>
+                                <td><form:form action="${deleteUrl}" method="POST">
+                                <input id="articleId" name="articleId" type="hidden" value="<c:out value="${article.id}"/>"/>
+                                <button type="submit" class="btn btn-primary btn-sm" onClick="return confirm('Opravdu smazat?')"><spring:message
+                                        code="action_delete"/></button>
+                                </td>
+                            </form:form>
+                            </c:if>
+                        </tr>
+                    </c:forEach>
                 </table>
+
             </div>
+
+
+            <!--==========================
+                Prehled grafu
+            ============================-->
+            <h3 class="page-section-header" id="grafy"><spring:message code="user_graphs"/></h3>
+            <a href="<spring:url value="/graph/new" />" class="btn btn-primary btn-outline"><spring:message code="menu_item_insert_graph"/></a>
+
+            <div class="table-responsive ">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col"><spring:message code="graph_headline"/></th>
+                        <th scope="col"><spring:message code="description"/></th>
+                        <th scope="col"><spring:message code="created_by"/></th>
+                        <c:if test="${isLoggedUsersProfile}">
+                            <th scope="col"><spring:message code="article_actions"/></th>
+                        </c:if>
+                    </tr>
+                    </thead>
+
+                    <c:forEach items="${graphs}" var="graph">
+                        <spring:url value="/graph/{graphId}" var="graphUrl">
+                            <spring:param name="graphId" value="${graph.id}"/>
+                        </spring:url>
+                        <tr>
+                            <td><a href="${fn:escapeXml(graphUrl)}"><c:out value="${graph.name}"/></a></td>
+
+                            <c:set var="desc" value="${graph.description}"/>
+                            <c:choose>
+                                <c:when test="${fn:length(desc) > 50}">
+                                    <td><c:out value="${fn:substring(desc,0,50)}"/>...</td>
+                                </c:when>
+
+                                <c:otherwise>
+                                    <td><c:out value="${graph.description}"/></td>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <td><c:out value="${graph.user.username}"/></td>
+
+
+                            <c:if test="${isLoggedUsersProfile}">
+
+                                <c:url var="deleteUrl" value="/graphs/delete/${graph.id}"/>
+                                <td><form:form action="${deleteUrl}" method="POST">
+                                    <input id="graphId" name="graphId" type="hidden" value="<c:out value="${graph.id}"/>"/>
+                                    <button type="submit" class="btn btn-primary" onClick="return confirm('Opravdu smazat?')"><spring:message
+                                            code="action_delete"/></button>
+                                </form:form></td>
+                            </c:if>
+                        </tr>
+                    </c:forEach>
+                </table>
+
+            </div>
+
+            <!--==========================
+                 Prehled informaci o uzivateli
+            ============================-->
+            <h3 class="page-section-header" id="info"><spring:message code="user_detail"/></h3>
+            <table class="table table-striped table-hover">
+                <tbody>
+                <tr>
+                    <th scope="col"><spring:message code="username"/></th>
+                    <td>${user.username}</td>
+                </tr>
+                <tr>
+                    <th scope="col"><spring:message code="email"/></th>
+                    <td>${user.email}</td>
+                </tr>
+                <tr>
+                    <th scope="col"><spring:message code="registration_date"/></th>
+                    <td><fmt:formatDate pattern="dd. MM. yyyy HH:mm" dateStyle="medium" timeStyle="medium" value="${user.creationTime}"/></td>
+                </tr>
+                <tr>
+                    <th scope="col"><spring:message code="first_name"/></th>
+                    <td>${user.firstName}</td>
+                </tr>
+                <tr>
+                    <th scope="col"><spring:message code="last_name"/></th>
+                    <td>${user.lastName}</td>
+                </tr>
+                </tbody>
+            </table>
+
         </main>
     </div>
 </div>
@@ -390,7 +275,8 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script src="../../../../assets/js/vendor/popper.min.js"></script>
 <script src="../../../../dist/js/bootstrap-material-design.min.js"></script>
@@ -401,37 +287,5 @@
     feather.replace()
 </script>
 
-<!-- Graphs -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-<script>
-    var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            datasets: [{
-                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-                lineTension: 0,
-                backgroundColor: 'transparent',
-                borderColor: '#007bff',
-                borderWidth: 4,
-                pointBackgroundColor: '#007bff'
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: false
-                    }
-                }]
-            },
-            legend: {
-                display: false,
-            }
-        }
-    });
-</script>
 </body>
 </html>
---%>

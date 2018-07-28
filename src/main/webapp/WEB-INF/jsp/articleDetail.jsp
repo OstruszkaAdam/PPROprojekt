@@ -85,7 +85,7 @@
             <!--==========================
                 Vypis komentaru
             ============================-->
-            <h3 class="comment-section"><spring:message code="article_comments"/></h3>
+            <h3 class="page-section-header"><spring:message code="article_comments"/></h3>
 
             <%-- vypis vsech komentaru--%>
             <c:forEach items="${comments}" var="comment">

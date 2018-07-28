@@ -54,50 +54,10 @@
                             code="menu_item_latest"/></a>
                 </li>
 
-                    <li>
-                        <a class="nav-link" href='<spring:url value="/#team" htmlEscape="true"/>'><spring:message
-                                code="menu_item_team"/></a>
-                    </li>
-
-                <%--            <sec:authorize access="isAuthenticated()">
-                                <spring:url value="/users/{userId}" var="userUrl">
-                                    <spring:param name="userId" value="${loggedUserId}"/>
-                                </spring:url>
-                                <li class=""><a class="nav-link" href="${fn:escapeXml(userUrl)}">
-                                    Prihlasen(a)
-                                    <sec:authentication property="principal.username"/></a>
-                                </li>
-                            </sec:authorize>
-                --%>
-
-                <%--    <sec:authorize access="isAuthenticated()">
-                        <li class="">
-                            <a class="nav-link" href="<spring:url value="/logout" />"><spring:message code="menu_item_logout"/></a>
-                        </li>
-
-                        <li class="nav-item">
-                            <spring:url value="/users/{userId}" var="userUrl">
-                                <spring:param name="userId" value="${loggedUserId}"/>
-                            </spring:url>
-                            <a class="nav-link" href="${fn:escapeXml(userUrl)}"><spring:message code="menu_item_profile"/></a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href='<spring:url value="/articles/new" htmlEscape="true"/>'><spring:message code="menu_item_insert_article"/></a>
-                        </li>
-                    </sec:authorize>
-
-                <sec:authorize access="isAnonymous()">
-                    <li class="">
-                        <a class="nav-link" href="<spring:url value="/login" />"><spring:message code="menu_item_login"/></a>
-                    </li>
-
-                    <li class="">
-                        <a class="nav-link" href="<spring:url value="/registration" htmlEscape="true"/>"><spring:message code="menu_item_register"/></a>
-                    </li>
-
-
-                </sec:authorize>--%>
+                <li>
+                    <a class="nav-link" href='<spring:url value="/#team" htmlEscape="true"/>'><spring:message
+                            code="menu_item_team"/></a>
+                </li>
 
 
             </ul>
