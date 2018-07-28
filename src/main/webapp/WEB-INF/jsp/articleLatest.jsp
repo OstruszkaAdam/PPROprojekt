@@ -23,18 +23,18 @@
     <div class="container">
         <h1><spring:message code="headline_articles_latest"/></h1>
 
-        <c:if test="${MESSAGE_CODE_REGISTRATION != null}">
-            <jsp:include page="blocks/_alert_registration_success.jsp"/>
-        </c:if>
+        <%--<c:if test="${MESSAGE_CODE_REGISTRATION != null}">--%>
+            <%--<jsp:include page="blocks/_alert_registration_success.jsp"/>--%>
+        <%--</c:if>--%>
 
-        <c:if test="${MESSAGE_CODE_ARTICLE != null}">
+        <%--<c:if test="${MESSAGE_CODE_ARTICLE != null}">--%>
             <%--  <c:if test="${MESSAGE_CODE_ARTICLE ==1}"><jsp:include page="blocks/_alert_article_success.jsp"/></c:if>--%>
-            <c:if test="${MESSAGE_CODE_ARTICLE ==2}"><jsp:include page="blocks/_alert_article_delete.jsp"/></c:if>
-        </c:if>
+        <c:if test="${MESSAGE_CODE_ARTICLE ==2}"><jsp:include page="blocks/_alert_article_delete.jsp"/></c:if>
+        <%--</c:if>--%>
 
-        <c:if test="${MESSAGE_CODE_GRAPH != null}">
-            <jsp:include page="blocks/_alert_graph_success.jsp"/>
-        </c:if>
+        <%--<c:if test="${MESSAGE_CODE_GRAPH != null}">--%>
+            <%--<jsp:include page="blocks/_alert_graph_success.jsp"/>--%>
+        <%--</c:if>--%>
 
         <div class="container">
             <div class="col l8 article-listing">
