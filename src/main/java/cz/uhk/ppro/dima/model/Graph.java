@@ -21,7 +21,19 @@ public class Graph {
     @ManyToOne
     private User user;
 
+    @ManyToOne
+    private Article article;
+
     public Graph() {
+    }
+
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
     public String getName() {

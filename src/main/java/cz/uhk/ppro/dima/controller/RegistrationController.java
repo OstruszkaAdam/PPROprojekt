@@ -61,7 +61,7 @@ public class RegistrationController {
     private String redirectSuccess(RedirectAttributes redirectAttributes) {
         message_code = 1; // toto cislo se preda do jsp a v zavislosti na nem se vypise hlaska
         redirectAttributes.addFlashAttribute("MESSAGE_CODE_REGISTRATION", message_code); // zde se cislo predava do jsp jako parametr pri presmerovani
-        return "redirect:/";
+        return "redirect:/login";
     }
 
  /*   

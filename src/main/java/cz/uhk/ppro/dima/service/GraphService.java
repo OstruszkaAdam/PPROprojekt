@@ -46,6 +46,7 @@ public class GraphService {
             g.setName(graph.getName());
             g.setDescription(graph.getDescription());
             g.setUser(graph.getUser());
+            g.setArticle(null);
             graphRepo.save(g);
         }
     }

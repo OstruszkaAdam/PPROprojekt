@@ -1,20 +1,9 @@
-/*-------------------------
-  ROLE UZIVATELU
---------------------------*/
 INSERT INTO roles (id, name) VALUES (1, 'USER');
 INSERT INTO roles (id, name) VALUES (2, 'ADMIN');
 
-
-/*-------------------------
-  UZIVATELE
---------------------------*/
 INSERT INTO users (id, creation_time, email, first_name, password, last_name, username, role_id) VALUES (1, '2018-07-23 16:04:24.000000', 'testik@testik.cz', 'Te', '$2a$10$8WpXhZ6fI6V27jS5cgUZW.C4evNRGjBheXGqw33GjfeB.I05/clI.', 'St', 'test', 1);
 INSERT INTO users (id, creation_time, email, first_name, password, last_name, username, role_id) VALUES (3, '2018-07-28 14:46:28.000000', 'lorem@ipsum.cz', 'Lorem', '$2a$10$ijRT4IZhPrFWeGaQ9F/eo.o8SO7oBm68WdaF2k2vDaw8oehNIF.3.', 'Ipsum', 'loremIpsum', 1);
 
-
-/*-------------------------
-  TEMATA
---------------------------*/
 INSERT INTO topics (id, name, url_name) VALUES (1, 'Pojmy a značení', 'pojmy-a-znaceni');
 INSERT INTO topics (id, name, url_name) VALUES (2, 'Grafy a podgrafy', 'grafy-a-podgrafy');
 INSERT INTO topics (id, name, url_name) VALUES (3, 'Cesty a cykly v grafu', 'cesty-a-cykly-v-grafu');
@@ -27,9 +16,6 @@ INSERT INTO topics (id, name, url_name) VALUES (9, 'Eulerovské a hamiltonovské
 INSERT INTO topics (id, name, url_name) VALUES (10, 'Orientované grafy', 'orientovane-grafy');
 
 
-/*-------------------------
-  CLANKY
---------------------------*/
 INSERT INTO articles (id, name, text, timestamp, topic_id, user_id) VALUES (2, 'Nadpis 2', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla est. Etiam bibendum elit eget erat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Pellentesque sapien. In laoreet, magna id viverra tincidunt, sem odio bibendum justo, vel imperdiet sapien wisi sed libero. Et harum quidem rerum facilis est et expedita distinctio. Aliquam erat volutpat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Curabitur bibendum justo non orci. Maecenas fermentum, sem in pharetra pellentesque, velit turpis volutpat ante, in pharetra metus odio a lectus. Nulla turpis magna, cursus sit amet, suscipit a, interdum id, felis. Etiam sapien elit, consequat eget, tristique non, venenatis quis, ante. Pellentesque arcu. Proin mattis lacinia justo. Nulla non arcu lacinia neque faucibus fringilla. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Sed elit dui, pellentesque a, faucibus vel, interdum nec, diam. Nulla non arcu lacinia neque faucibus fringilla. Nam quis nulla. Morbi leo mi, nonummy eget tristique non, rhoncus non leo. Maecenas lorem. Fusce suscipit libero eget elit. Duis ante orci, molestie vitae vehicula venenatis, tincidunt ac pede. Praesent vitae arcu tempor neque lacinia pretium. Nulla turpis magna, cursus sit amet, suscipit a, interdum id, felis. Maecenas fermentum, sem in pharetra pellentesque, velit turpis volutpat ante, in pharetra metus odio a lectus. Curabitur bibendum justo non orci. Fusce tellus. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? Fusce aliquam vestibulum ipsum. ', '2018-07-28 14:42:49.000000', 2, 1);
 INSERT INTO articles (id, name, text, timestamp, topic_id, user_id) VALUES (3, 'Nadpis 3', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? Nullam sapien sem, ornare ac, nonummy non, lobortis a enim. Donec quis nibh at felis congue commodo. Cras pede libero, dapibus nec, pretium sit amet, tempor quis. Vestibulum fermentum tortor id mi. Etiam commodo dui eget wisi. Integer imperdiet lectus quis justo. Nullam eget nisl. Fusce consectetuer risus a nunc. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Maecenas ipsum velit, consectetuer eu lobortis ut, dictum at dui. Nullam lectus justo, vulputate eget mollis sed, tempor sed magna. Vestibulum fermentum tortor id mi. Maecenas lorem. Fusce nibh. Nulla est. Proin mattis lacinia justo. Praesent dapibus. ', '2018-07-23 16:04:24.000000', 3, 1);
 INSERT INTO articles (id, name, text, timestamp, topic_id, user_id) VALUES (4, 'Nadpis 4', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? Nullam sapien sem, ornare ac, nonummy non, lobortis a enim. Donec quis nibh at felis congue commodo. Cras pede libero, dapibus nec, pretium sit amet, tempor quis. Vestibulum fermentum tortor id mi. Etiam commodo dui eget wisi. Integer imperdiet lectus quis justo. Nullam eget nisl. Fusce consectetuer risus a nunc. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Maecenas ipsum velit, consectetuer eu lobortis ut, dictum at dui. Nullam lectus justo, vulputate eget mollis sed, tempor sed magna. Vestibulum fermentum tortor id mi. Maecenas lorem. Fusce nibh. Nulla est. Proin mattis lacinia justo. Praesent dapibus. ', '2018-07-24 16:04:24.000000', 4, 1);
@@ -43,24 +29,15 @@ INSERT INTO articles (id, name, text, timestamp, topic_id, user_id) VALUES (11, 
 INSERT INTO articles (id, name, text, timestamp, topic_id, user_id) VALUES (12, 'Escaping', '<p><b>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</b> Donec ipsum massa, ullamcorper in, auctor et, scelerisque sed, est. Maecenas libero. In rutrum. In convallis. Praesent id justo in neque elementum ultrices. Pellentesque pretium lectus id turpis. Morbi imperdiet, mauris ac auctor dictum, nisl ligula egestas nulla, et sollicitudin sem purus in lacus. Nullam sit amet magna in magna gravida vehicula. Vivamus luctus egestas leo. Quisque porta. Nulla pulvinar eleifend sem. <a href="/">Visit our website.</a> Et harum quidem rerum facilis est et expedita distinctio. Etiam dictum tincidunt diam. Nulla pulvinar eleifend sem. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p><p>Etiam posuere lacus quis dolor. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Proin mattis lacinia justo. Nam sed tellus id magna elementum tincidunt. Duis pulvinar. Nullam at arcu a est sollicitudin euismod. Nulla non lectus sed nisl molestie malesuada. Nullam sit amet magna in magna gravida vehicula. Fusce tellus odio, dapibus id fermentum quis, suscipit id erat. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus faucibus molestie nisl. In sem justo, commodo ut, suscipit at, pharetra vitae, orci. Phasellus enim erat, vestibulum vel, aliquam a, posuere eu, velit. Aliquam ornare wisi eu metus. Maecenas ipsum velit, consectetuer eu lobortis ut, dictum at dui. Nullam justo enim, consectetuer nec, ullamcorper ac, vestibulum in, elit. Suspendisse sagittis ultrices augue. Etiam egestas wisi a erat.</p><p>Morbi scelerisque luctus velit. Quisque porta. Praesent in mauris eu tortor porttitor accumsan. Pellentesque arcu. Proin pede metus, vulputate nec, fermentum fringilla, vehicula vitae, justo. Aenean id metus id velit ullamcorper pulvinar. Praesent dapibus. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Morbi imperdiet, mauris ac auctor dictum, nisl ligula egestas nulla, et sollicitudin sem purus in lacus. Nunc tincidunt ante vitae massa. In dapibus augue non sapien. Integer vulputate sem a nibh rutrum consequat. Aliquam in lorem sit amet leo accumsan lacinia.</p>', '2018-07-21 20:04:24.000000', 5, 1);
 
 
-/*-------------------------
-  OBRAZKY DO CLANKU
---------------------------*/
 INSERT INTO images (id, uuid, article_id) VALUES (9, 'testovaci-obrazek-1', 8);
 INSERT INTO images (id, uuid, article_id) VALUES (10, 'testovaci-obrazek-2', 8);
 INSERT INTO images (id, uuid, article_id) VALUES (11, 'testovaci-obrazek-3', 8);
 
 
-/*-------------------------
-  KOMENTARE KE CLANKUM
---------------------------*/
 INSERT INTO comments (id, comment_text, post_date, article_id, author_id) VALUES (1, 'Vivamus ac leo pretium faucibus. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Praesent dapibus. Aenean fermentum risus id tortor. Sed vel lectus.', '2018-07-28 14:43:45.000000', 8, 1);
 INSERT INTO comments (id, comment_text, post_date, article_id, author_id) VALUES (2, 'Uisque tincidunt scelerisque libero. Aenean id metus id velit ullamcorper pulvinar. ', '2018-07-28 14:47:34.000000', 8, 3);
 INSERT INTO comments (id, comment_text, post_date, article_id, author_id) VALUES (3, 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', '2018-07-28 14:48:36.000000', 8, 1);
 INSERT INTO comments (id, comment_text, post_date, article_id, author_id) VALUES (4, ' Curabitur bibendum justo non orci.', '2018-07-28 14:48:47.000000', 8, 3);
 
 
-/*-------------------------
-  GRAFY
---------------------------*/
 INSERT INTO graphs (id, name, description, user_id) VALUES (1, 'Test','Lorem ipsum dolor sit amet', 1);

@@ -17,7 +17,6 @@
     <title><spring:message code="app_title_browser"/></title>
 </head>
 
-
 <body class="text-center">
 <jsp:include page="blocks/_menu.jsp"/>
 <form class="form-signin" method="POST" action="<c:url value='/login'/>">
@@ -44,7 +43,7 @@
 
     <button class="btn btn btn-raised btn-lg btn-primary btn-block" type="submit"><spring:message code="button_login"/></button>
 
-    <button type="button" href="/" class="btn btn-outline-secondary btn-lg btn-block"><spring:message code="button_cancel"/></button>
+    <button href="/" class="btn btn-outline-secondary btn-lg btn-block"><spring:message code="button_cancel"/></button>
 
 
     <%--    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>--%>

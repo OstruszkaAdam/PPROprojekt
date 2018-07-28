@@ -45,6 +45,16 @@ public class Article {
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
     private List<ArticleImage> images;
 
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
+    private List<Graph> graphs;
+
+    public List<Graph> getGraphs() {
+        return graphs;
+    }
+
+    public void setGraphs(List<Graph> graphs) {
+        this.graphs = graphs;
+    }
 
     public int getId() {
         return id;
@@ -124,6 +134,7 @@ public class Article {
         if (topic != null ? !topic.equals(article.topic) : article.topic != null) return false;
         if (user != null ? !user.equals(article.user) : article.user != null) return false;
         if (comments != null ? !comments.equals(article.comments) : article.comments != null) return false;
+        if (graphs != null ? !graphs.equals(article.graphs) : article.graphs != null) return false;
         return images != null ? images.equals(article.images) : article.images == null;
     }
 
@@ -137,6 +148,7 @@ public class Article {
         result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (comments != null ? comments.hashCode() : 0);
         result = 31 * result + (images != null ? images.hashCode() : 0);
+        result = 31 * result + (graphs != null ? graphs.hashCode() : 0);
         return result;
     }
 

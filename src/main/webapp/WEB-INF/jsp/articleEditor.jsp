@@ -22,9 +22,17 @@
     <div class="container">
         <h1><spring:message code="headline_article_editor"/></h1>
 
+        <!--==========================
+           Zobrazeni upozorneni
+       ============================-->
+
         <c:if test="${MESSAGE_CODE_ARTICLE ==0}">
             <jsp:include page="blocks/_alert_article_error.jsp"/>
         </c:if>
+
+        <!--==========================
+          Formulář pro článek
+      ============================-->
 
         <form:form method="POST" modelAttribute="articleDto" enctype="multipart/form-data">
             <fieldset>
@@ -49,16 +57,27 @@
 
                 <div class="form-group">
                     <label class="bmd-label-floating"><spring:message code="article_images"/></label>
-                    <form:input path="mpf" type="file" accept="image/*"  class="form-control-file" multiple="true"/>
+                    <form:input path="mpf" type="file" accept="image/*" class="form-control-file" multiple="true"/>
                 </div>
                 <div class="clearfix"></div>
 
-                <a class="btn btn-outline-secondary" role="button" href='<spring:url value="/" htmlEscape="true"/>'><spring:message code="button_cancel"/></a>
-                <button type="submit" class="btn btn-primary btn-raised" role="button"><spring:message code="button_publish_article"/></button>
+                    <%--Pokud se jedna o upravu, vrati tlacitko cancel zpet na seznam clanku--%>
+                <c:choose>
+                    <c:when test="${empty articleId}">
+                        <a class="btn btn-outline-secondary" role="button"
+                           href='<spring:url value="/" htmlEscape="true"/>'><spring:message code="button_cancel"/></a>
+                    </c:when>
+                    <c:otherwise>
+                        <spring:url value="/articles/{articleId}" var="cancelURL">
+                            <spring:param name="articleId" value="${articleId}"/>
+                        </spring:url>
+                        <a class="btn btn-outline-secondary" href="${fn:escapeXml(cancelURL)}"><spring:message code="button_cancel"/></a>
+                    </c:otherwise>
+                </c:choose>
 
+                <button type="submit" class="btn btn-primary btn-raised"><spring:message code="button_publish_article"/></button>
             </fieldset>
         </form:form>
-
     </div>
 
 </main>

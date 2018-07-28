@@ -142,6 +142,7 @@ public class ArticleController {
         //vyhledani nazvu temat pro menu
         List<Topic> topicList = articleService.findAllTopics();
         model.addAttribute("topics", topicList);
+        model.addAttribute("articleId", articleId);
 
         return ARTICLEFORMVIEW;
     }
