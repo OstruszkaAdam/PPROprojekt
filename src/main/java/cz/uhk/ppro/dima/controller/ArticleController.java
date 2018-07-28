@@ -9,8 +9,6 @@ import cz.uhk.ppro.dima.security.AuthenticationProvider;
 import cz.uhk.ppro.dima.service.ArticleService;
 import cz.uhk.ppro.dima.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ResourceNotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -71,6 +69,7 @@ public class ArticleController {
         if (article.isPresent()) {
             mav.addObject("article", article.get());
             mav.addObject("images", article.get().getImages());
+            mav.addObject("showImages", article.get().getImages().size());
             mav.addObject("comments", article.get().getComments());
             mav.addObject("hasPermission", hasPermission);
         }

@@ -34,9 +34,9 @@
             </c:if>
             <c:forEach items="${pagedListHolder.pageList}" var="article">
                 <div class="card bg-light mb-3">
-                    <div class="card-img-top">
+                  <%--  <div class="card-img-top">
                         <img src="/resources/images/original/${article.images[0].uuid}.jpg" alt=""/>
-                    </div>
+                    </div>--%>
                     <div class="card-body">
                         <h5 class="card-title">${article.name}</h5>
                         <p class="card-text">

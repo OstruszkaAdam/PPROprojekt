@@ -16,20 +16,12 @@ target/
 *.iml
 *.ipr
 
-### NetBeans ###
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
-
 ### Uploaded images ###
 /src/main/webapp/resources/images/original/
 /src/main/webapp/resources/images/resampled/
 
 ### Uploaded graphs ###
-/src/main/webapp/resources/graphs/
+/src/main/webapp/resources/graphs/uploaded/
 
-### Temporary files ###
+### Hibernate Search index files ###
 var/

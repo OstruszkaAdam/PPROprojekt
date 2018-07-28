@@ -49,7 +49,7 @@
         </ul>
 
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade" id="popis" role="tabpanel" aria-labelledby="tab-popis"><p>Johnsonův algoritmus je
+            <div class="tab-pane fade" id="popis" role="tabpanel" aria-labelledby="tab-popis"><p class="text-justify text-long">Johnsonův algoritmus je
                 algoritmus sloužící k hledání nejkratších cest mezi všemi uzly
                 v ohodnoceném orientovaném grafu, který může mít záporně ohodnocené hrany. V řídkých grafech je
                 rychlejší, než Floydův-Warshallův algoritmus.
@@ -71,7 +71,7 @@
                 (b) Jestliže v grafu rajonu eulerovský tah neexistuje, pak pošťák musí projít některými ulicemi vícekrát, tj. musíme minimalizovat součet délek opakovaně procházených ulic. (Řeší se pomocí párování v grafech.)
 
             </p></div>
-            <div class="tab-pane fade" id="kod" role="tabpanel" aria-labelledby="tab-kod"><p>začátek
+            <div class="tab-pane fade" id="kod" role="tabpanel" aria-labelledby="tab-kod"><p class="text-justify text-long">začátek
                 Na počátku nechť je každá hrana grafu G neobarvená. Nechť zásobník LIFO a zásobník ET je prázdný. Vlož
                 vrchol v do zásobníku LIFO;
                 dokud je zásobník LIFO neprázdný opakuj

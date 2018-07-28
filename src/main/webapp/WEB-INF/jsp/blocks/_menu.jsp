@@ -54,6 +54,11 @@
                             code="menu_item_latest"/></a>
                 </li>
 
+                    <li>
+                        <a class="nav-link" href='<spring:url value="/#team" htmlEscape="true"/>'><spring:message
+                                code="menu_item_team"/></a>
+                    </li>
+
                 <%--            <sec:authorize access="isAuthenticated()">
                                 <spring:url value="/users/{userId}" var="userUrl">
                                     <spring:param name="userId" value="${loggedUserId}"/>

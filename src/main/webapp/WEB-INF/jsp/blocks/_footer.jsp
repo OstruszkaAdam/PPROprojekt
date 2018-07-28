@@ -14,7 +14,7 @@
 
             <sec:authorize access="isAuthenticated()">
 
-                <a class="btn btn-secondary" href="<spring:url value="/logout" />" role="button"><spring:message code="menu_item_logout"/></a>
+                <a class="btn btn-secondary float-right" href="<spring:url value="/logout" />" role="button"><spring:message code="menu_item_logout"/></a>
 
                 <c:choose>
                     <c:when test="${loggedUserId!=null}">
@@ -35,19 +35,19 @@
                     <%--<spring:param name="userId" value="${loggedUserId}"/>--%>
 
 
-                <a class="btn btn-secondary" href="${fn:escapeXml(userUrl)}" role="button"><spring:message code="menu_item_profile"/></a>
+                <a class="btn btn-secondary float-right" href="${fn:escapeXml(userUrl)}" role="button"><spring:message code="menu_item_profile"/></a>
 
-                <a class="btn btn-secondary" href="<spring:url value="/articles/new" htmlEscape="true"/>"><spring:message code="menu_item_insert_article"/></a>
-                <a class="btn btn-secondary" href="<spring:url value="/graph/new" htmlEscape="true"/>"><spring:message code="menu_item_insert_graph"/></a>
+                <a class="btn btn-secondary float-right" href="<spring:url value="/articles/new" htmlEscape="true"/>"><spring:message code="menu_item_insert_article"/></a>
+                <a class="btn btn-secondary float-right" href="<spring:url value="/graph/new" htmlEscape="true"/>"><spring:message code="menu_item_insert_graph"/></a>
 
 
             </sec:authorize>
 
             <sec:authorize access="isAnonymous()">
 
-                <a class="btn btn-secondary" href="<spring:url value="/login" />" role="button"><spring:message code="menu_item_login"/></a>
+                <a class="btn btn-secondary float-right" href="<spring:url value="/login" />" role="button"><spring:message code="menu_item_login"/></a>
                 
-                <a class="btn btn-secondary" href="<spring:url value="/registration" htmlEscape="true"/>" role="button"><spring:message code="menu_item_register"/></a>
+                <a class="btn btn-secondary float-right" href="<spring:url value="/registration" htmlEscape="true"/>" role="button"><spring:message code="menu_item_register"/></a>
 
 
             </sec:authorize>

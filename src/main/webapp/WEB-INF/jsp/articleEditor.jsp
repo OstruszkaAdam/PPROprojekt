@@ -49,7 +49,7 @@
 
                 <div class="form-group">
                     <label class="bmd-label-floating"><spring:message code="article_images"/></label>
-                    <form:input path="mpf" type="file" class="form-control-file" multiple="true"/>
+                    <form:input path="mpf" type="file" accept="image/*"  class="form-control-file" multiple="true"/>
                 </div>
                 <div class="clearfix"></div>
 

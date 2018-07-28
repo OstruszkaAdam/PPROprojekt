@@ -30,7 +30,7 @@
                 <c:param name="p" value="~"/>
             </c:url>
             <c:if test="${fn:length(pagedListHolder.pageList) eq 0}">
-                <p><spring:message code="no_articles_found"/></p>
+                <jsp:include page="blocks/_alert_search_error.jsp"/>
             </c:if>
             <c:forEach items="${pagedListHolder.pageList}" var="article">
                 <div class="card bg-light mb-3">
