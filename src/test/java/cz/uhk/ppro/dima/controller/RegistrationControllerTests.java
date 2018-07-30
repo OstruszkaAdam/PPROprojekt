@@ -67,7 +67,7 @@ public class RegistrationControllerTests {
                 .param("lastName", "Pak je vsechno OK")
         )
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:registration/success"));
+                .andExpect(view().name("redirect:/login"));
     }
 
 }

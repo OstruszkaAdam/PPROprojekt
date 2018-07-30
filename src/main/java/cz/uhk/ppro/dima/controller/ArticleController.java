@@ -125,7 +125,7 @@ public class ArticleController {
         {
             //nalezeni posledniho id pro zobrazeni posledniho pridaneho clanku
             List<Article> articleList = articleService.findArticles();
-            Integer redirectId = articleList.size();
+            Integer redirectId = articleList.size() + 1; // ziskani id prave pridaneho clanku
             return redirectSuccess(redirectAttributes, redirectId);
         }
     }
