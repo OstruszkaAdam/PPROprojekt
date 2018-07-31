@@ -35,7 +35,7 @@ public class UserService {
 
         User user = new User();
         user.setUsername(userDto.getUsername());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setPassword(passwordEncoder.encode(userDto.getPassword())); // zahashování hesla pomocí BCrypt definovaného ve WebSecurityConfig.java
         user.setEmail(userDto.getEmail());
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());

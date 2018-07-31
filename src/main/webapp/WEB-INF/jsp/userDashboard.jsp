@@ -154,7 +154,7 @@
                             <spring:param name="articleId" value="${article.id}"/>
                         </spring:url>
                         <tr>
-                            <td><a href="${fn:escapeXml(articleUrl)}"><c:out value="${article.name}"/></a></td>
+                            <td><a href="${fn:escapeXml(articleUrl)}"><c:out value="${fn:escapeXml(article.name)}"/></a></td>
 
                             <td><c:out value="${article.timestamp}"/></td>
 

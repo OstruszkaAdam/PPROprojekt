@@ -1,4 +1,4 @@
-### Build files ###
+### Maven build files ###
 target/
 !.mvn/wrapper/maven-wrapper.jar
 

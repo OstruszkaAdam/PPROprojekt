@@ -33,7 +33,7 @@
         <!--==========================
             Nastroje pro spravu clanku
         ============================-->
-        <h1>${article.name}</h1>
+        <h1>${fn:escapeXml(article.name)}</h1>
         <div class="col l8 article-listing">
             
 
@@ -66,7 +66,7 @@
                 Zobrazeni clanku
             ============================-->
 
-            <p class="text-justify text-long">${article.text}</p>
+            <p class="text-justify text-long">${fn:escapeXml(article.text)}</p>
 
             <c:if test="${not empty article.images[0]}">
                 <%--pokud neexistuje prvni obrazek, neexistujou asi ani dalsi a neni potreba blok obrazku zobrazovat

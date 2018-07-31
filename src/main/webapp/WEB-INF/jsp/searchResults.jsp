@@ -35,14 +35,14 @@
             <c:forEach items="${pagedListHolder.pageList}" var="article">
                 <div class="card bg-light mb-3">
                     <div class="card-header">${article.topic.name}</div>
-                    <div class="card-img-top">
+<%--                    <div class="card-img-top">
                         <img src="/resources/images/original/${article.images[0].uuid}.jpg" alt=""/>
-                    </div>
+                    </div>--%>
                     <div class="card-body">
-                        <h5 class="card-title">${article.name}</h5>
+                        <h5 class="card-title">${fn:escapeXml(article.name)}</h5>
                         <p class="card-text">
                                 <%--If the description is longer than a certain value, abbreviation is applied--%>
-                            <c:set var="desc" value="${article.text}"/>
+                            <c:set var="desc" value="${fn:escapeXml(article.text)}"/>
 
                             <c:choose>
                                 <c:when test="${fn:length(desc) > 150}">
@@ -50,7 +50,7 @@
                                 </c:when>
 
                                 <c:otherwise>
-                                    <c:out value="${article.text}"/>
+                                    <c:out value="${fn:escapeXml(article.text)}"/>
                                 </c:otherwise>
                             </c:choose>
                             <br/>
