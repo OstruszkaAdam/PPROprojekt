@@ -55,6 +55,7 @@ public class SearchController {
         List<Topic> topicList = articleService.findAllTopics();
         model.addAttribute("topics", topicList);
 
+        //pro poslání spravneho id na dashboard
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated()) {
             Optional<User> user = userService.findByUsername(authentication.getName());

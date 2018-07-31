@@ -15,6 +15,7 @@ public class ImagePersistor {
     public ImagePersistor() {
     }
 
+    //fyzicke ulozeni obrazku s nazvem vygenerovaneho uuid
     public void saveImage(MultipartFile mpf, String imageUuid) {
 
         try {

@@ -41,6 +41,7 @@ public class GraphController {
     public ModelAndView showGraph(@PathVariable("graphId") int graphId) {
         ModelAndView mav = new ModelAndView("graphDetail");
 
+        //pro poslání spravneho id na dashboard
         Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
         if (loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 

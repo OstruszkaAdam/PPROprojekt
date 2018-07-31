@@ -36,6 +36,7 @@ public class ArticlesOnTopicController{
     @RequestMapping(value ="/topics/{topicName}", method = RequestMethod.GET)
     public String showArticlesOnTopic(@PathVariable("topicName") String topicName, @ModelAttribute("article") Article article, ModelMap modelMap, HttpServletRequest request){
 
+        //pro poslání spravneho id na dashboard
         if (authentication.getAuthentication().isAuthenticated()) {
             Optional<User> user = userService.findByUsername(authentication.getAuthentication().getName());
             if(user.isPresent()) modelMap.put("loggedUserId", user.get().getId());

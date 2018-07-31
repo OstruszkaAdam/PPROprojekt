@@ -30,6 +30,7 @@ public class UserDashboardController {
     public ModelAndView showOwner(@PathVariable("userId") int userId) {
         ModelAndView mav = new ModelAndView("userDashboard");
 
+        //pro poslání spravneho id na dashboard
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> loggedUser = userService.findByUsername(authentication.getName());
 

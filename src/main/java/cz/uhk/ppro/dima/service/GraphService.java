@@ -35,10 +35,10 @@ public class GraphService {
         graph.setName(graphDto.getName());
         graph.setDescription(graphDto.getDescription());
         graph.setUser(user);
-        saveGraph(graph, files);
+        saveGraph(graph, files); //poslani do graphPersistoru (utilu), kde probehne samotne ulozeni samotneho grafu
     }
 
-    private void saveGraph(Graph graph, List<MultipartFile> files) {
+    private void saveGraph(Graph graph, List<MultipartFile> files) { //z prichozi tridy se vytahnou udaje a poslou se do repa, kde se ulozi nazev a dalsi udaje, article je zatim null
         for (MultipartFile file : files) {
 
             graphPersistor.saveGraph(file, graph.getName());

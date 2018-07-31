@@ -64,11 +64,4 @@ public class RegistrationController {
         return "redirect:/login";
     }
 
- /*   
- @RequestMapping(value = "/registration/success",  method = RequestMethod.GET)
-    public String showRegistrationSuccess() {
-        return "userRegistrationSuccess";
-    }
-    */
-
 }

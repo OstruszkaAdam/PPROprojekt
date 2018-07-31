@@ -35,6 +35,7 @@ public class ArticleLatestController {
     @RequestMapping(value ="/latest-articles", method = RequestMethod.GET)
     public String showIndex( @ModelAttribute("article") Article article, ModelMap modelMap, HttpServletRequest request) {
         if (authentication.getAuthentication().isAuthenticated()) {
+            //pro poslání spravneho id na dashboard
             Optional<User> user = userService.findByUsername(authentication.getAuthentication().getName());
             if(user.isPresent()) {
                 modelMap.put("loggedUserId", user.get().getId());

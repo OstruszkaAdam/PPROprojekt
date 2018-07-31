@@ -44,6 +44,7 @@ public class ArticleController {
     public ModelAndView showArticle(@PathVariable("articleId") int articleId, @ModelAttribute("addComment") Comment comment) {
         ModelAndView mav = new ModelAndView("articleDetail");
 
+        //pro poslání spravneho id na dashboard
         Optional<User> loggedUser = userService.findByUsername(authentication.getAuthentication().getName());
         if (loggedUser.isPresent()) mav.addObject("loggedUserId", loggedUser.get().getId());
 

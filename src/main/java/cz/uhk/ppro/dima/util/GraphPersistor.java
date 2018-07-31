@@ -14,6 +14,7 @@ public class GraphPersistor {
     public GraphPersistor() {
     }
 
+    //fyzicke ulozeni souboru se zadanym jmenem
     public void saveGraph(MultipartFile mpf, String graphName) {
 
         try {

@@ -33,10 +33,6 @@ public class DimaApplication {
        slr.setDefaultLocale(Locale.ENGLISH);
         return slr;
     }
-   /* In this case we use the SessionLocaleResolver which stores the selected locale (= language) in the user’s session.
-   Also, we set the default locale to be English.
-*/
-
 
     /* Next, let’s add a way to make the locale selectable via a query parameter in our URL. We can do this by adding a LocaleChangeInterceptor: */
     @Bean

@@ -40,7 +40,7 @@ public class RegistrationControllerTests {
         viewResolver.setSuffix(".jsp");
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(registrationController).setViewResolvers(viewResolver).build();
-    }
+}
 
     // mely by uspesne probehnout nasledujici 3 testy (ve vypisu bude Tests run: 3)
     @Test
