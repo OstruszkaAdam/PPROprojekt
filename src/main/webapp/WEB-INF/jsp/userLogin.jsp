@@ -61,22 +61,3 @@
 </html>
 
 
-<%--
-
-
-        <form method="POST" action="<c:url value='/login'/>">
-            <div class="form-group bmd-form-group">
-                <label for="formGroupExampleInput2" class="bmd-label-floating"><spring:message code="username"/></label>
-                <input name="username" type="text" class="form-control" id="formGroupExampleInput2">
-            </div>
-
-            <div class="form-group">
-                <label for="exampleInputPassword1" class="bmd-label-floating"><spring:message code="password"/></label>
-                <input name="password" type="password" class="form-control" id="exampleInputPassword1">
-            </div>
-
-            <input type="hidden" name="${_csrf.parameterName}"value="${_csrf.token}"/>
-            <a href="/"> <button type="button"  class="btn btn-default"><spring:message code="button_cancel"/></button></a>
-            <button type="submit" class="btn btn-primary btn-raised"><spring:message code="button_login"/></button>
-        </form>
---%>

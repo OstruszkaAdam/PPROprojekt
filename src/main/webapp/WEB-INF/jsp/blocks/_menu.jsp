@@ -7,22 +7,15 @@
 
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary text-white">
     <div class="container">
-        <%-- <a class="navbar-brand" href="#"><spring:message code="app_title"/></a>--%>
         <a class="navbar-brand" href='<spring:url value="/" htmlEscape="true"/>'><spring:message
                 code="headline_app_title"/></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
-        <%-- data-target="#navbarsExample07" aria-controls="navbarsExample07"--%>
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
-                <%--                <li>
-                                    <a class="nav-link" href='<spring:url value="/" htmlEscape="true"/>'>Home</a>
-                                </li>
-                                --%>
-
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/" id="dropdown01" data-toggle="dropdown"
@@ -38,8 +31,6 @@
                             <a class="dropdown-item" href="${fn:escapeXml(articleTopicUrl)}"><c:out
                                     value="${temata.name}"/></a>
                         </c:forEach>
-
-                        <%--<a class="dropdown-item" href="#">Action</a>--%>
 
                     </div>
                 </li>

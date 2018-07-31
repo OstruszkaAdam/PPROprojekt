@@ -54,26 +54,4 @@ public class ArticleLatestController {
         return "articleLatest";
     }
 
-/*    @RequestMapping(value ="/articles/topics/{topicId}", method = RequestMethod.GET)
-    public String showArticlesOnTopic(@PathVariable("topicId") int topicId, @ModelAttribute("article") Article article, ModelMap modelMap, HttpServletRequest request){
-
-        if (authentication.getAuthentication().isAuthenticated()) {
-            Optional<User> user = userService.findByUsername(authentication.getAuthentication().getName());
-            if(user.isPresent()) {
-                modelMap.put("loggedUserId", user.get().getId());
-            }
-        }
-
-        PagedListHolder pagedListHolder = new PagedListHolder(articleService.findArticlesOnTopic(topicId));
-        int page = ServletRequestUtils.getIntParameter(request,"p",0);
-        pagedListHolder.setPage(page);
-        pagedListHolder.setPageSize(5);
-        modelMap.put("pagedListHolder", pagedListHolder);
-
-        List<Topic> topicList;
-        topicList = articleService.findAllTopics();
-        modelMap.put("topics", topicList);
-        return "ArticlesOnTopic";
-    }*/
-
 }

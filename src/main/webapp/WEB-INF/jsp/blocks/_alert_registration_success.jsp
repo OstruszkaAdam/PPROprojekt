@@ -12,7 +12,4 @@
         <span aria-hidden="true">&times;</span>
     </button>
 
-    <%--<a href="<spring:url value="/articles/new" />" class="btn btn-primary"><spring:message code="menu_item_insert_article"/></a>--%>
-<%--    <a href="<spring:url value="/" />" class="btn btn-primary"><spring:message code="button_back_to_homepage"/></a>--%>
-
 </div>

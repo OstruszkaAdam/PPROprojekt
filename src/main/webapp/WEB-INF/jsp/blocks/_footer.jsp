@@ -31,10 +31,6 @@
                 </c:choose>
 
 
-                <%--<spring:url value="/users/{userId}" var="userUrl">--%>
-                    <%--<spring:param name="userId" value="${loggedUserId}"/>--%>
-
-
                 <a class="btn btn-secondary float-right" href="${fn:escapeXml(userUrl)}" role="button"><spring:message code="menu_item_profile"/></a>
 
                 <a class="btn btn-secondary float-right" href="<spring:url value="/articles/new" htmlEscape="true"/>"><spring:message code="menu_item_insert_article"/></a>

@@ -111,7 +111,6 @@
         </c:if>
 
         <c:if test="${MESSAGE_CODE_ARTICLE != null}">
-            <%--  <c:if test="${MESSAGE_CODE_ARTICLE ==1}"><jsp:include page="blocks/_alert_article_success.jsp"/></c:if>--%>
             <c:if test="${MESSAGE_CODE_ARTICLE ==2}">
                 <jsp:include page="blocks/_alert_article_delete.jsp"/>
             </c:if>
