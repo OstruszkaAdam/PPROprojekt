@@ -13,6 +13,8 @@ public class MyUserPrincipal implements UserDetails {
 
     private final User user;
 
+    /*The principal is the currently logged in user.*/
+
     public MyUserPrincipal(User user) {
         this.user = user;
     }

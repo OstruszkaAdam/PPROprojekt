@@ -1,4 +1,4 @@
-PPRO projekt – jádro aplikace pro výuku teorie grafů
+﻿PPRO projekt – jádro aplikace pro výuku teorie grafů
 =====================================================
 
 Backend
@@ -10,7 +10,7 @@ Backend
 		* hashování hesel pomocí BCrypt
 		* token při přihlášení
 	* Autorizace – přístupová práva (role uživatelů – máme připravené dvě, ale došli jsme k závěru, že podobně jako např. na wikipedii bude přihlašování bude jen pro tvůrce obsahu, takže mezi rolemi v aplikaci zatím nerozlišujeme)
-	* validace formulářů (přes anotace) – v jsp jsou taková formulářová pole napsána pomocí jsp kódu s využitím css tagů
+	* validace formulářů – v jsp jsou formulářová pole napsána pomocí jsp kódu s využitím css tagů
 	* zamezení přístupu (ignorování dotazů) na podsložky Resources
 * vyhledávání pomocí Hibernate Search
 	* využívá indexování, indexuje při každém uložení / úpravě / odstranění entity pomocí Hibernate

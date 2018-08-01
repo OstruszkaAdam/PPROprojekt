@@ -64,7 +64,7 @@ public class ArticleService {
         return topicRepo.findByName(name);
     }
 
-    @Transactional()
+    @Transactional
     public List<Article> findArticles() throws DataAccessException {
         return articleRepo.findAll();
     }
