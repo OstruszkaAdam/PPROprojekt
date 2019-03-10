@@ -5,13 +5,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Locale;
 
 @SpringBootApplication
-public class DimaApplication {
+public class DimaApplication extends WebMvcConfigurerAdapter {
 
     public static void main(String[] args) {
         SpringApplication.run(DimaApplication.class, args);
@@ -23,14 +24,14 @@ public class DimaApplication {
         SessionLocaleResolver slr = new SessionLocaleResolver();
 
 
-/*        Locale[] CZECH = {
+        Locale[] CZECH = {
                 new Locale("cs"),
-                new Locale("cs", "CZ"),
+               // new Locale("cs", "CZ"),
         };
 
-        slr.setDefaultLocale(CZECH);*/
+        slr.setDefaultLocale(new Locale("cs", "CZ"));
 
-       slr.setDefaultLocale(Locale.ENGLISH);
+       //slr.setDefaultLocale(Locale.ENGLISH);
         return slr;
     }
 
@@ -42,7 +43,7 @@ public class DimaApplication {
         return lci;
     }
 
-   // @Override
+   @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
     }

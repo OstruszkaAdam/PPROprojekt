@@ -45,10 +45,10 @@
                             code="menu_item_latest"/></a>
                 </li>
 
-                <li>
-                    <a class="nav-link" href='<spring:url value="/#team" htmlEscape="true"/>'><spring:message
-                            code="menu_item_team"/></a>
-                </li>
+                <%--<li>--%>
+                    <%--<a class="nav-link" href='<spring:url value="/#features" htmlEscape="true"/>'><spring:message--%>
+                            <%--code="headline_features"/></a>--%>
+                <%--</li>--%>
 
 
             </ul>

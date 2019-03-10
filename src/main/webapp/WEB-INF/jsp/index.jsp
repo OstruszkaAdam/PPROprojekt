@@ -43,56 +43,56 @@
 
 
     <!--==========================
-        Our Team Section
+        Features Section
     ============================-->
 
     <section id="team" class="section-bg">
         <div class="container">
             <div class="section-header">
-                <h2 class="text-center"><spring:message code="menu_item_team"/></h2>
-                <p class="text-center"><spring:message code="index_team_description"/></p>
+                <h2 class="text-center"><spring:message code="headline_features"/></h2>
+                <p class="text-center"><spring:message code="index_features_description"/></p>
             </div>
             <div class="row wow fadeInUp">
 
 
                 <div class="col-lg-4 col-md-4">
                     <div class="member">
-                        <div class="pic"><img src="resources/images/ui/team-1.jpg" alt=""></div>
-                        <h4>Vláďa Braha</h4>
-                        <span>Senior FIM student</span>
+                        <div class="pic"><img src="resources/images/ui/features-1.png" alt=""></div>
+                        <h4>Škola hrou</h4>
+                        <span>Moderní grafika, animace, hry, jede počítači i mobilu.</span>
                         <div class="social">
-                            <a href=""><i class="fa fa-twitter"></i></a>
+<%--                            <a href=""><i class="fa fa-twitter"></i></a>
                             <a href=""><i class="fa fa-facebook"></i></a>
                             <a href=""><i class="fa fa-google-plus"></i></a>
-                            <a href=""><i class="fa fa-linkedin"></i></a>
+                            <a href=""><i class="fa fa-linkedin"></i></a>--%>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-md-4">
                     <div class="member">
-                        <div class="pic"><img src="resources/images/ui/team-3.jpg" alt=""></div>
-                        <h4>Pan Kávovar</h4>
-                        <span>Catering</span>
+                        <div class="pic"><img src="resources/images/ui/features-2.svg" alt=""></div>
+                        <h4>Příklady z praxe</h4>
+                        <span>Shromáždili jsme pro Vás názorné příklady, kde všude se teorie grafů opravdu používá.</span>
                         <div class="social">
-                            <a href=""><i class="fa fa-twitter"></i></a>
-                            <a href=""><i class="fa fa-facebook"></i></a>
-                            <a href=""><i class="fa fa-google-plus"></i></a>
-                            <a href=""><i class="fa fa-linkedin"></i></a>
+                            <%--<a href=""><i class="fa fa-twitter"></i></a>--%>
+                            <%--<a href=""><i class="fa fa-facebook"></i></a>--%>
+                            <%--<a href=""><i class="fa fa-google-plus"></i></a>--%>
+                            <%--<a href=""><i class="fa fa-linkedin"></i></a>--%>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-md-4">
                     <div class="member">
-                        <div class="pic"><img src="resources/images/ui/team-2.jpg" alt=""></div>
-                        <h4>Adam Ostruszka</h4>
-                        <span>Senior FIM student</span>
+                        <div class="pic"><img src="resources/images/ui/features-3.png" alt=""></div>
+                        <h4>Pro studenty i učitele</h4>
+                        <span>Spolužáci můžou trénovat na zkoušky, učitelé můžou generovat příklady i s řešením.</span>
                         <div class="social">
-                            <a href=""><i class="fa fa-twitter"></i></a>
+<%--                            <a href=""><i class="fa fa-twitter"></i></a>
                             <a href=""><i class="fa fa-facebook"></i></a>
                             <a href=""><i class="fa fa-google-plus"></i></a>
-                            <a href=""><i class="fa fa-linkedin"></i></a>
+                            <a href=""><i class="fa fa-linkedin"></i></a>--%>
                         </div>
                     </div>
                 </div>
