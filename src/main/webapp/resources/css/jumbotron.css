@@ -82,6 +82,7 @@ main.index {
     justify-content: center;
     text-align: center;
     flex-direction: column;
+    text-shadow: 0px 0px 10px #666;
 }
 
 #jumbotron h2 {

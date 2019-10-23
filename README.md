@@ -1,15 +1,16 @@
 ﻿PPRO projekt – jádro aplikace pro výuku teorie grafů
 =====================================================
+**Webová aplikace vznikla jako semestrální práce na předmět PPRO. Řeší základní funkčnost jako přidávání obsahu (články a komentáře k nim, obrázky, grafy), správu a přihlašování uživatelů, jednoduchý frontend. Původně měla tvořit základ mnohem většíaplikace, která by vznikala v rámci diplomových prací a byla studentům i učitelům oporou při výuce teorie grafů. K realizaci nakonec nedošlo, protože každý z autorů si pro diplomku vybral jiný projekt.**
 
 Backend
 ---------
 * Spring MVC, Maven, Hibernate ORM, MySQL databáze (s využitím XAMPP)
 * konfigurace pomocí Java anotací (web.xml vůbec nepoužíváme)
 * bezpečnost (Spring Security, Spring Security Web)
-	* Autentizace – přihlašování 
+	* autentizace – přihlašování (řešíme pouze pro autory obsahu webu)
 		* hashování hesel pomocí BCrypt
 		* token při přihlášení
-	* Autorizace – přístupová práva (role uživatelů – máme připravené dvě, ale došli jsme k závěru, že podobně jako např. na wikipedii bude přihlašování bude jen pro tvůrce obsahu, takže mezi rolemi v aplikaci zatím nerozlišujeme)
+	* autorizace – přístupová práva (role uživatelů – máme připravené dvě, ale došli jsme k závěru, že podobně jako např. na wikipedii bude přihlašování bude jen pro tvůrce obsahu, takže mezi rolemi v aplikaci zatím nerozlišujeme)
 	* validace formulářů – v jsp jsou formulářová pole napsána pomocí jsp kódu s využitím css tagů
 	* zamezení přístupu (ignorování dotazů) na podsložky Resources
 * vyhledávání pomocí Hibernate Search
@@ -25,7 +26,7 @@ Backend
 
 Frontend
 ------------
-* responzivní šablona na základě Material Design for Bootstrap
+* responzivní šablona na základě knihovny Material Design for Bootstrap
 * menu, záhlaví, zápatí a další opakované prvky oddělené jako samostatné soubory
 * potvrzovací a chybové hlášky při vyhledávání, registraci a úpravě obsahu
 * javascriptová knihovna Cytoscape.js pro zobrazování grafových struktur
@@ -33,7 +34,7 @@ Frontend
 * bezpečnost – escapování kódu v obsahu článků
 	* Zatím není rozhodnuto, co všechno půjde do článků vkládat a jak se budou editovat
 * podpora CZ znaků (všude dodrženo kódování UTF8), výběr fontů s podporou všech CZ znaků (zdaleka ne všechny Google Fonts to totiž podporují)
-* UI stringy sloučené do jednoho souboru (až na výjimky nemáme žádné hardcoded stringy)
+* UI stringy sloučené do jednoho souboru – až na výjimky (provizoria) nemáme žádné hardcoded stringy
 	* příprava na lokalizaci UI pro další jazyky
 	* snadnější správa a možnost opakovaného použití
 	* předpoklad pro zaručení jednotného způsobu komunikace aplikace s uživatelem 

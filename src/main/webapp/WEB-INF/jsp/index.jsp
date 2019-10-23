@@ -59,7 +59,7 @@
                     <div class="member">
                         <div class="pic"><img src="resources/images/ui/features-1.png" alt=""></div>
                         <h4>Škola hrou</h4>
-                        <span>Moderní grafika, animace, hry, jede počítači i mobilu.</span>
+                        <span>Moderní grafika, animace a hry, jede na počítači i mobilu.</span>
                         <div class="social">
 <%--                            <a href=""><i class="fa fa-twitter"></i></a>
                             <a href=""><i class="fa fa-facebook"></i></a>
@@ -87,7 +87,7 @@
                     <div class="member">
                         <div class="pic"><img src="resources/images/ui/features-3.png" alt=""></div>
                         <h4>Pro studenty i učitele</h4>
-                        <span>Spolužáci můžou trénovat na zkoušky, učitelé můžou generovat příklady i s řešením.</span>
+                        <span>Studenti můžou trénovat na zkoušky, učitelé můžou generovat příklady i s řešením.</span>
                         <div class="social">
 <%--                            <a href=""><i class="fa fa-twitter"></i></a>
                             <a href=""><i class="fa fa-facebook"></i></a>
